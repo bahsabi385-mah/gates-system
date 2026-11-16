@@ -678,8 +678,8 @@
                     <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
                     <label>نوع/رقم التصريح:</label>
                     <input type="text" id="v_permit_info" placeholder="مثال: تصريح رقم...">
-                    <label>🏢 الجهة/المناوب المعتمد للتجديد والصلاحية:</label>
-                    <input type="text" id="v_permit_issuer" readonly placeholder="اسم المناوب المعتمد...">
+                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
+                    <input type="text" id="v_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
                     <label>🔒 صلاحية التصريح:</label>
                     <select id="v_permit_validity">
                         <option value="">-- اختر الصلاحية --</option>
@@ -688,7 +688,7 @@
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
                         <option value="ساري ونشط">✅ ساري ونشط</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية:</label>
+                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
                     <input type="datetime-local" id="v_permit_end_date" onchange="onExpiryDateChanged('v')">
                     <label>🚪 صلاحية المرور من أي بوابة:</label>
                     <input type="text" id="v_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
@@ -750,8 +750,8 @@
                     <h4>📋 بيانات الموافقة وتجديد الصلاحية:</h4>
                     <label>رقم الموافقة أو التصريح:</label>
                     <input type="text" id="f_approval_num" required placeholder="رقم الموافقة...">
-                    <label>🏢 الجهة/المناوب المعتمد للتجديد والصلاحية:</label>
-                    <input type="text" id="f_permit_issuer" readonly placeholder="اسم المناوب المعتمد...">
+                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
+                    <input type="text" id="f_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
                     <label>🔒 صلاحية التصريح:</label>
                     <select id="f_permit_validity">
                         <option value="">-- اختر الصلاحية --</option>
@@ -760,7 +760,7 @@
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
                         <option value="ساري ونشط">✅ ساري ونشط</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية:</label>
+                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
                     <input type="datetime-local" id="f_permit_end_date" onchange="onExpiryDateChanged('f')">
                     <label>🚪 صلاحية المرور من أي بوابة:</label>
                     <input type="text" id="f_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
@@ -828,8 +828,8 @@
                     <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
                     <label>نوع/رقم التصريح:</label>
                     <input type="text" id="c_permit_info" placeholder="رقم أو بيانات التصريح...">
-                    <label>🏢 الجهة/المناوب المعتمد للتجديد والصلاحية:</label>
-                    <input type="text" id="c_permit_issuer" readonly placeholder="اسم المناوب المعتمد...">
+                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
+                    <input type="text" id="c_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
                     <label>🔒 صلاحية التصريح:</label>
                     <select id="c_permit_validity">
                         <option value="">-- اختر الصلاحية --</option>
@@ -838,7 +838,7 @@
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
                         <option value="ساري ونشط">✅ ساري ونشط</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية:</label>
+                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
                     <input type="datetime-local" id="c_permit_end_date" onchange="onExpiryDateChanged('c')">
                     <label>🚪 صلاحية المرور من أي بوابة:</label>
                     <input type="text" id="c_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
@@ -900,8 +900,8 @@
                     <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
                     <label>نوع/رقم التصريح:</label>
                     <input type="text" id="m_permit_info" placeholder="رقم أو بيانات التصريح...">
-                    <label>🏢 الجهة/المناوب المعتمد للتجديد والصلاحية:</label>
-                    <input type="text" id="m_permit_issuer" readonly placeholder="اسم المناوب المعتمد...">
+                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
+                    <input type="text" id="m_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
                     <label>🔒 صلاحية التصريح:</label>
                     <select id="m_permit_validity">
                         <option value="">-- اختر الصلاحية --</option>
@@ -910,7 +910,7 @@
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
                         <option value="ساري ونشط">✅ ساري ونشط</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية:</label>
+                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
                     <input type="datetime-local" id="m_permit_end_date" onchange="onExpiryDateChanged('m')">
                     <label>🚪 صلاحية المرور من أي بوابة:</label>
                     <input type="text" id="m_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
@@ -969,8 +969,8 @@
                     <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
                     <label>نوع/رقم التصريح:</label>
                     <input type="text" id="b_permit_info" placeholder="رقم أو بيانات التصريح...">
-                    <label>🏢 الجهة/المناوب المعتمد للتجديد والصلاحية:</label>
-                    <input type="text" id="b_permit_issuer" readonly placeholder="اسم المناوب المعتمد...">
+                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
+                    <input type="text" id="b_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
                     <label>🔒 صلاحية التصريح:</label>
                     <select id="b_permit_validity">
                         <option value="">-- اختر الصلاحية --</option>
@@ -979,7 +979,7 @@
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
                         <option value="ساري ونشط">✅ ساري ونشط</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية:</label>
+                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
                     <input type="datetime-local" id="b_permit_end_date" onchange="onExpiryDateChanged('b')">
                     <label>🚪 صلاحية المرور من أي بوابة:</label>
                     <input type="text" id="b_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
@@ -1036,38 +1036,11 @@
         </div>
     </div>
 
-    <div id="editPermitModal" class="modal">
-        <div style="background:white; padding:20px; border-radius:8px; max-width:400px; width:90%; text-align:right;">
-            <h3 style="color:#0b2545; margin-top:0;">✏️ تعديل صلاحية التصريح</h3>
-            <input type="hidden" id="edit_doc_id">
-            <input type="hidden" id="edit_timestamp_ms">
-
-            <label>نوع الصلاحية:</label>
-            <select id="modal_permit_validity">
-                <option value="دخول فقط">📥 دخول فقط</option>
-                <option value="خروج فقط">📤 خروج فقط</option>
-                <option value="دخول وخروج">🔄 دخول وخروج</option>
-                <option value="ساري ونشط">✅ ساري ونشط</option>
-            </select>
-
-            <label style="color:var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية الجديد:</label>
-            <input type="datetime-local" id="modal_permit_end_date">
-
-            <label>🚪 صلاحية المرور من أي بوابة:</label>
-            <input type="text" id="modal_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
-
-            <div class="btn-group-row" style="margin-top:15px;">
-                <button type="button" class="btn-submit" onclick="savePermitValidityChanges()">حفظ التعديلات السحابية</button>
-                <button type="button" class="btn-cancel-action" onclick="closeEditPermitModal()">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- نافذة التعديل الجزئي للبوابات (نوع الحمولة وعدد المرافقين فقط أثناء العبور) -->
     <div id="partialEditModal" class="modal">
         <div style="background:white; padding:20px; border-radius:8px; max-width:400px; width:90%; text-align:right;">
-            <h3 style="color:#0b2545; margin-top:0;">✏️ التعديل الجزئي للحركة</h3>
-            <p style="font-size:0.8rem; color:#666;">مسموح للبوابة بتعديل عدد المرافقين ونوع الحمولة / كمية الوقود فقط.</p>
-            <input type="hidden" id="partial_doc_id">
+            <h3 style="color:#0b2545; margin-top:0;">✏️ التعديل الجزئي المسموح لصاحب السجل</h3>
+            <p style="font-size:0.8rem; color:#27ae60; font-weight:bold;">مسموح فقط لصاحب السجل أو قسم العمليات بتعديل الحمولة والمرافقين.</p>
             <input type="hidden" id="partial_timestamp_ms">
             <input type="hidden" id="partial_cat_key">
 
@@ -1078,7 +1051,7 @@
             <input type="number" id="modal_partial_companions" value="0" placeholder="العدد أو الكمية...">
 
             <div class="btn-group-row" style="margin-top:15px;">
-                <button type="button" class="btn-submit" onclick="savePartialEditChanges()">حفظ التعديل بالسحابة</button>
+                <button type="button" class="btn-submit" onclick="savePartialEditChanges()">حفظ التعديل الجزئي بالسحابة</button>
                 <button type="button" class="btn-cancel-action" onclick="closePartialEditModal()">إلغاء</button>
             </div>
         </div>
@@ -1276,7 +1249,7 @@
             let user = usersDb[currentPin] || currentUser;
             container.innerHTML = `
                 <div style="background:#f8f9fa; border:1px solid #ccc; padding:12px; border-radius:6px; margin-bottom:8px;">
-                    <label style="color:#0b2545; margin-top:0;">تصنيف حسابك الحالي: <b>(${user.role === 'gate' ? 'بوابة' : user.role === 'operations' ? 'قسم العمليات' : 'مشرف'})</b></label>
+                    <label style="color:#0b2545; margin-top:0;">تصنيف حسابك الحالي: <b>(${user.role === 'gate' ? 'بوابة' : user.role === 'operations' ? 'قسم العمليات' : 'مشرف متابعة'})</b></label>
                     <label style="margin-top:8px;">اسم الحساب:</label>
                     <input type="text" id="edit_my_name" value="${user.name}" placeholder="أدخل الاسم الجديد لحسابك...">
                     <button type="button" class="btn-submit" style="padding:8px 12px; font-size:0.85rem; margin-top:6px; width:100%;" onclick="saveMyUserName()">💾 حفظ اسم الحساب</button>
@@ -1373,6 +1346,7 @@
                 gateButtons.forEach(id => document.getElementById(id).style.display = 'none');
             } 
             else if (currentUser.role === 'supervisor') {
+                // المشرفون متابعة فقط بدون صلاحية إنشاء بلاغات أو أوامر عمليات أو تسجيل حركة
                 document.getElementById('btn_security').style.display = 'block';
                 document.getElementById('btn_permits').style.display = 'block';
                 document.getElementById('securityFormWrapper').style.display = 'none';
@@ -1507,40 +1481,6 @@
             if(viewerModal) viewerModal.style.display = 'none';
         }
 
-        function openEditPermitModal(docId, timestampMs, currentValidity, currentEndDate, currentGate) {
-            document.getElementById('edit_doc_id').value = docId || '';
-            document.getElementById('edit_timestamp_ms').value = timestampMs || '';
-            document.getElementById('modal_permit_validity').value = currentValidity || 'دخول وخروج';
-            document.getElementById('modal_permit_end_date').value = currentEndDate || '';
-            document.getElementById('modal_permit_gate').value = currentGate || '';
-            document.getElementById('editPermitModal').style.display = 'flex';
-        }
-
-        function closeEditPermitModal() {
-            document.getElementById('editPermitModal').style.display = 'none';
-        }
-
-        async function savePermitValidityChanges() {
-            let timestampMs = Number(document.getElementById('edit_timestamp_ms').value);
-            let newValidity = document.getElementById('modal_permit_validity').value;
-            let newEndDate = document.getElementById('modal_permit_end_date').value;
-            let newGate = document.getElementById('modal_permit_gate').value;
-            let issuerName = currentUser ? currentUser.name : 'المشرف';
-
-            let updatedFields = {
-                permitValidity: newValidity,
-                permitPermission: newValidity,
-                permitEndDate: newEndDate,
-                endDate: newEndDate,
-                permitGate: newGate,
-                permitIssuer: issuerName
-            };
-
-            await window.updateRecordInCloud(timestampMs, updatedFields);
-            closeEditPermitModal();
-            alert('✅ تم تعديل صلاحية التصريح سحابياً بنجاح!');
-        }
-
         function openPartialEditModal(timestampMs, catKey, currentCargo, currentCompanions) {
             document.getElementById('partial_timestamp_ms').value = timestampMs || '';
             document.getElementById('partial_cat_key').value = catKey || '';
@@ -1582,7 +1522,7 @@
 
             await window.updateRecordInCloud(timestampMs, updatedFields);
             closePartialEditModal();
-            alert('✅ تم حفظ التعديل الجزئي سحابياً بنجاح!');
+            alert('✅ تم حفظ التعديل الجزئي (الحمولة/المرافقين) بنجاح!');
         }
 
         function runSearch() {
@@ -1634,16 +1574,17 @@
                     bedouin: '⛺ حلول البدو'
                 };
                 let catLabel = catNames[r.catKey] || r.catKey;
-                let canDelete = (currentUser && (currentUser.role === 'operations' || currentUser.name === r.recordedBy || currentUser.role === 'supervisor'));
-                let deleteBtn = canDelete ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
+                
+                // 🛑 قاعدة الصلاحيات الحصرية الصارمة جداً:
+                // المشرفون (role === 'supervisor') متابعة فقط بدون أي صلاحية حذف أو تعديل.
+                // الصلاحية مقتصرة فقط على (قسم العمليات) أو (البوابة صاحبة السجل الأصلي recordedBy).
+                let isSupervisor = (currentUser && currentUser.role === 'supervisor');
+                let isRecordOwner = (currentUser && !isSupervisor && (currentUser.name === r.recordedBy || currentUser.role === 'operations'));
+                
+                let deleteBtn = isRecordOwner ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
+                let partialEditBtn = isRecordOwner ? `<button type="button" class="btn-card-edit" style="background-color: #27ae60;" onclick="openPartialEditModal(${r.timestampMs || 0}, '${r.catKey}', '${r.cargo || r.materialType || 'غير مسجل'}', '${r.catKey === 'fuel' ? (r.qty || '0') : (r.companions || '0')}')">✏️ تعديل جزئي (الحمولة/المرافقين)</button>` : '';
 
-                let canEditPermit = (currentUser && (currentUser.role === 'operations' || currentUser.role === 'supervisor' || currentUser.name === r.permitIssuer || currentUser.name === r.recordedBy));
-                let editPermitBtn = canEditPermit ? `<button type="button" class="btn-card-edit" onclick="openEditPermitModal('${r.docId || ''}', ${r.timestampMs || 0}, '${r.permitValidity || r.permitPermission || 'دخول وخروج'}', '${r.permitEndDate || r.endDate || ''}', '${r.permitGate || ''}')">✏️ تعديل الصلاحية</button>` : '';
-
-                let canPartialEdit = (currentUser && (currentUser.role === 'gate' || currentUser.role === 'operations' || currentUser.role === 'supervisor'));
-                let partialEditBtn = canPartialEdit ? `<button type="button" class="btn-card-edit" style="background-color: #27ae60;" onclick="openPartialEditModal(${r.timestampMs || 0}, '${r.catKey}', '${r.cargo || r.materialType || 'غير مسجل'}', '${r.catKey === 'fuel' ? (r.qty || '0') : (r.companions || '0')}')">✏️ تعديل جزئي</button>` : '';
-
-                let actionButtonsRow = (deleteBtn || editPermitBtn || partialEditBtn) ? `<div style="padding: 8px; display: flex; gap: 4px; justify-content: flex-start; flex-wrap: wrap; background:#f4f6f7; border-top:1px solid #ddd;">${editPermitBtn}${partialEditBtn}${deleteBtn}</div>` : '';
+                let actionButtonsRow = (deleteBtn || partialEditBtn) ? `<div style="padding: 8px; display: flex; gap: 4px; justify-content: flex-start; flex-wrap: wrap; background:#f4f6f7; border-top:1px solid #ddd;">${partialEditBtn}${deleteBtn}</div>` : '';
 
                 let displayedValidity = r.permitValidity || r.permitPermission || 'دخول وخروج';
                 let displayedEndDate = r.permitEndDate || r.endDate || '';
@@ -1653,7 +1594,7 @@
                 let entryGatesStr = (r.allowedEntryGates && r.allowedEntryGates.length > 0) ? r.allowedEntryGates.join('، ') : 'جميع البوابات';
                 
                 let rawTimestamp = r.timestamp ? r.timestamp.trim() : '';
-                let formattedDateTime = rawTimestamp || '2026/11/16 10:48:00 صباحاً';
+                let formattedDateTime = rawTimestamp || '2026/11/16 1:55 مساءً';
 
                 let currentRecordingGate = r.recordedBy || 'البوابة';
                 let renewerGate = r.permitIssuer || r.recordedBy || 'البوابة';
@@ -1735,7 +1676,7 @@
                                 </div>
                                 <div class="permit-stamp-box">
                                     <div class="permit-stamp-text">
-                                        اعتمد تجديد<br>
+                                        ختم التجديد<br>
                                         <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${renewerGate}</span>
                                     </div>
                                 </div>
@@ -1790,7 +1731,7 @@
                             </div>
                             <div class="permit-stamp-box">
                                 <div class="permit-stamp-text">
-                                    اعتمد تجديد<br>
+                                    ختم التجديد<br>
                                     <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${renewerGate}</span>
                                 </div>
                             </div>
@@ -1877,8 +1818,8 @@
                 if (isExpired) {
                     if(dangerAlertBox) {
                         dangerAlertBox.innerHTML = `
-                            ⚠️ <b>تنبيه: التصريح منتهي الصلاحية سحابياً!</b> (انتهى في: ${expiryDate ? expiryDate.toLocaleString('ar-EG') : 'غير محدد'})<br>
-                            💡 <b>ملاحظة:</b> لتمريره يجب تحديث تاريخ الانتهاء وسيسجل التجديد باسمك (${currentUser ? currentUser.name : ''}).
+                            ⚠️ <b>التصريح منتهي الصلاحية!</b> (انتهى في: ${expiryDate ? expiryDate.toLocaleString('ar-EG') : 'غير محدد'})<br>
+                            💡 <b>إجراء التجديد:</b> قم بتحديث تاريخ الصلاحية أدناه، ليتم تسجيل بوابتك (${currentUser.name}) كجهة لختم التجديد حصرياً.
                         `;
                         dangerAlertBox.style.display = 'block';
                     }
@@ -1895,14 +1836,14 @@
 
                     alertBox.innerHTML = `
                         <div style="font-size:0.85rem; line-height: 1.5;">
-                            <strong>✅ أحدث بيانات المطابقة السحابية:</strong><br>
+                            <strong>✅ تم العثور على تصريح مسجل سابقاً:</strong><br>
                             ${driverDetailsHtml}
                             ${vehicleDetailsHtml}
                             🔒 <b>الصلاحية:</b> <span style="color:#27ae60; font-weight:bold;">${validityText}</span><br>
                             📅 <b>انتهاء الصلاحية:</b> <span style="color:#ff0000; font-weight:bold;">${expiryText}</span><br>
-                            👤 <b>الجهة المعتمدة للتصريح/التجديد:</b> <span style="color:#2980b9; font-weight:bold;">${renewerGate}</span><br>
+                            🏢 <b>جهة ختم التجديد السابقة:</b> <span style="color:#2980b9; font-weight:bold;">${renewerGate}</span><br>
                         </div>
-                        <button type="button" class="btn-confirm-transfer" onclick="transferDataToForm('${p}')">📋 مطابقة وترحيل كافة البيانات للحركة</button>
+                        <button type="button" class="btn-confirm-transfer" onclick="transferDataToForm('${p}')">📋 ترحيل بيانات التصريح للمرور (والحفاظ على ختم التجديد الأصلي ما لم يتم تغيير التاريخ)</button>
                     `;
                     alertBox.style.display = 'block';
                 }
@@ -1940,11 +1881,11 @@
             if (document.getElementById('f_qty') && tempMatchedRecord.qty) document.getElementById('f_qty').value = tempMatchedRecord.qty;
             if (document.getElementById('f_province') && tempMatchedRecord.province) document.getElementById('f_province').value = tempMatchedRecord.province;
 
-            let preservedIssuer = tempMatchedRecord.permitIssuer || tempMatchedRecord.recordedBy || (currentUser ? currentUser.name : '');
-            originalMatchedIssuer[p] = preservedIssuer;
+            let originalIssuer = tempMatchedRecord.permitIssuer || tempMatchedRecord.recordedBy || (currentUser ? currentUser.name : '');
+            originalMatchedIssuer[p] = originalIssuer;
 
             if (document.getElementById(`${p}_permit_issuer`)) {
-                document.getElementById(`${p}_permit_issuer`).value = preservedIssuer;
+                document.getElementById(`${p}_permit_issuer`).value = originalIssuer;
             }
             
             let matchedExpiryVal = tempMatchedRecord.permitEndDate || tempMatchedRecord.endDate || '';
@@ -1979,7 +1920,7 @@
             if(document.getElementById(`${p}_danger_alert`)) document.getElementById(`${p}_danger_alert`).style.display = 'none';
             
             tempMatchedRecord = null;
-            alert('⚡ تم ترحيل البيانات السحابية بنجاح!');
+            alert(`⚡ تم ترحيل بيانات التصريح بنجاح!\n- "سُمح له بالعبور بواسطة" سيكون: (${currentUser.name})\n- "ختم التجديد" سيبقى كما هو (${originalIssuer}) ولن يتغير إلا إذا قمت بتعديل تاريخ الصلاحية بنفسك.`);
         }
 
         function clearFormAfterSave(formId, prefix) {
@@ -2116,19 +2057,12 @@
             let permitEndDateInput = document.getElementById(`${p}_permit_end_date`);
             let newEndDate = permitEndDateInput ? permitEndDateInput.value : '';
 
-            if (newEndDate !== '') {
-                let expiryDate = new Date(newEndDate);
-                if (new Date().getTime() > expiryDate.getTime()) {
-                    return alert('❌ مرفوض! تاريخ انتهاء التصريح المدخل قد انقضى.');
-                }
-            }
+            let issuerInput = document.getElementById(`${p}_permit_issuer`);
+            let issuerValue = (issuerInput && issuerInput.value.trim() !== '') ? issuerInput.value.trim() : currentUser.name;
 
             const entryType = document.getElementById(`${p}_entry_type`) ? document.getElementById(`${p}_entry_type`).value : 'سيارة';
             const movementStatus = document.getElementById(`${p}_movement_status`) ? document.getElementById(`${p}_movement_status`).value : 'دخول';
             
-            let issuerInput = document.getElementById(`${p}_permit_issuer`);
-            let issuerValue = (issuerInput && issuerInput.value.trim() !== '') ? issuerInput.value.trim() : currentUser.name;
-
             const data = {
                 catKey: type,
                 recordedBy: currentUser.name,
@@ -2179,7 +2113,7 @@
             window.saveToCloud(data);
             clearFormAfterSave(formIds[type], p);
 
-            alert(`✅ تم تسجيل المرور سحابياً بواسطة (${currentUser.name}) بنجاح!`);
+            alert(`✅ تم تسجيل المرور سحابياً بنجاح!\n- سُمح له بالعبور بواسطة: (${currentUser.name})\n- ختم التجديد: (${issuerValue})`);
             showHome();
         }
 
@@ -2197,16 +2131,13 @@
             listDiv.innerHTML = permits.map((r) => {
                 let imgHtml = r.imageData ? `<div style="margin-top:6px;"><img src="${r.imageData}" class="captured-preview" onclick="viewEnlargedImage('${r.imageData}')"></div>` : '';
                 let entryGatesText = (r.allowedEntryGates && r.allowedEntryGates.length > 0) ? r.allowedEntryGates.join('، ') : 'جميع البوابات';
-                let canDelete = (currentUser.role === 'operations' || currentUser.name === r.recordedBy);
-                let deleteBtn = canDelete ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
-
-                let canEditPermit = (currentUser && (currentUser.role === 'operations' || currentUser.role === 'supervisor' || currentUser.name === r.permitIssuer || currentUser.name === r.recordedBy));
-                let editPermitBtn = canEditPermit ? `<button type="button" class="btn-card-edit" onclick="openEditPermitModal('${r.docId || ''}', ${r.timestampMs || 0}, '${r.permitValidity || r.permitPermission || 'دخول وخروج'}', '${r.endDate || ''}', '${r.permitGate || ''}')">✏️ تعديل الصلاحية</button>` : '';
-
-                let actionButtonsRow = (deleteBtn || editPermitBtn) ? `<div style="padding: 8px; display: flex; gap: 4px; justify-content: flex-start; flex-wrap: wrap; background:#f4f6f7; border-top:1px solid #ddd;">${editPermitBtn}${deleteBtn}</div>` : '';
+                
+                let isSupervisor = (currentUser && currentUser.role === 'supervisor');
+                let isRecordOwner = (currentUser && !isSupervisor && (currentUser.name === r.recordedBy || currentUser.role === 'operations'));
+                let deleteBtn = isRecordOwner ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
 
                 let rawTimestamp = r.timestamp ? r.timestamp.trim() : '';
-                let formattedDateTime = rawTimestamp || '2026/11/16 10:48:00 صباحاً';
+                let formattedDateTime = rawTimestamp || '2026/11/16 1:55 مساءً';
 
                 let displayedEndDate = r.endDate || '';
                 let displayedCompany = r.companyName || 'لا يوجد';
@@ -2260,12 +2191,12 @@
                             </div>
                             <div class="permit-stamp-box">
                                 <div class="permit-stamp-text">
-                                    اعتمد تجديد<br>
+                                    ختم التجديد<br>
                                     <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${stampIssuerText}</span>
                                 </div>
                             </div>
                         </div>
-                        ${actionButtonsRow}
+                        ${deleteBtn ? `<div style="padding:8px; background:#f4f6f7; border-top:1px solid #ddd;">${deleteBtn}</div>` : ''}
                     </div>
                 `;
             }).join('');
