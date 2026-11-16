@@ -296,9 +296,6 @@
             background-color: #2980b9; color: white; border: none; padding: 5px 8px;
             border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; margin-left: 4px;
         }
-        .quick-search-box {
-            background: #eaf2f8; border: 2px solid #2980b9; padding: 10px; border-radius: 8px; margin-bottom: 12px;
-        }
         .captured-preview {
             width: 65px; height: 65px; object-fit: cover; border-radius: 4px; border: 2px solid var(--danger-color); cursor: pointer;
         }
@@ -496,13 +493,6 @@
             <h3 style="color: var(--danger-color); font-size:1rem;">🚨 البلاغات الأمنية والتعميمات</h3>
 
             <div id="securityFormWrapper" style="display:none;">
-                <div class="quick-search-box">
-                    <label style="color: #2980b9;">🔍 التحقق السريع والتعبئة التلقائية:</label>
-                    <input type="text" id="s_check_id" oninput="checkIdentityAndMatch('security')" placeholder="أدخل الهوية، اللوحة أو الاسم للتحقق...">
-                    <div id="s_alert" class="alert-box"></div>
-                    <div id="s_danger_alert" class="alert-danger-box"></div>
-                </div>
-
                 <form id="securityAlertForm" onsubmit="saveSecurityAlert(event)">
                     <div class="duty-officer-banner">
                         <span>🛡️ بلاغ صادر من /</span>
@@ -514,12 +504,23 @@
                         <option value="سيارة">🚗 مركبة</option>
                         <option value="فرد">🚶 فرد</option>
                     </select>
-                    <label>اسم الشخص المطلوب:</label><input type="text" id="s_driver" required placeholder="اسم الشخص...">
-                    <label>رقم الهوية:</label><input type="text" id="s_idnum" required placeholder="رقم الهوية...">
+
+                    <label>رقم الهوية:</label>
+                    <input type="text" id="s_idnum" required placeholder="رقم الهوية..." oninput="checkIdentityAndMatch('security')">
+                    
+                    <!-- تنبيهات المطابقة تظهر هنا مباشرة في الأعلى -->
+                    <div id="s_alert" class="alert-box"></div>
+                    <div id="s_danger_alert" class="alert-danger-box"></div>
+
+                    <label>اسم الشخص المطلوب:</label>
+                    <input type="text" id="s_driver" required placeholder="اسم الشخص..." oninput="checkIdentityAndMatch('security')">
+                    
                     <div id="s_vehicle_box">
-                        <label>رقم اللوحة:</label><input type="text" id="s_plate" placeholder="رقم اللوحة...">
+                        <label>رقم اللوحة:</label>
+                        <input type="text" id="s_plate" placeholder="رقم اللوحة..." oninput="checkIdentityAndMatch('security')">
                         <label>نوع السيارة:</label><input type="text" id="s_car" placeholder="نوع السيارة...">
                     </div>
+
                     <label style="color: var(--danger-color);">نوع البلاغ الأمني:</label><input type="text" id="s_crime_type" required placeholder="نوع البلاغ الأمني...">
                     
                     <label style="color: var(--accent-color);">📸 إرفاق صورة البلاغ أو المستند:</label>
@@ -549,13 +550,6 @@
             <h3 style="font-size:1rem;">📋 أوامر العمليات الصادرة</h3>
             
             <div id="permitFormWrapper" style="display:none;">
-                <div class="quick-search-box">
-                    <label style="color: #2980b9;">🔍 التحقق السريع والتعبئة التلقائية:</label>
-                    <input type="text" id="p_check_id" oninput="checkIdentityAndMatch('permits')" placeholder="أدخل الهوية، اللوحة أو الاسم للتأكد...">
-                    <div id="p_alert" class="alert-box"></div>
-                    <div id="p_danger_alert" class="alert-danger-box"></div>
-                </div>
-
                 <form id="permitForm" onsubmit="savePermit(event)">
                     <div class="duty-officer-banner">
                         <span>🛡️ سُمح له بالعبور بواسطة:</span>
@@ -600,11 +594,20 @@
 
                     <label>طريقة المرور:</label>
                     <select id="p_entry_type" onchange="toggleVehicleFields('p')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
-                    <label>رقم الهوية:</label><input type="text" id="p_idnum" required placeholder="الهوية...">
-                    <label>اسم الشخص:</label><input type="text" id="p_driver" required placeholder="الاسم...">
+                    
+                    <label>رقم الهوية:</label>
+                    <input type="text" id="p_idnum" required placeholder="الهوية..." oninput="checkIdentityAndMatch('permits')">
+                    
+                    <!-- تنبيهات المطابقة تظهر هنا في الأعلى -->
+                    <div id="p_alert" class="alert-box"></div>
+                    <div id="p_danger_alert" class="alert-danger-box"></div>
+
+                    <label>اسم الشخص:</label>
+                    <input type="text" id="p_driver" required placeholder="الاسم..." oninput="checkIdentityAndMatch('permits')">
                     
                     <div id="p_vehicle_box">
-                        <label>رقم السيارة:</label><input type="text" id="p_plate" placeholder="اللوحة...">
+                        <label>رقم السيارة:</label>
+                        <input type="text" id="p_plate" placeholder="اللوحة..." oninput="checkIdentityAndMatch('permits')">
                         <label>نوع السيارة:</label><input type="text" id="p_car" placeholder="نوع السيارة...">
                         <label>اسم الشركة:</label><input type="text" id="p_company_name" placeholder="اسم الشركة...">
                         <label>نوع الحمولة:</label><input type="text" id="p_cargo" placeholder="نوع الحمولة...">
@@ -636,12 +639,6 @@
         <div id="civilianSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
             <h3 style="color: #d35400; font-size:1rem;">🚗 حركة السيارات المدنية</h3>
-            <div class="quick-search-box">
-                <label style="color: #2980b9;">🔍 التحقق السريع والتعبئة التلقائية:</label>
-                <input type="text" id="v_check_id" oninput="checkIdentityAndMatch('civilian')" placeholder="أدخل الهوية، اللوحة أو الاسم للتحقق...">
-                <div id="v_alert" class="alert-box"></div>
-                <div id="v_danger_alert" class="alert-danger-box"></div>
-            </div>
             <form id="civilianForm" onsubmit="saveData(event, 'civilian')">
                 <div class="duty-officer-banner">
                     <span>🛡️ سُمح له بالعبور بواسطة:</span>
@@ -656,12 +653,23 @@
                 </select>
                 <label>طريقة المرور:</label>
                 <select id="v_entry_type" onchange="toggleVehicleFields('v')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
-                <label>رقم الهوية:</label><input type="text" id="v_idnum" placeholder="الهوية...">
-                <label>اسم الشخص:</label><input type="text" id="v_driver" required placeholder="الاسم...">
+                
+                <label>رقم الهوية:</label>
+                <input type="text" id="v_idnum" placeholder="الهوية..." oninput="checkIdentityAndMatch('civilian')">
+                
+                <!-- تنبيهات المطابقة تظهر هنا في الأعلى مباشرة قبل اسم الشخص -->
+                <div id="v_alert" class="alert-box"></div>
+                <div id="v_danger_alert" class="alert-danger-box"></div>
+
+                <label>اسم الشخص:</label>
+                <input type="text" id="v_driver" required placeholder="الاسم..." oninput="checkIdentityAndMatch('civilian')">
+                
                 <div id="v_vehicle_box">
-                    <label>رقم السيارة:</label><input type="text" id="v_plate" placeholder="اللوحة...">
+                    <label>رقم السيارة:</label>
+                    <input type="text" id="v_plate" placeholder="اللوحة..." oninput="checkIdentityAndMatch('civilian')">
                     <label>نوع السيارة:</label><input type="text" id="v_car" placeholder="نوع السيارة...">
                 </div>
+
                 <label>📍 متجه إلى:</label><input type="text" id="v_destination" placeholder="الوجهة...">
                 <label>❓ سبب الدخول:</label><input type="text" id="v_reason" placeholder="سبب الدخول...">
                 <label>📦 نوع الحمولة:</label><input type="text" id="v_cargo" placeholder="نوع الحمولة...">
@@ -706,12 +714,6 @@
         <div id="fuelSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
             <h3 style="font-size:1rem;">🛢️ حركة قواطر الديزل والمازوت</h3>
-            <div class="quick-search-box">
-                <label style="color: #2980b9;">🔍 التحقق السريع:</label>
-                <input type="text" id="f_check_id" oninput="checkIdentityAndMatch('fuel')" placeholder="أدخل الهوية، اللوحة أو السائق...">
-                <div id="f_alert" class="alert-box"></div>
-                <div id="f_danger_alert" class="alert-danger-box"></div>
-            </div>
             <form id="fuelForm" onsubmit="saveData(event, 'fuel')">
                 <div class="duty-officer-banner">
                     <span>🛡️ سُمح له بالعبور بواسطة:</span>
@@ -724,11 +726,21 @@
                 <label>اسم المحطة:</label>
                 <input type="text" id="f_station_name" required placeholder="اسم المحطة...">
                 
-                <label>رقم اللوحة الناقلة:</label><input type="text" id="f_plate" required placeholder="اللوحة...">
+                <label>رقم اللوحة الناقلة:</label>
+                <input type="text" id="f_plate" required placeholder="اللوحة..." oninput="checkIdentityAndMatch('fuel')">
+                
+                <!-- تنبيهات المطابقة تظهر هنا في الأعلى -->
+                <div id="f_alert" class="alert-box"></div>
+                <div id="f_danger_alert" class="alert-danger-box"></div>
+
                 <label>نوع الناقلة:</label><input type="text" id="f_car" placeholder="نوع الناقلة...">
                 
-                <label>اسم السائق:</label><input type="text" id="f_driver" required placeholder="السائق...">
-                <label>رقم الهوية:</label><input type="text" id="f_idnum" required placeholder="الهوية...">
+                <label>اسم السائق:</label>
+                <input type="text" id="f_driver" required placeholder="السائق..." oninput="checkIdentityAndMatch('fuel')">
+                
+                <label>رقم الهوية:</label>
+                <input type="text" id="f_idnum" required placeholder="الهوية..." oninput="checkIdentityAndMatch('fuel')">
+
                 <label>رقم الهاتف:</label><input type="tel" id="f_phone" placeholder="الهاتف...">
                 
                 <label>👤 اسم مالك المركبة / القاطرة:</label>
@@ -788,12 +800,6 @@
         <div id="companySection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
             <h3 style="font-size:1rem;">🏢 سيارات الشركات والأفراد</h3>
-            <div class="quick-search-box">
-                <label style="color: #2980b9;">🔍 التحقق السريع:</label>
-                <input type="text" id="c_check_id" oninput="checkIdentityAndMatch('company')" placeholder="أدخل الهوية، اللوحة أو الاسم...">
-                <div id="c_alert" class="alert-box"></div>
-                <div id="c_danger_alert" class="alert-danger-box"></div>
-            </div>
             <form id="companyForm" onsubmit="saveData(event, 'company')">
                 <div class="duty-officer-banner">
                     <span>🛡️ سُمح له بالعبور بواسطة:</span>
@@ -804,12 +810,23 @@
                 <select id="c_movement_status"><option value="دخول">📥 دخول</option><option value="خروج">📤 خروج</option><option value="دخول وخروج">🔄 دخول وخروج</option></select>
                 <label>طريقة المرور:</label>
                 <select id="c_entry_type" onchange="toggleVehicleFields('c')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
-                <label>رقم الهوية:</label><input type="text" id="c_idnum" placeholder="الهوية...">
-                <label>اسم الشخص:</label><input type="text" id="c_driver" required placeholder="الاسم...">
+                
+                <label>رقم الهوية:</label>
+                <input type="text" id="c_idnum" placeholder="الهوية..." oninput="checkIdentityAndMatch('company')">
+                
+                <!-- تنبيهات المطابقة تظهر هنا في الأعلى -->
+                <div id="c_alert" class="alert-box"></div>
+                <div id="c_danger_alert" class="alert-danger-box"></div>
+
+                <label>اسم الشخص:</label>
+                <input type="text" id="c_driver" required placeholder="الاسم..." oninput="checkIdentityAndMatch('company')">
+                
                 <div id="c_vehicle_box">
-                    <label>رقم السيارة:</label><input type="text" id="c_plate" placeholder="اللوحة...">
+                    <label>رقم السيارة:</label>
+                    <input type="text" id="c_plate" placeholder="اللوحة..." oninput="checkIdentityAndMatch('company')">
                     <label>نوع السيارة:</label><input type="text" id="c_car" placeholder="نوع السيارة...">
                 </div>
+
                 <label>🏢 يتبع شركة:</label><input type="text" id="c_company_name" placeholder="اسم الشركة التابع لها...">
                 
                 <div class="permit-details-box">
@@ -854,11 +871,6 @@
         <div id="militarySection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
             <h3 style="font-size:1rem;">🎖️ السيارات الخاصة والعسكر</h3>
-            <div class="quick-search-box">
-                <input type="text" id="m_check_id" oninput="checkIdentityAndMatch('military')" placeholder="أدخل الهوية، اللوحة أو الاسم...">
-                <div id="m_alert" class="alert-box"></div>
-                <div id="m_danger_alert" class="alert-danger-box"></div>
-            </div>
             <form id="militaryForm" onsubmit="saveData(event, 'military')">
                 <div class="duty-officer-banner">
                     <span>🛡️ سُمح له بالعبور بواسطة:</span>
@@ -869,12 +881,23 @@
                 <select id="m_movement_status"><option value="دخول">📥 دخول</option><option value="خروج">📤 خروج</option><option value="دخول وخروج">🔄 دخول وخروج</option></select>
                 <label>طريقة المرور:</label>
                 <select id="m_entry_type" onchange="toggleVehicleFields('m')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
-                <label>رقم الهوية:</label><input type="text" id="m_idnum" placeholder="الهوية...">
-                <label>اسم الشخص:</label><input type="text" id="m_driver" required placeholder="الاسم...">
+                
+                <label>رقم الهوية:</label>
+                <input type="text" id="m_idnum" placeholder="الهوية..." oninput="checkIdentityAndMatch('military')">
+                
+                <!-- تنبيهات المطابقة تظهر هنا في الأعلى -->
+                <div id="m_alert" class="alert-box"></div>
+                <div id="m_danger_alert" class="alert-danger-box"></div>
+
+                <label>اسم الشخص:</label>
+                <input type="text" id="m_driver" required placeholder="الاسم..." oninput="checkIdentityAndMatch('military')">
+                
                 <div id="m_vehicle_box">
-                    <label>رقم السيارة:</label><input type="text" id="m_plate" placeholder="اللوحة...">
+                    <label>رقم السيارة:</label>
+                    <input type="text" id="m_plate" placeholder="اللوحة..." oninput="checkIdentityAndMatch('military')">
                     <label>نوع السيارة:</label><input type="text" id="m_car" placeholder="نوع السيارة...">
                 </div>
+
                 <label>📍 متجه إلى:</label><input type="text" id="m_destination" placeholder="الوجهة...">
                 <label>❓ سبب الدخول:</label><input type="text" id="m_reason" placeholder="سبب الدخول...">
                 <label>📦 نوع الحمولة:</label><input type="text" id="m_cargo" placeholder="نوع الحمولة...">
@@ -919,11 +942,6 @@
         <div id="bedouinSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
             <h3 style="font-size:1rem;">⛺ حلول البدو</h3>
-            <div class="quick-search-box">
-                <input type="text" id="b_check_id" oninput="checkIdentityAndMatch('bedouin')" placeholder="أدخل الهوية، اللوحة أو الاسم...">
-                <div id="b_alert" class="alert-box"></div>
-                <div id="b_danger_alert" class="alert-danger-box"></div>
-            </div>
             <form id="bedouinForm" onsubmit="saveData(event, 'bedouin')">
                 <div class="duty-officer-banner">
                     <span>🛡️ سُمح له بالعبور بواسطة:</span>
@@ -934,12 +952,23 @@
                 <select id="b_movement_status"><option value="دخول">📥 دخول</option><option value="خروج">📤 خروج</option><option value="دخول وخروج">🔄 دخول وخروج</option></select>
                 <label>طريقة المرور:</label>
                 <select id="b_entry_type" onchange="toggleVehicleFields('b')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
-                <label>رقم الهوية:</label><input type="text" id="b_idnum" placeholder="الهوية...">
-                <label>اسم الشخص:</label><input type="text" id="b_driver" required placeholder="الاسم...">
+                
+                <label>رقم الهوية:</label>
+                <input type="text" id="b_idnum" placeholder="الهوية..." oninput="checkIdentityAndMatch('bedouin')">
+                
+                <!-- تنبيهات المطابقة تظهر هنا في الأعلى -->
+                <div id="b_alert" class="alert-box"></div>
+                <div id="b_danger_alert" class="alert-danger-box"></div>
+
+                <label>اسم الشخص:</label>
+                <input type="text" id="b_driver" required placeholder="الاسم..." oninput="checkIdentityAndMatch('bedouin')">
+                
                 <div id="b_vehicle_box">
-                    <label>رقم السيارة:</label><input type="text" id="b_plate" placeholder="اللوحة...">
+                    <label>رقم السيارة:</label>
+                    <input type="text" id="b_plate" placeholder="اللوحة..." oninput="checkIdentityAndMatch('bedouin')">
                     <label>نوع السيارة:</label><input type="text" id="b_car" placeholder="نوع السيارة...">
                 </div>
+
                 <label>📍 متجه إلى:</label><input type="text" id="b_destination" placeholder="الوجهة...">
                 <label>❓ سبب الدخول:</label><input type="text" id="b_reason" placeholder="سبب الدخول...">
                 <label>📦 نوع الحمولة:</label><input type="text" id="b_cargo" placeholder="نوع الحمولة...">
@@ -1505,7 +1534,6 @@
             document.getElementById('imageViewerModal').style.display = 'none';
         }
 
-        // فتح نافذة تعديل صلاحية التصريح (للبوابة المجددة أو المشرف)
         function openEditPermitModal(docId, timestampMs, currentValidity, currentEndDate, currentGate) {
             document.getElementById('edit_doc_id').value = docId || '';
             document.getElementById('edit_timestamp_ms').value = timestampMs || '';
@@ -1540,7 +1568,6 @@
             alert('✅ تم تعديل صلاحية التصريح وتحديث جهة التجديد بنجاح!');
         }
 
-        // فتح نافذة التعديل الجزئي للبوابة (عدد المرافقين ونوع الحمولة / الكمية)
         function openPartialEditModal(timestampMs, catKey, currentCargo, currentCompanions) {
             document.getElementById('partial_timestamp_ms').value = timestampMs || '';
             document.getElementById('partial_cat_key').value = catKey || '';
@@ -1637,11 +1664,9 @@
                 let canDelete = (currentUser && (currentUser.role === 'operations' || currentUser.name === r.recordedBy || currentUser.role === 'supervisor'));
                 let deleteBtn = canDelete ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
 
-                // زر تعديل صلاحية التصريح (يظهر إذا كان المستخدم هو من جدد التصريح أو مشرفاً أو من العمليات)
                 let canEditPermit = (currentUser && (currentUser.role === 'operations' || currentUser.role === 'supervisor' || currentUser.name === r.permitIssuer || currentUser.name === r.recordedBy));
                 let editPermitBtn = canEditPermit ? `<button type="button" class="btn-card-edit" onclick="openEditPermitModal('${r.docId || ''}', ${r.timestampMs || 0}, '${r.permitValidity || r.permitPermission || 'دخول وخروج'}', '${r.permitEndDate || r.endDate || ''}', '${r.permitGate || ''}')">✏️ تعديل الصلاحية</button>` : '';
 
-                // زر التعديل الجزئي المسموح للبوابة (عدد المرافقين ونوع الحمولة / الكمية)
                 let canPartialEdit = (currentUser && (currentUser.role === 'gate' || currentUser.role === 'operations' || currentUser.role === 'supervisor'));
                 let partialEditBtn = canPartialEdit ? `<button type="button" class="btn-card-edit" style="background-color: #27ae60;" onclick="openPartialEditModal(${r.timestampMs || 0}, '${r.catKey}', '${r.cargo || r.materialType || 'غير مسجل'}', '${r.catKey === 'fuel' ? (r.qty || '0') : (r.companions || '0')}')">✏️ تعديل جزئي</button>` : '';
 
@@ -1701,7 +1726,6 @@
                     `;
                 }
 
-                // عرض بطاقة قواطر الديزل والمازوت
                 if (r.catKey === 'fuel') {
                     return `
                         <div class="formal-permit-card">
@@ -1722,7 +1746,7 @@
                                 <tr><td>رقم الهوية:</td><td>${getSafeValue(r.idnum)}</td></tr>
                                 <tr><td>رقم الهاتف:</td><td>${getSafeValue(r.phone)}</td></tr>
                                 <tr><td>اسم مالك المركبة:</td><td style="color:#2980b9; font-weight:bold;">${getSafeValue(r.vehicleOwner)}</td></tr>
-                                <tr><td>الجهة المستفيدة:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(r.beneficiary)}</td></tr>
+                                <tr><td>الجهة المستفيدة:</td><td style="color:#2980b9; font-weight:bold;">${getSafeValue(r.beneficiary)}</td></tr>
                                 <tr><td>رقم اللوحة الناقلة:</td><td>${getSafeValue(r.plate)}</td></tr>
                                 <tr><td>نوع الناقلة:</td><td>${getSafeValue(r.car)}</td></tr>
                             </table>
@@ -1812,13 +1836,19 @@
 
         function checkIdentityAndMatch(sectionPrefix) {
             let p = sectionPrefix === 'civilian' ? 'v' : sectionPrefix.charAt(0);
-            let queryInput = document.getElementById(`${p}_check_id`);
-            if (!queryInput) return;
-            let query = queryInput.value.toLowerCase().trim();
+            
+            let idField = document.getElementById(`${p}_idnum`);
+            let driverField = document.getElementById(`${p}_driver`);
+            let plateField = document.getElementById(`${p}_plate`);
+
+            let idVal = idField ? idField.value.toLowerCase().trim() : '';
+            let driverVal = driverField ? driverField.value.toLowerCase().trim() : '';
+            let plateVal = plateField ? plateField.value.toLowerCase().trim() : '';
+
             let alertBox = document.getElementById(`${p}_alert`);
             let dangerAlertBox = document.getElementById(`${p}_danger_alert`);
             
-            if (query.length < 2) {
+            if (idVal.length < 2 && driverVal.length < 2 && plateVal.length < 2) {
                 if(alertBox) alertBox.style.display = 'none';
                 if(dangerAlertBox) dangerAlertBox.style.display = 'none';
                 tempMatchedRecord = null;
@@ -1828,9 +1858,9 @@
             let allRecords = window.getCloudRecords ? window.getCloudRecords() : [];
 
             let securityMatch = allRecords.find(r => r.catKey === 'security' && (
-                (r.idnum && r.idnum.toLowerCase().includes(query)) ||
-                (r.plate && r.plate.toLowerCase().includes(query)) ||
-                (r.driver && r.driver.toLowerCase().includes(query))
+                (idVal && r.idnum && r.idnum.toLowerCase().includes(idVal)) ||
+                (plateVal && r.plate && r.plate.toLowerCase().includes(plateVal)) ||
+                (driverVal && r.driver && r.driver.toLowerCase().includes(driverVal))
             ));
 
             if (securityMatch) {
@@ -1854,9 +1884,9 @@
             let relevantRecords = allRecords.filter(r => {
                 let isRelevantType = (r.catKey === 'permits' || r.catKey === sectionPrefix || r.permitEndDate || r.endDate || r.plate || r.driver || r.idnum);
                 let matchesQuery = (
-                    (r.idnum && r.idnum.toLowerCase().includes(query)) ||
-                    (r.plate && r.plate.toLowerCase().includes(query)) ||
-                    (r.driver && r.driver.toLowerCase().includes(query))
+                    (idVal && r.idnum && r.idnum.toLowerCase().includes(idVal)) ||
+                    (plateVal && r.plate && r.plate.toLowerCase().includes(plateVal)) ||
+                    (driverVal && r.driver && r.driver.toLowerCase().includes(driverVal))
                 );
                 return isRelevantType && matchesQuery;
             });
@@ -1980,7 +2010,6 @@
 
             if(document.getElementById(`${p}_alert`)) document.getElementById(`${p}_alert`).style.display = 'none';
             if(document.getElementById(`${p}_danger_alert`)) document.getElementById(`${p}_danger_alert`).style.display = 'none';
-            if(document.getElementById(`${p}_check_id`)) document.getElementById(`${p}_check_id`).value = '';
             
             tempMatchedRecord = null;
             alert('⚡ تم ترحيل كافة البيانات بنجاح! يمكنك الآن مراجعتها أو تعديل أي حقل بحرية قبل الحفظ.');
@@ -2021,9 +2050,6 @@
                 const dangerBox = document.getElementById(prefix + '_danger_alert');
                 if (alertBox) { alertBox.style.display = 'none'; alertBox.innerHTML = ''; }
                 if (dangerBox) { dangerBox.style.display = 'none'; dangerBox.innerHTML = ''; }
-
-                const checkInput = document.getElementById(prefix + '_check_id');
-                if (checkInput) checkInput.value = '';
 
                 const vehicleBox = document.getElementById(prefix + '_vehicle_box');
                 if (vehicleBox) vehicleBox.style.display = 'block';
