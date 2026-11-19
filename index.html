@@ -2,8 +2,8 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>النظام أمني المركزي - البوابات والعمليات</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+    <title>النظام أمني المركزي - إدارة وتصاريح المرور</title>
     <meta name="theme-color" content="#2c3e50">
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -97,7 +97,7 @@
             right: 0;
             top: 32px;
             background-color: white;
-            min-width: 170px;
+            min-width: 190px;
             box-shadow: 0px 8px 16px rgba(0,0,0,0.3);
             border-radius: 6px;
             z-index: 1000;
@@ -170,7 +170,7 @@
         .backup-alert-text { font-size: 0.85rem; font-weight: bold; flex: 1; }
         .backup-alert-btn {
             background: white; color: #d35400; border: none; padding: 6px 10px;
-            border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.8rem; white-space: nowrap;
+            border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.80rem; white-space: nowrap;
         }
 
         .nav-grid {
@@ -234,6 +234,66 @@
             font-weight: bold;
         }
 
+        .btn-gate-picker {
+            width: 100%;
+            background: #eaf2f8;
+            color: #0b2545;
+            border: 2px solid #2980b9;
+            padding: 9px 10px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: right;
+            margin: 6px 0 6px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn-gate-picker:hover {
+            background: #d6eaf8;
+        }
+        .gate-selection-summary {
+            background: #fdfefe;
+            border: 1px solid #b0c4de;
+            border-radius: 5px;
+            padding: 6px 8px;
+            font-size: 0.78rem;
+            color: #134074;
+            margin-bottom: 10px;
+            line-height: 1.45;
+        }
+        .gate-picker-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #eceff1;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+        .gate-picker-row:last-child {
+            border-bottom: none;
+        }
+        .gate-picker-checks {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .gate-picker-checks label {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin: 0;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .gate-picker-checks input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+
         label { font-size: 0.85rem; font-weight: bold; color: #555; display: block; margin-top: 4px;}
         
         .duty-officer-banner {
@@ -266,8 +326,8 @@
 
         .btn-group-row { display: flex; gap: 8px; margin-top: 8px; }
         .btn-submit {
-            background-color: var(--success-color); color: white; border: none; padding: 10px;
-            border-radius: 5px; font-size: 0.95rem; cursor: pointer; font-weight: bold; flex: 2;
+            background-color: var(--success-color); color: white; border: none; padding: 12px;
+            border-radius: 5px; font-size: 1rem; cursor: pointer; font-weight: bold; width: 100%;
         }
         .btn-cancel-action {
             background-color: #7f8c8d; color: white; border: none; padding: 10px;
@@ -295,7 +355,7 @@
             background: #fdfefe; border: 1px solid #bdc3c7; padding: 8px; border-radius: 6px; margin-bottom: 10px;
         }
         .gates-checkbox-group label {
-            display: inline-block; margin-left: 10px; font-weight: normal; font-size: 0.8rem; cursor: pointer;
+            display: inline-block; margin-left: 10px; font-weight: normal; font-size: 0.80rem; cursor: pointer;
         }
 
         .btn-card-delete {
@@ -419,10 +479,10 @@
 
     <div id="loginScreen" class="login-screen">
         <h2>🛡️ النظام أمني المركزي</h2>
-        <p style="color:#666; font-size:0.85rem;">أدخل الرمز السري الخاص بالبوابة أو القسم</p>
-        <input type="password" id="pinInput" class="pin-input" maxlength="6" inputmode="numeric" placeholder="••••" onkeyup="if(event.key==='Enter') handleLogin()">
-        <button type="button" class="btn-submit" style="width:100%;" onclick="handleLogin()">دخول للنظام</button>
-        <p id="loginError" style="color:var(--danger-color); font-weight:bold; margin-top:8px; display:none; font-size:0.85rem;">❌ الرمز السري غير صحيح!</p>
+        <p style="color:#666; font-size:0.85rem;">أدخل الرمز السري (مكون من 6 أرقام تماماً)</p>
+        <input type="text" id="pinInput" class="pin-input" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="••••••" onkeyup="if(event.key==='Enter') handleLogin()">
+        <button type="button" id="loginBtn" class="btn-submit" onclick="handleLogin()" ontouchend="handleLogin(); event.preventDefault();">دخول للنظام</button>
+        <p id="loginError" style="color:var(--danger-color); font-weight:bold; margin-top:8px; display:none; font-size:0.85rem;">❌ الرمز السري غير صحيح أو لم يكتمل (6 أرقام مطلوبة)!</p>
     </div>
 
     <div id="appContainer" style="display:none;">
@@ -437,13 +497,14 @@
                 <div class="menu-container">
                     <button type="button" class="btn-dots" onclick="toggleDropdownMenu()">⋮</button>
                     <div id="optionsDropdown" class="dropdown-menu">
+                        <button type="button" id="menuAdminControl" onclick="openAdminAccountsManager()" style="display:none; color: #2980b9;">⚙️ إدارة الحسابات والصلاحيات</button>
                         <button type="button" onclick="openManageUsers()">✏️ تعديل اسم الحساب</button>
                         <button type="button" onclick="openChangePassword()">🔑 تغيير الرمز السري</button>
                         <button type="button" onclick="handleLogout()" style="color: var(--danger-color);">خروج 🔒</button>
                     </div>
                 </div>
             </div>
-            <h1>نظام أمني - مراقبة حركة البوابات</h1>
+            <h1>نظام إدارة وتصاريح المرور والعمليات</h1>
         </header>
 
         <div id="syncIndicator" class="sync-status sync-online">🟢 متصل بالسحابة اللحظية</div>
@@ -457,13 +518,66 @@
 
         <div id="homeMenu" class="nav-grid">
             <div id="btn_security" class="btn-card" onclick="showSection('securityAlertsSection')" style="grid-column: span 2; background: #fadbd8; border-color: #c0392b; color: #922b21;">🚨 البلاغات الأمنية والتعميمات</div>
-            <div id="btn_permits" class="btn-card" onclick="showSection('permitsSection')" style="grid-column: span 2; background: #e8f8f5; border-color: #27ae60;">📋 أوامر العمليات</div>
+            <div id="btn_permits" class="btn-card" onclick="showSection('permitsSection')" style="grid-column: span 2; background: #e8f8f5; border-color: #27ae60;">📋 أوامر العمليات والتصاريح المركزية</div>
             <div id="btn_civilian" class="btn-card" onclick="showSection('civilianSection')" style="background: #fef9e7; border-color: #f39c12;">🚗 السيارات المدنية</div>
             <div id="btn_fuel" class="btn-card" onclick="showSection('fuelSection')">🛢️ قواطر الديزل والمازوت</div>
             <div id="btn_company" class="btn-card" onclick="showSection('companySection')">🏢 سيارات الشركات / الأفراد</div>
             <div id="btn_military" class="btn-card" onclick="showSection('militarySection')">🎖️ السيارات الخاصة والعسكر</div>
             <div id="btn_bedouin" class="btn-card" onclick="showSection('bedouinSection')" style="grid-column: span 2;">⛺ حلول البدو (سيارات / أفراد)</div>
-            <div id="btn_search" class="btn-card" onclick="showSection('searchSection')" style="grid-column: span 2; background: #eaf2f8; border-color: #2980b9;">🔍 أرشيف وبحث حركة الدخول والخروج السحابي</div>
+            <div id="btn_search" class="btn-card" onclick="showSection('searchSection')" style="grid-column: span 2; background: #eaf2f8; border-color: #2980b9;">🔍 أرشيف وبحث تصاريح وسجلات المرور السحابي</div>
+        </div>
+
+        <div id="adminAccountsSection" class="section">
+            <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
+            <h3 style="color: #0b2545; font-size:1rem;">⚙️ مركز العمليات: إدارة الحسابات وتحديد الصلاحيات</h3>
+            <div style="background:#eaf2f8; padding:10px; border-radius:6px; margin-bottom:12px; border:1px solid #2980b9;">
+                <h4 id="formAccountTitle" style="margin:0 0 8px 0; color:#134074; font-size:0.9rem;">➕ إنشاء حساب جديد أو تعديل صلاحياته:</h4>
+                <form id="createAccountForm" onsubmit="handleCreateOrUpdateAccount(event)">
+                    <label>الرمز السري (مكون من 6 أرقام تماماً):</label>
+                    <input type="text" id="acc_pin" required maxlength="6" inputmode="numeric" placeholder="مثال: 900000">
+
+                    <label>اسم الحساب / البوابة / الجهة:</label>
+                    <input type="text" id="acc_name" required placeholder="مثال: البوابة الرئيسية / شركة...">
+
+                    <label style="color: #c0392b;">🔒 نوع الصلاحية الممنوحة للحساب:</label>
+                    <select id="acc_operation_type" required>
+                        <option value="movement">🚗 تسهيل حركة عبور فقط (بدون تاريخ انتهاء)</option>
+                        <option value="permit">📋 إصدار أمر تصريح مرور فقط (توجيه للبوابات)</option>
+                        <option value="both">🔄 كليهما (حركة وتصاريح)</option>
+                    </select>
+
+                    <label>نطاق الرؤية (أرشيف وسجلات البوابات):</label>
+                    <select id="acc_view_mode" onchange="toggleSelectedGatesBox()">
+                        <option value="global">رؤية كافة سجلات النظام (عالمي)</option>
+                        <option value="isolated">عزل الرؤية (لا يرى إلا ما قام بإدخاله بنفسه فقط)</option>
+                        <option value="selected_gates">رؤية أرشيف وسجلات بوابات/جهات محددة فقط</option>
+                    </select>
+
+                    <div id="acc_selected_gates_box" style="display:none; background:#fff; border:1px solid #2980b9; padding:8px; border-radius:6px; margin-bottom:10px;">
+                        <label style="color:#0b2545; margin-top:0;">🚪 اختر البوابات / الجهات المسموح للحساب برؤية أرشيفها:</label>
+                        <div id="acc_gates_checkbox_list" class="gates-checkbox-group" style="background:#f8f9fa; border:1px solid #ddd; padding:8px; margin-bottom:6px;"></div>
+                        <label style="font-size:0.8rem;">أو أضف أسماء بوابات/جهات إضافية (مفصولة بفاصلة):</label>
+                        <input type="text" id="acc_custom_gates" placeholder="مثال: البوابة الشمالية، نقطة التفتيش..." style="margin-bottom:0;">
+                    </div>
+
+                    <label>الأقسام المصرح له بالعمل فيها:</label>
+                    <div class="gates-checkbox-group" style="background:#fff; border:1px solid #ccc; padding:8px;">
+                        <label><input type="checkbox" name="acc_allowed_sections" value="civilian"> سيارات مدنية</label>
+                        <label><input type="checkbox" name="acc_allowed_sections" value="fuel"> قواطر الديزل</label>
+                        <label><input type="checkbox" name="acc_allowed_sections" value="company"> سيارات شركات</label>
+                        <label><input type="checkbox" name="acc_allowed_sections" value="military"> سيارات عسكرية</label>
+                        <label><input type="checkbox" name="acc_allowed_sections" value="bedouin"> حلول البدو</label>
+                        <label><input type="checkbox" name="acc_allowed_sections" value="permits"> أوامر العمليات</label>
+                        <label><input type="checkbox" name="acc_allowed_sections" value="security"> البلاغات الأمنية</label>
+                    </div>
+
+                    <button type="submit" id="btnSaveAccount" class="btn-submit" style="margin-top:10px; width:100%;">💾 حفظ وحفظ الحساب بالسحابة/النظام</button>
+                    <button type="button" id="btnCancelEditAccount" class="btn-cancel-action" style="margin-top:6px; width:100%; display:none;" onclick="resetAccountFormToCreate()">إلغاء التعديل</button>
+                </form>
+            </div>
+
+            <h4 style="font-size:0.9rem; color:#333;">📋 قائمة الحسابات المفعلة حالياً في النظام:</h4>
+            <div id="adminAccountsListContainer"></div>
         </div>
 
         <div id="manageUsersSection" class="section">
@@ -476,17 +590,17 @@
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
             <h3 style="color: #2980b9; font-size:1rem;">🔑 تغيير الرمز السري للحساب الحالي</h3>
             <form id="changePasswordForm" onsubmit="handlePasswordChange(event)">
-                <label>الرمز السري الحالي:</label>
+                <label>الرمز السري الحالي (6 أرقام):</label>
                 <input type="password" id="old_pin" required maxlength="6" inputmode="numeric" placeholder="أدخل الرمز الحالي...">
                 
-                <label>الرمز السري الجديد (4 إلى 6 أرقام):</label>
+                <label>الرمز السري الجديد (6 أرقام تماماً):</label>
                 <input type="password" id="new_pin" required maxlength="6" inputmode="numeric" placeholder="أدخل الرمز الجديد...">
                 
                 <label>تأكيد الرمز السري الجديد:</label>
                 <input type="password" id="confirm_new_pin" required maxlength="6" inputmode="numeric" placeholder="أعد إدخال الرمز الجديد...">
 
                 <div class="btn-group-row">
-                    <button type="submit" class="btn-submit">حفظ الرمز الجديد</button>
+                    <button type="submit" class="btn-submit" style="width:auto; flex:2;">حفظ الرمز الجديد</button>
                     <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                 </div>
             </form>
@@ -526,7 +640,7 @@
 
                     <label style="color: var(--danger-color);">نوع البلاغ الأمني:</label><input type="text" id="s_crime_type" required placeholder="نوع البلاغ الأمني...">
                     
-                    <label style="color: var(--accent-color);">📸 إرفاق صورة البلاغ أو المستند:</label>
+                    <label style="color: var(--accent-color);">📸 إرفاق صورة البلاغ أو المستند (اضغط على الصورة للتكبير):</label>
                     <input type="file" id="s_image_input" accept="image/*" capture="environment" onchange="handleSingleImageCompress(event, 's')">
                     <div id="s_preview_container" style="display:none; margin-top: 8px;">
                         <img id="s_img_thumbnail" class="captured-preview" onclick="viewEnlargedImage(this.src)">
@@ -537,7 +651,7 @@
                     <label>ملاحظات إضافية:</label><textarea id="s_notes" placeholder="ملاحظات البلاغ الأمني..."></textarea>
                     
                     <div class="btn-group-row">
-                        <button type="submit" class="btn-submit" style="background-color: var(--danger-color);">تعميم البلاغ الأمني بالسحابة</button>
+                        <button type="submit" class="btn-submit" style="background-color: var(--danger-color); width:auto; flex:2;">تعميم البلاغ الأمني بالسحابة</button>
                         <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                     </div>
                 </form>
@@ -549,20 +663,24 @@
 
         <div id="permitsSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
-            <h3 style="font-size:1rem;">📋 أوامر العمليات السحابية</h3>
+            <h3 id="permitsSectionTitle" style="font-size:1rem;">📋 أوامر العمليات والتصاريح السحابية</h3>
             
             <div id="permitFormWrapper" style="display:none;">
                 <form id="permitForm" onsubmit="savePermit(event)">
                     <div class="duty-officer-banner">
-                        <span>🛡️ سُمح له بالعبور بواسطة:</span>
+                        <span id="permitBannerLabel">🛡️ أمر تصريح صادر من:</span>
                         <span id="p_duty_display" style="color: #27ae60; font-size: 0.95rem;">-</span>
                     </div>
 
-                    <label style="color: #c0392b;">🔒 نوع صلاحية الأمر (حسب التوجيه):</label>
+                    <label style="color: #c0392b;">👤 اسم المناوب / المسؤول / الموظف المعني بإصدار التصريح:</label>
+                    <input type="text" id="p_duty_officer_name" required placeholder="أدخل اسم المناوب أو الموظف...">
+
+                    <label style="color: #c0392b;">🔒 نوع الصلاحية:</label>
                     <select id="p_permit_permission">
                         <option value="دخول فقط">📥 دخول فقط</option>
                         <option value="خروج فقط">📤 خروج فقط</option>
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
+                        <option value="خروج ودخول">🔄 خروج ودخول</option>
                     </select>
 
                     <div style="background: #fadbd8; padding: 8px; border-radius: 5px; margin: 8px 0; border: 1px solid #c0392b;">
@@ -571,7 +689,7 @@
                     </div>
 
                     <div style="background: #e8f8f5; border: 1px solid #16a085; padding: 8px; border-radius: 6px; margin-bottom: 10px;">
-                        <label style="color: #16a085; margin-top:0;">📥 بوابات الدخول المسموحة:</label>
+                        <label style="color: #16a085; margin-top:0;">📥 البوابات/النقاط المشمولة للدخول:</label>
                         <div class="gates-checkbox-group" style="background:transparent; border:none; padding:0; margin:0;">
                             <label><input type="checkbox" name="allowed_entry_gates" value="البوابة رقم 1"> البوابة 1</label>
                             <label><input type="checkbox" name="allowed_entry_gates" value="البوابة رقم 2"> البوابة 2</label>
@@ -583,7 +701,7 @@
                     </div>
 
                     <div style="background: #fef9e7; border: 1px solid #f39c12; padding: 8px; border-radius: 6px; margin-bottom: 10px;">
-                        <label style="color: #d35400; margin-top:0;">📤 بوابات الخروج المسموحة:</label>
+                        <label style="color: #d35400; margin-top:0;">📤 البوابات/النقاط المشمولة للخروج:</label>
                         <div class="gates-checkbox-group" style="background:transparent; border:none; padding:0; margin:0;">
                             <label><input type="checkbox" name="allowed_exit_gates" value="البوابة رقم 1"> البوابة 1</label>
                             <label><input type="checkbox" name="allowed_exit_gates" value="البوابة رقم 2"> البوابة 2</label>
@@ -615,7 +733,7 @@
                         <label>عدد المرافقين:</label><input type="number" id="p_companions" value="0" placeholder="عدد المرافقين...">
                     </div>
 
-                    <label style="color: var(--accent-color);">📸 إرفاق/تصوير مستند الأمر:</label>
+                    <label style="color: var(--accent-color);">📸 إرفاق/تصوير المستند (اضغط على الصورة للتكبير):</label>
                     <input type="file" id="p_image_input" accept="image/*" capture="environment" onchange="handleSingleImageCompress(event, 'p')">
                     <div id="p_preview_container" style="display:none; margin-top: 8px;">
                         <img id="p_img_thumbnail" class="captured-preview" onclick="viewEnlargedImage(this.src)">
@@ -623,35 +741,42 @@
                     </div>
                     <input type="hidden" id="p_final_image_data">
 
-                    <label>ملاحظات:</label><textarea id="p_notes" placeholder="ملاحظات توجيه العمليات..."></textarea>
+                    <label>ملاحظات:</label><textarea id="p_notes" placeholder="ملاحظات..."></textarea>
                     
                     <div class="btn-group-row">
-                        <button type="submit" class="btn-submit">حفظ وتعميم بالسحابة</button>
+                        <button type="submit" class="btn-submit" style="width:auto; flex:2;">حفظ وتعميم أمر التصريح للبوابات</button>
                         <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                     </div>
                 </form>
             </div>
 
-            <h4 style="margin-top:15px; font-size:0.9rem;">أشرف واطلع على أوامر العمليات السحابية النشطة:</h4>
+            <h4 style="margin-top:15px; font-size:0.9rem;">الأرشيف النشط:</h4>
             <div id="permitsActiveList"></div>
         </div>
 
         <div id="civilianSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
-            <h3 style="color: #d35400; font-size:1rem;">🚗 حركة السيارات المدنية السحابية</h3>
+            <h3 id="civilianTitle" style="color: #d35400; font-size:1rem;">🚗 السيارات المدنية</h3>
             <form id="civilianForm" onsubmit="saveData(event, 'civilian')">
                 <div class="duty-officer-banner">
-                    <span>🛡️ سُمح له بالعبور بواسطة:</span>
+                    <span id="civilianBannerLabel">🛡️ القائم بالعملية:</span>
                     <span id="v_duty_display" style="color: #2980b9; font-size: 0.95rem;">-</span>
                 </div>
 
-                <label>حالة الحركة الفعلية (دخول / خروج):</label>
-                <select id="v_movement_status">
-                    <option value="دخول">📥 دخول</option>
-                    <option value="خروج">📤 خروج</option>
-                    <option value="دخول وخروج">🔄 دخول وخروج</option>
-                </select>
-                <label>طريقة المرور:</label>
+                <div style="background: #eaf2f8; padding: 8px; border-radius: 5px; margin-bottom: 8px; border: 1px solid #2980b9;">
+                    <label style="color: #0b2545; margin-top:0;">👤 اسم المناوب / المسؤول / الموظف:</label>
+                    <input type="text" id="v_duty_officer_name" required placeholder="اسم المناوب أو الموظف المسجل..." style="margin-bottom:0;">
+                </div>
+
+                <div id="v_movement_box">
+                    <label>حالة الحركة الفعلية (نوع العبور الحالي):</label>
+                    <select id="v_movement_status" onchange="checkIdentityAndMatch('civilian')">
+                        <option value="دخول">📥 تسجيل دخول</option>
+                        <option value="خروج">📤 تسجيل خروج</option>
+                    </select>
+                </div>
+
+                <label>طريقة المرور / التصريح:</label>
                 <select id="v_entry_type" onchange="toggleVehicleFields('v')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
                 
                 <label>رقم الهوية:</label>
@@ -669,41 +794,45 @@
                     <label>نوع السيارة:</label><input type="text" id="v_car" placeholder="نوع السيارة...">
                 </div>
 
-                <label>📍 متجه إلى:</label><input type="text" id="v_destination" placeholder="الوجهة...">
-                <label>❓ سبب الدخول:</label><input type="text" id="v_reason" placeholder="سبب الدخول...">
+                <label>📍 متجه إلى / الوجهة:</label><input type="text" id="v_destination" placeholder="الوجهة...">
+                <label>❓ السبب / الغرض:</label><input type="text" id="v_reason" placeholder="السبب...">
                 <label>📦 نوع الحمولة:</label><input type="text" id="v_cargo" placeholder="نوع الحمولة...">
                 <label>👥 عدد المرافقين:</label><input type="number" id="v_companions" value="0" placeholder="عدد المرافقين...">
                 
-                <div class="permit-details-box">
-                    <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
-                    <label>نوع/رقم التصريح:</label>
-                    <input type="text" id="v_permit_info" placeholder="مثال: تصريح رقم...">
-                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
-                    <input type="text" id="v_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
-                    <label>🔒 صلاحية التصريح:</label>
+                <div id="v_permit_box" class="permit-details-box">
+                    <h4>📋 بيانات أمر التصريح وتسهيل المرور:</h4>
+                    <label>رقم / بيانات التصريح:</label>
+                    <input type="text" id="v_permit_info" placeholder="رقم التصريح...">
+                    <label>🏢 جهة الإصدار:</label>
+                    <input type="text" id="v_permit_issuer" readonly placeholder="جهة الإصدار...">
+                    <label>🔒 صلاحية التصريح (حسب الوثيقة):</label>
                     <select id="v_permit_validity">
-                        <option value="">-- اختر الصلاحية --</option>
                         <option value="دخول فقط">📥 دخول فقط</option>
                         <option value="خروج فقط">📤 خروج فقط</option>
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
-                        <option value="ساري ونشط">✅ ساري ونشط</option>
+                        <option value="خروج ودخول">🔄 خروج ودخول</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
-                    <input type="datetime-local" id="v_permit_end_date" onchange="onExpiryDateChanged('v')">
-                    <label>🚪 صلاحية المرور من أي بوابة:</label>
-                    <input type="text" id="v_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
+                    <label>🚪 النقاط المشمولة:</label>
+                    <button type="button" class="btn-gate-picker" onclick="openGateAccessPickerModal('v', 'civilian')">
+                        <span>🚪 اختيار البوابات المشمولة (دخول / خروج)</span>
+                        <span>▼</span>
+                    </button>
+                    <div id="v_gate_summary" class="gate-selection-summary">لم يتم تحديد بوابات محددة بعد</div>
+                    <input type="hidden" id="v_permit_gate">
+                    <input type="hidden" id="v_allowed_entry_gates">
+                    <input type="hidden" id="v_allowed_exit_gates">
                 </div>
 
-                <label style="color: var(--accent-color);">📸 إرفاق/تصوير المستند:</label>
+                <label style="color: var(--accent-color);">📸 إرفاق المستند (اضغط على الصورة للتكبير):</label>
                 <input type="file" id="v_image_input" accept="image/*" capture="environment" onchange="handleSingleImageCompress(event, 'v')">
                 <div id="v_preview_container" style="display:none; margin-top: 8px;">
                     <img id="v_img_thumbnail" class="captured-preview" onclick="viewEnlargedImage(this.src)">
                     <div style="margin-top:4px;"><button type="button" class="btn-card-delete" onclick="removeCapturedImage('v')">❌ حذف الصورة</button></div>
                 </div>
                 <input type="hidden" id="v_final_image_data">
-                <label>ملاحظات:</label><textarea id="v_notes" placeholder="ملاحظات السيارات المدنية..."></textarea>
+                <label>ملاحظات:</label><textarea id="v_notes" placeholder="ملاحظات..."></textarea>
                 <div class="btn-group-row">
-                    <button type="submit" class="btn-submit">حفظ وتسجيل بالسحابة</button>
+                    <button type="submit" id="v_submit_btn" class="btn-submit">حفظ وتسجيل بالسحابة</button>
                     <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                 </div>
             </form>
@@ -711,15 +840,25 @@
 
         <div id="fuelSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
-            <h3 style="font-size:1rem;">🛢️ حركة قواطر الديزل والمازوت السحابية</h3>
+            <h3 id="fuelTitle" style="font-size:1rem;">🛢️ قواطر الديزل والمازوت</h3>
             <form id="fuelForm" onsubmit="saveData(event, 'fuel')">
                 <div class="duty-officer-banner">
-                    <span>🛡️ سُمح له بالعبور بواسطة:</span>
+                    <span id="fuelBannerLabel">🛡️ القائم بالعملية:</span>
                     <span id="f_duty_display" style="color: #2980b9; font-size: 0.95rem;">-</span>
                 </div>
 
-                <label>حالة الحركة الفعلية (دخول / خروج):</label>
-                <select id="f_movement_status"><option value="دخول">📥 دخول</option><option value="خروج">📤 خروج</option><option value="دخول وخروج">🔄 دخول وخروج</option></select>
+                <div style="background: #eaf2f8; padding: 8px; border-radius: 5px; margin-bottom: 8px; border: 1px solid #2980b9;">
+                    <label style="color: #0b2545; margin-top:0;">👤 اسم المناوب / المسؤول / الموظف:</label>
+                    <input type="text" id="f_duty_officer_name" required placeholder="اسم المناوب أو الموظف المسجل..." style="margin-bottom:0;">
+                </div>
+
+                <div id="f_movement_box">
+                    <label>حالة الحركة الفعلية (نوع العبور الحالي):</label>
+                    <select id="f_movement_status" onchange="checkIdentityAndMatch('fuel')">
+                        <option value="دخول">📥 تسجيل دخول</option>
+                        <option value="خروج">📤 تسجيل خروج</option>
+                    </select>
+                </div>
                 
                 <label>اسم المحطة:</label>
                 <input type="text" id="f_station_name" required placeholder="اسم المحطة...">
@@ -740,30 +879,34 @@
 
                 <label>رقم الهاتف:</label><input type="tel" id="f_phone" placeholder="الهاتف...">
                 
-                <label>👤 اسم مالك المركبة / القاطرة:</label>
+                <label>👤 مالك المركبة:</label>
                 <input type="text" id="f_vehicle_owner" placeholder="اسم المالك...">
 
                 <label>🏢 الجهة المستفيدة:</label>
                 <input type="text" id="f_beneficiary" placeholder="الجهة المستفيدة...">
 
-                <div class="permit-details-box">
-                    <h4>📋 بيانات الموافقة وتجديد الصلاحية:</h4>
+                <div id="f_permit_box" class="permit-details-box">
+                    <h4>📋 بيانات أمر الموافقة وتصريح التسهيل:</h4>
                     <label>رقم الموافقة أو التصريح:</label>
                     <input type="text" id="f_approval_num" required placeholder="رقم الموافقة...">
-                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
-                    <input type="text" id="f_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
-                    <label>🔒 صلاحية التصريح:</label>
+                    <label>🏢 جهة الإصدار:</label>
+                    <input type="text" id="f_permit_issuer" readonly placeholder="جهة الإصدار...">
+                    <label>🔒 صلاحية التصريح (حسب الوثيقة):</label>
                     <select id="f_permit_validity">
-                        <option value="">-- اختر الصلاحية --</option>
                         <option value="دخول فقط">📥 دخول فقط</option>
                         <option value="خروج فقط">📤 خروج فقط</option>
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
-                        <option value="ساري ونشط">✅ ساري ونشط</option>
+                        <option value="خروج ودخول">🔄 خروج ودخول</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
-                    <input type="datetime-local" id="f_permit_end_date" onchange="onExpiryDateChanged('f')">
-                    <label>🚪 صلاحية المرور من أي بوابة:</label>
-                    <input type="text" id="f_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
+                    <label>🚪 النقاط المشمولة:</label>
+                    <button type="button" class="btn-gate-picker" onclick="openGateAccessPickerModal('f', 'fuel')">
+                        <span>🚪 اختيار البوابات المشمولة (دخول / خروج)</span>
+                        <span>▼</span>
+                    </button>
+                    <div id="f_gate_summary" class="gate-selection-summary">لم يتم تحديد بوابات محددة بعد</div>
+                    <input type="hidden" id="f_permit_gate">
+                    <input type="hidden" id="f_allowed_entry_gates">
+                    <input type="hidden" id="f_allowed_exit_gates">
                 </div>
 
                 <label>نوع الحمولة:</label>
@@ -774,20 +917,20 @@
                 </select>
 
                 <label>🛢️ كمية الوقود (باللتر):</label>
-                <input type="number" id="f_qty" value="0" placeholder="كمية الوقود باللتر...">
+                <input type="number" id="f_qty" value="0" placeholder="كمية الوقود...">
 
-                <label>المحافظة:</label><input type="text" id="f_province" placeholder="أدخل اسم المحافظة...">
+                <label>المحافظة:</label><input type="text" id="f_province" placeholder="المحافظة...">
                 
-                <label style="color: var(--accent-color);">📸 إرفاق/تصوير مستند القاطرة:</label>
+                <label style="color: var(--accent-color);">📸 إرفاق المستند (اضغط على الصورة للتكبير):</label>
                 <input type="file" id="f_image_input" accept="image/*" capture="environment" onchange="handleSingleImageCompress(event, 'f')">
                 <div id="f_preview_container" style="display:none; margin-top: 8px;">
                     <img id="f_img_thumbnail" class="captured-preview" onclick="viewEnlargedImage(this.src)">
                     <div style="margin-top:4px;"><button type="button" class="btn-card-delete" onclick="removeCapturedImage('f')">❌ حذف الصورة</button></div>
                 </div>
                 <input type="hidden" id="f_final_image_data">
-                <label>ملاحظات:</label><textarea id="f_notes" placeholder="ملاحظات القاطرة..."></textarea>
+                <label>ملاحظات:</label><textarea id="f_notes" placeholder="ملاحظات..."></textarea>
                 <div class="btn-group-row" style="margin-top:12px;">
-                    <button type="submit" class="btn-submit">حفظ وتسجيل بالسحابة</button>
+                    <button type="submit" id="f_submit_btn" class="btn-submit">حفظ وتسجيل بالسحابة</button>
                     <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                 </div>
             </form>
@@ -795,15 +938,25 @@
 
         <div id="companySection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
-            <h3 style="font-size:1rem;">🏢 سيارات الشركات والأفراد السحابية</h3>
+            <h3 id="companyTitle" style="font-size:1rem;">🏢 سيارات الشركات والأفراد</h3>
             <form id="companyForm" onsubmit="saveData(event, 'company')">
                 <div class="duty-officer-banner">
-                    <span>🛡️ سُمح له بالعبور بواسطة:</span>
+                    <span id="companyBannerLabel">🛡️ القائم بالعملية:</span>
                     <span id="c_duty_display" style="color: #2980b9; font-size: 0.95rem;">-</span>
                 </div>
 
-                <label>حالة الحركة الفعلية (دخول / خروج):</label>
-                <select id="c_movement_status"><option value="دخول">📥 دخول</option><option value="خروج">📤 خروج</option><option value="دخول وخروج">🔄 دخول وخروج</option></select>
+                <div style="background: #eaf2f8; padding: 8px; border-radius: 5px; margin-bottom: 8px; border: 1px solid #2980b9;">
+                    <label style="color: #0b2545; margin-top:0;">👤 اسم المناوب / المسؤول / الموظف:</label>
+                    <input type="text" id="c_duty_officer_name" required placeholder="اسم المناوب أو الموظف المسجل..." style="margin-bottom:0;">
+                </div>
+
+                <div id="c_movement_box">
+                    <label>حالة الحركة الفعلية (نوع العبور الحالي):</label>
+                    <select id="c_movement_status" onchange="checkIdentityAndMatch('company')">
+                        <option value="دخول">📥 تسجيل دخول</option>
+                        <option value="خروج">📤 تسجيل خروج</option>
+                    </select>
+                </div>
                 <label>طريقة المرور:</label>
                 <select id="c_entry_type" onchange="toggleVehicleFields('c')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
                 
@@ -822,41 +975,45 @@
                     <label>نوع السيارة:</label><input type="text" id="c_car" placeholder="نوع السيارة...">
                 </div>
 
-                <label>🏢 يتبع شركة:</label><input type="text" id="c_company_name" placeholder="اسم الشركة التابع لها...">
+                <label>🏢 يتبع شركة:</label><input type="text" id="c_company_name" placeholder="اسم الشركة...">
                 
-                <div class="permit-details-box">
-                    <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
-                    <label>نوع/رقم التصريح:</label>
-                    <input type="text" id="c_permit_info" placeholder="رقم أو بيانات التصريح...">
-                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
-                    <input type="text" id="c_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
-                    <label>🔒 صلاحية التصريح:</label>
+                <div id="c_permit_box" class="permit-details-box">
+                    <h4>📋 بيانات أمر التصريح وتسهيل المرور:</h4>
+                    <label>رقم التصريح:</label>
+                    <input type="text" id="c_permit_info" placeholder="رقم التصريح...">
+                    <label>🏢 جهة الإصدار:</label>
+                    <input type="text" id="c_permit_issuer" readonly placeholder="جهة الإصدار...">
+                    <label>🔒 صلاحية التصريح (حسب الوثيقة):</label>
                     <select id="c_permit_validity">
-                        <option value="">-- اختر الصلاحية --</option>
                         <option value="دخول فقط">📥 دخول فقط</option>
                         <option value="خروج فقط">📤 خروج فقط</option>
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
-                        <option value="ساري ونشط">✅ ساري ونشط</option>
+                        <option value="خروج ودخول">🔄 خروج ودخول</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
-                    <input type="datetime-local" id="c_permit_end_date" onchange="onExpiryDateChanged('c')">
-                    <label>🚪 صلاحية المرور من أي بوابة:</label>
-                    <input type="text" id="c_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
+                    <label>🚪 النقاط المشمولة:</label>
+                    <button type="button" class="btn-gate-picker" onclick="openGateAccessPickerModal('c', 'company')">
+                        <span>🚪 اختيار البوابات المشمولة (دخول / خروج)</span>
+                        <span>▼</span>
+                    </button>
+                    <div id="c_gate_summary" class="gate-selection-summary">لم يتم تحديد بوابات محددة بعد</div>
+                    <input type="hidden" id="c_permit_gate">
+                    <input type="hidden" id="c_allowed_entry_gates">
+                    <input type="hidden" id="c_allowed_exit_gates">
                 </div>
 
                 <label>نوع الحمولة:</label><input type="text" id="c_material_type" placeholder="نوع الحمولة...">
                 <label>عدد المرافقين:</label><input type="number" id="c_companions" value="0" placeholder="عدد المرافقين...">
-                <label>تتبع إلى جهة مستفيدة:</label><input type="text" id="c_beneficiary" placeholder="الجهة المستفيدة...">
-                <label style="color: var(--accent-color);">📸 إرفاق/تصوير مستند الشركة:</label>
+                <label>الجهة المستفيدة:</label><input type="text" id="c_beneficiary" placeholder="الجهة المستفيدة...">
+                <label style="color: var(--accent-color);">📸 إرفاق المستند (اضغط على الصورة للتكبير):</label>
                 <input type="file" id="c_image_input" accept="image/*" capture="environment" onchange="handleSingleImageCompress(event, 'c')">
                 <div id="c_preview_container" style="display:none; margin-top: 8px;">
                     <img id="c_img_thumbnail" class="captured-preview" onclick="viewEnlargedImage(this.src)">
                     <div style="margin-top:4px;"><button type="button" class="btn-card-delete" onclick="removeCapturedImage('c')">❌ حذف الصورة</button></div>
                 </div>
                 <input type="hidden" id="c_final_image_data">
-                <label>ملاحظات:</label><textarea id="c_notes" placeholder="ملاحظات الشركات..."></textarea>
+                <label>ملاحظات:</label><textarea id="c_notes" placeholder="ملاحظات..."></textarea>
                 <div class="btn-group-row">
-                    <button type="submit" class="btn-submit">حفظ وتسجيل بالسحابة</button>
+                    <button type="submit" id="c_submit_btn" class="btn-submit">حفظ وتسجيل بالسحابة</button>
                     <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                 </div>
             </form>
@@ -864,15 +1021,25 @@
 
         <div id="militarySection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
-            <h3 style="font-size:1rem;">🎖️ السيارات الخاصة والعسكر السحابية</h3>
+            <h3 id="militaryTitle" style="font-size:1rem;">🎖️ السيارات الخاصة والعسكر</h3>
             <form id="militaryForm" onsubmit="saveData(event, 'military')">
                 <div class="duty-officer-banner">
-                    <span>🛡️ سُمح له بالعبور بواسطة:</span>
+                    <span id="militaryBannerLabel">🛡️ القائم بالعملية:</span>
                     <span id="m_duty_display" style="color: #2980b9; font-size: 0.95rem;">-</span>
                 </div>
 
-                <label>حالة الحركة الفعلية (دخول / خروج):</label>
-                <select id="m_movement_status"><option value="دخول">📥 دخول</option><option value="خروج">📤 خروج</option><option value="دخول وخروج">🔄 دخول وخروج</option></select>
+                <div style="background: #eaf2f8; padding: 8px; border-radius: 5px; margin-bottom: 8px; border: 1px solid #2980b9;">
+                    <label style="color: #0b2545; margin-top:0;">👤 اسم المناوب / المسؤول / الموظف:</label>
+                    <input type="text" id="m_duty_officer_name" required placeholder="اسم المناوب أو الموظف المسجل..." style="margin-bottom:0;">
+                </div>
+
+                <div id="m_movement_box">
+                    <label>حالة الحركة الفعلية (نوع العبور الحالي):</label>
+                    <select id="m_movement_status" onchange="checkIdentityAndMatch('military')">
+                        <option value="دخول">📥 تسجيل دخول</option>
+                        <option value="خروج">📤 تسجيل خروج</option>
+                    </select>
+                </div>
                 <label>طريقة المرور:</label>
                 <select id="m_entry_type" onchange="toggleVehicleFields('m')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
                 
@@ -892,40 +1059,44 @@
                 </div>
 
                 <label>📍 متجه إلى:</label><input type="text" id="m_destination" placeholder="الوجهة...">
-                <label>❓ سبب الدخول:</label><input type="text" id="m_reason" placeholder="سبب الدخول...">
+                <label>❓ السبب:</label><input type="text" id="m_reason" placeholder="السبب...">
                 <label>📦 نوع الحمولة:</label><input type="text" id="m_cargo" placeholder="نوع الحمولة...">
                 <label>👥 عدد المرافقين:</label><input type="number" id="m_companions" value="0" placeholder="عدد المرافقين...">
                 
-                <div class="permit-details-box">
-                    <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
-                    <label>نوع/رقم التصريح:</label>
-                    <input type="text" id="m_permit_info" placeholder="رقم أو بيانات التصريح...">
-                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
-                    <input type="text" id="m_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
-                    <label>🔒 صلاحية التصريح:</label>
+                <div id="m_permit_box" class="permit-details-box">
+                    <h4>📋 بيانات أمر التصريح وتسهيل المرور:</h4>
+                    <label>رقم التصريح:</label>
+                    <input type="text" id="m_permit_info" placeholder="رقم التصريح...">
+                    <label>🏢 جهة الإصدار:</label>
+                    <input type="text" id="m_permit_issuer" readonly placeholder="جهة الإصدار...">
+                    <label>🔒 صلاحية التصريح (حسب الوثيقة):</label>
                     <select id="m_permit_validity">
-                        <option value="">-- اختر الصلاحية --</option>
                         <option value="دخول فقط">📥 دخول فقط</option>
                         <option value="خروج فقط">📤 خروج فقط</option>
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
-                        <option value="ساري ونشط">✅ ساري ونشط</option>
+                        <option value="خروج ودخول">🔄 خروج ودخول</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
-                    <input type="datetime-local" id="m_permit_end_date" onchange="onExpiryDateChanged('m')">
-                    <label>🚪 صلاحية المرور من أي بوابة:</label>
-                    <input type="text" id="m_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
+                    <label>🚪 النقاط المشمولة:</label>
+                    <button type="button" class="btn-gate-picker" onclick="openGateAccessPickerModal('m', 'military')">
+                        <span>🚪 اختيار البوابات المشمولة (دخول / خروج)</span>
+                        <span>▼</span>
+                    </button>
+                    <div id="m_gate_summary" class="gate-selection-summary">لم يتم تحديد بوابات محددة بعد</div>
+                    <input type="hidden" id="m_permit_gate">
+                    <input type="hidden" id="m_allowed_entry_gates">
+                    <input type="hidden" id="m_allowed_exit_gates">
                 </div>
 
-                <label style="color: var(--accent-color);">📸 إرفاق/تصوير المستند:</label>
+                <label style="color: var(--accent-color);">📸 إرفاق المستند (اضغط على الصورة للتكبير):</label>
                 <input type="file" id="m_image_input" accept="image/*" capture="environment" onchange="handleSingleImageCompress(event, 'm')">
                 <div id="m_preview_container" style="display:none; margin-top: 8px;">
                     <img id="m_img_thumbnail" class="captured-preview" onclick="viewEnlargedImage(this.src)">
                     <div style="margin-top:4px;"><button type="button" class="btn-card-delete" onclick="removeCapturedImage('m')">❌ حذف الصورة</button></div>
                 </div>
                 <input type="hidden" id="m_final_image_data">
-                <label>ملاحظات:</label><textarea id="m_notes" placeholder="ملاحظات العسكر..."></textarea>
+                <label>ملاحظات:</label><textarea id="m_notes" placeholder="ملاحظات..."></textarea>
                 <div class="btn-group-row">
-                    <button type="submit" class="btn-submit">حفظ وتسجيل بالسحابة</button>
+                    <button type="submit" id="m_submit_btn" class="btn-submit">حفظ وتسجيل بالسحابة</button>
                     <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                 </div>
             </form>
@@ -933,15 +1104,25 @@
 
         <div id="bedouinSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
-            <h3 style="font-size:1rem;">⛺ حلول البدو السحابية</h3>
+            <h3 id="bedouinTitle" style="font-size:1rem;">⛺ حلول البدو</h3>
             <form id="bedouinForm" onsubmit="saveData(event, 'bedouin')">
                 <div class="duty-officer-banner">
-                    <span>🛡️ سُمح له بالعبور بواسطة:</span>
+                    <span id="bedouinBannerLabel">🛡️ القائم بالعملية:</span>
                     <span id="b_duty_display" style="color: #2980b9; font-size: 0.95rem;">-</span>
                 </div>
 
-                <label>حالة الحركة الفعلية (دخول / خروج):</label>
-                <select id="b_movement_status"><option value="دخول">📥 دخول</option><option value="خروج">📤 خروج</option><option value="دخول وخروج">🔄 دخول وخروج</option></select>
+                <div style="background: #eaf2f8; padding: 8px; border-radius: 5px; margin-bottom: 8px; border: 1px solid #2980b9;">
+                    <label style="color: #0b2545; margin-top:0;">👤 اسم المناوب / المسؤول / الموظف:</label>
+                    <input type="text" id="b_duty_officer_name" required placeholder="اسم المناوب أو الموظف المسجل..." style="margin-bottom:0;">
+                </div>
+
+                <div id="b_movement_box">
+                    <label>حالة الحركة الفعلية (نوع العبور الحالي):</label>
+                    <select id="b_movement_status" onchange="checkIdentityAndMatch('bedouin')">
+                        <option value="دخول">📥 تسجيل دخول</option>
+                        <option value="خروج">📤 تسجيل خروج</option>
+                    </select>
+                </div>
                 <label>طريقة المرور:</label>
                 <select id="b_entry_type" onchange="toggleVehicleFields('b')"><option value="سيارة">🚗 بمركبة</option><option value="فرد">🚶 فرد</option></select>
                 
@@ -961,40 +1142,44 @@
                 </div>
 
                 <label>📍 متجه إلى:</label><input type="text" id="b_destination" placeholder="الوجهة...">
-                <label>❓ سبب الدخول:</label><input type="text" id="b_reason" placeholder="سبب الدخول...">
+                <label>❓ السبب:</label><input type="text" id="b_reason" placeholder="السبب...">
                 <label>📦 نوع الحمولة:</label><input type="text" id="b_cargo" placeholder="نوع الحمولة...">
                 <label>👥 عدد المرافقين:</label><input type="number" id="b_companions" value="0" placeholder="عدد المرافقين...">
                 
-                <div class="permit-details-box">
-                    <h4>📋 بيانات التصريح وتجديد الصلاحية:</h4>
-                    <label>نوع/رقم التصريح:</label>
-                    <input type="text" id="b_permit_info" placeholder="رقم أو بيانات التصريح...">
-                    <label>🏢 الجهة المعتمدة الأصلية (ختم التجديد):</label>
-                    <input type="text" id="b_permit_issuer" readonly placeholder="جهة الإصدار أو التجديد...">
-                    <label>🔒 صلاحية التصريح:</label>
+                <div id="b_permit_box" class="permit-details-box">
+                    <h4>📋 بيانات أمر التصريح وتسهيل المرور:</h4>
+                    <label>رقم / بيانات التصريح:</label>
+                    <input type="text" id="b_permit_info" placeholder="رقم التصريح...">
+                    <label>🏢 جهة الإصدار:</label>
+                    <input type="text" id="b_permit_issuer" readonly placeholder="جهة الإصدار...">
+                    <label>🔒 صلاحية التصريح (حسب الوثيقة):</label>
                     <select id="b_permit_validity">
-                        <option value="">-- اختر الصلاحية --</option>
                         <option value="دخول فقط">📥 دخول فقط</option>
                         <option value="خروج فقط">📤 خروج فقط</option>
                         <option value="دخول وخروج">🔄 دخول وخروج</option>
-                        <option value="ساري ونشط">✅ ساري ونشط</option>
+                        <option value="خروج ودخول">🔄 خروج ودخول</option>
                     </select>
-                    <label style="color: var(--danger-color);">📅 تاريخ ووقت انتهاء الصلاحية (إذا غيرته هنا، سيصبح اسم بوابتك ختم التجديد):</label>
-                    <input type="datetime-local" id="b_permit_end_date" onchange="onExpiryDateChanged('b')">
-                    <label>🚪 صلاحية المرور من أي بوابة:</label>
-                    <input type="text" id="b_permit_gate" placeholder="مثال: البوابة الحالية / جميع البوابات">
+                    <label>🚪 النقاط المشمولة:</label>
+                    <button type="button" class="btn-gate-picker" onclick="openGateAccessPickerModal('b', 'bedouin')">
+                        <span>🚪 اختيار البوابات المشمولة (دخول / خروج)</span>
+                        <span>▼</span>
+                    </button>
+                    <div id="b_gate_summary" class="gate-selection-summary">لم يتم تحديد بوابات محددة بعد</div>
+                    <input type="hidden" id="b_permit_gate">
+                    <input type="hidden" id="b_allowed_entry_gates">
+                    <input type="hidden" id="b_allowed_exit_gates">
                 </div>
 
-                <label style="color: var(--accent-color);">📸 إرفاق/تصوير المستند:</label>
+                <label style="color: var(--accent-color);">📸 إرفاق المستند (اضغط على الصورة للتكبير):</label>
                 <input type="file" id="b_image_input" accept="image/*" capture="environment" onchange="handleSingleImageCompress(event, 'b')">
                 <div id="b_preview_container" style="display:none; margin-top: 8px;">
                     <img id="b_img_thumbnail" class="captured-preview" onclick="viewEnlargedImage(this.src)">
                     <div style="margin-top:4px;"><button type="button" class="btn-card-delete" onclick="removeCapturedImage('b')">❌ حذف الصورة</button></div>
                 </div>
                 <input type="hidden" id="b_final_image_data">
-                <label>ملاحظات:</label><textarea id="b_notes" placeholder="ملاحظات البدو..."></textarea>
+                <label>ملاحظات:</label><textarea id="b_notes" placeholder="ملاحظات..."></textarea>
                 <div class="btn-group-row">
-                    <button type="submit" class="btn-submit">حفظ وتسجيل بالسحابة</button>
+                    <button type="submit" id="b_submit_btn" class="btn-submit">حفظ وتسجيل بالسحابة</button>
                     <button type="button" class="btn-cancel-action" onclick="showHome()">إلغاء</button>
                 </div>
             </form>
@@ -1002,64 +1187,81 @@
 
         <div id="searchSection" class="section">
             <button type="button" class="btn-back" onclick="showHome()">⬅ عودة للقائمة</button>
-            <h3 style="font-size:1rem;">🔍 الأرشيف والسجل السحابي المباشر</h3>
+            <h3 style="font-size:1rem;">🔍 الأرشيف وبحث السجلات والتصاريح السحابي</h3>
             
             <div class="backup-section">
-                <button type="button" class="btn-backup" onclick="exportBackup()">📥 تصدير نسخة احتياطية سحابية</button>
-                <button type="button" class="btn-restore" onclick="document.getElementById('restoreFileInput').click()">📤 استعادة نسخة احتياطية</button>
+                <button type="button" class="btn-backup" onclick="exportBackup()">📥 تصدير نسخة احتياطية</button>
+                <button type="button" class="btn-restore" onclick="document.getElementById('restoreFileInput').click()">📤 استعادة</button>
                 <input type="file" id="restoreFileInput" accept=".json" style="display:none;" onchange="importBackup(event)">
             </div>
             
             <select id="searchGateFilter" onchange="runSearch()" style="border-color: var(--primary-color); font-weight: bold;">
-                <option value="all">🚪 جميع البوابات والعمليات</option>
-                <option value="البوابة رقم 1">البوابة رقم 1</option>
-                <option value="البوابة رقم 2">البوابة رقم 2</option>
-                <option value="البوابة رقم 3">البوابة رقم 3</option>
-                <option value="البوابة رقم 4">البوابة رقم 4</option>
-                <option value="البوابة رقم 5">البوابة رقم 5</option>
-                <option value="البوابة رقم 6">البوابة رقم 6</option>
-                <option value="قسم العمليات">قسم العمليات</option>
+                <option value="all">🏢 جميع الجهات والحسابات (كل النظام)</option>
             </select>
 
             <select id="searchCategory" onchange="runSearch()">
-                <option value="all">🔍 الكل (جميع الأقسام)</option>
+                <option value="all">🔍 الكل</option>
                 <option value="security">🚨 البلاغات الأمنية</option>
                 <option value="permits">📋 أوامر العمليات</option>
                 <option value="civilian">🚗 السيارات المدنية</option>
-                <option value="fuel">🛢️ قواطر الديزل والمازوت</option>
+                <option value="fuel">🛢️ قواطر الديزل</option>
                 <option value="company">🏢 سيارات الشركات</option>
                 <option value="military">🎖️ السيارات العسكرية</option>
                 <option value="bedouin">⛺ حلول البدو</option>
             </select>
-            <input type="text" id="searchQuery" oninput="runSearch()" placeholder="ابحث برقم السيارة، اسم الشخص، أو رقم الهوية...">
+            <input type="text" id="searchQuery" oninput="runSearch()" placeholder="بحث برقم السيارة، الاسم، الهوية، جهة الإصدار، أو اسم المناوب...">
             <div id="searchResults"></div>
         </div>
     </div>
 
-    <!-- نافذة التعديل الجزئي للبوابات (نوع الحمولة وعدد المرافقين فقط أثناء العبور) -->
+    <div id="gateAccessPickerModal" class="modal">
+        <div style="background:white; padding:16px; border-radius:8px; max-width:460px; width:92%; max-height:85vh; display:flex; flex-direction:column; text-align:right;">
+            <h3 style="color:#0b2545; margin:0 0 6px 0; font-size:0.98rem;">🚪 تحديد البوابات المشمولة (دخول / خروج)</h3>
+            <p style="margin:0 0 8px 0; font-size:0.78rem; color:#555;">اختر البوابات الممنوح لها صلاحية تسهيل العبور وحدد هل هي مشمولة <b>للدخول</b> أو <b>للخروج</b>:</p>
+            <input type="hidden" id="picker_target_prefix">
+            <input type="hidden" id="picker_target_section">
+            <div id="gatePickerListContainer" style="overflow-y:auto; border:1px solid #cfd8dc; border-radius:6px; background:#fafafa; flex:1;"></div>
+            <div class="btn-group-row" style="margin-top:12px;">
+                <button type="button" class="btn-submit" style="width:auto; flex:2; padding:10px;" onclick="confirmGateAccessSelection()">✅ اعتماد البوابات المختارة</button>
+                <button type="button" class="btn-cancel-action" onclick="closeGateAccessPickerModal()">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
     <div id="partialEditModal" class="modal">
         <div style="background:white; padding:20px; border-radius:8px; max-width:400px; width:90%; text-align:right;">
-            <h3 style="color:#0b2545; margin-top:0;">✏️ التعديل الجزئي المسموح لصاحب السجل</h3>
-            <p style="font-size:0.8rem; color:#27ae60; font-weight:bold;">مسموح فقط لصاحب السجل أو قسم العمليات بتعديل الحمولة والمرافقين.</p>
+            <h3 style="color:#0b2545; margin-top:0;">✏️ التعديل الجزئي للحمولة والمرافقين</h3>
             <input type="hidden" id="partial_timestamp_ms">
             <input type="hidden" id="partial_cat_key">
 
-            <label id="lbl_partial_cargo">📦 نوع الحمولة / المواد:</label>
+            <label id="lbl_partial_cargo">📦 نوع الحمولة:</label>
             <input type="text" id="modal_partial_cargo" placeholder="نوع الحمولة...">
 
-            <label id="lbl_partial_companions">👥 عدد المرافقين / كمية الوقود:</label>
-            <input type="number" id="modal_partial_companions" value="0" placeholder="العدد أو الكمية...">
+            <label id="lbl_partial_companions">👥 المرافقين / كمية الوقود:</label>
+            <input type="number" id="modal_partial_companions" value="0" placeholder="العدد...">
 
             <div class="btn-group-row" style="margin-top:15px;">
-                <button type="button" class="btn-submit" onclick="savePartialEditChanges()">حفظ التعديل الجزئي بالسحابة</button>
+                <button type="button" class="btn-submit" style="width:auto; flex:2;" onclick="savePartialEditChanges()">حفظ التعديل</button>
                 <button type="button" class="btn-cancel-action" onclick="closePartialEditModal()">إلغاء</button>
             </div>
         </div>
     </div>
 
-    <div id="imageViewerModal" class="modal" onclick="closeImageViewer()">
-        <div style="position:relative; max-width:90%; max-height:90%;">
-            <img id="enlargedImg" src="" style="max-width:100%; max-height:85vh; border-radius:5px; border:2px solid white;">
+    <div id="imageViewerModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); z-index:9999; justify-content:center; align-items:center; flex-direction:column; padding:10px; box-sizing:border-box;">
+        <div style="position:relative; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+            <div style="color:#f1c40f; font-size:0.75rem; margin-bottom:8px; background:rgba(255,255,255,0.15); padding:4px 10px; border-radius:4px; text-align:center;">
+                💡 استخدم إصبعين لتكبير الصورة أو اضغط تحميل مباشر
+            </div>
+            
+            <div style="width:100%; height:70vh; overflow:auto; text-align:center; display:flex; justify-content:center; align-items:center;">
+                <img id="enlargedImg" src="" style="max-width:100%; max-height:100%; object-fit:contain; border-radius:6px; border:2px solid white;">
+            </div>
+            
+            <div style="margin-top:15px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap; width:100%;">
+                <button type="button" onclick="downloadCurrentEnlargedImage()" style="background:#27ae60; color:white; border:none; padding:10px 16px; border-radius:6px; font-weight:bold; font-size:0.85rem; cursor:pointer;">📥 تحميل مباشر</button>
+                <button type="button" onclick="openImageInNewTab()" style="background:#2980b9; color:white; border:none; padding:10px 16px; border-radius:6px; font-weight:bold; font-size:0.85rem; cursor:pointer;">🔗 فتح في صفحة جديدة</button>
+                <button type="button" onclick="closeImageViewer()" style="background:#e74c3c; color:white; border:none; padding:10px 16px; border-radius:6px; font-weight:bold; font-size:0.85rem; cursor:pointer;">❌ إغلاق</button>
+            </div>
         </div>
     </div>
 
@@ -1093,15 +1295,9 @@
                     cloudRecords.push({ docId: docSnap.id, ...docSnap.data() });
                 });
                 
-                if (document.getElementById('searchSection').classList.contains('active')) {
-                    window.runSearch();
-                }
-                if (document.getElementById('securityAlertsSection').classList.contains('active')) {
-                    window.loadSecurityAlerts();
-                }
-                if (document.getElementById('permitsSection').classList.contains('active')) {
-                    window.loadActivePermits();
-                }
+                if (document.getElementById('searchSection').classList.contains('active')) window.runSearch();
+                if (document.getElementById('securityAlertsSection').classList.contains('active')) window.loadSecurityAlerts();
+                if (document.getElementById('permitsSection').classList.contains('active')) window.loadActivePermits();
                 document.getElementById('syncIndicator').className = "sync-status sync-online";
                 document.getElementById('syncIndicator').innerText = `🟢 متصل بالسحابة اللحظية (${cloudRecords.length} سجل متزامن)`;
             }, (error) => {
@@ -1121,16 +1317,14 @@
                     alert("❌ خطأ أثناء الحفظ بالسحابة: " + err.message);
                 }
             } else {
-                alert("❌ لا يوجد اتصال بقاعدة البيانات السحابية حالياً!");
+                alert("❌ لا يوجد اتصال بقاعدة البيانات السحابية!");
             }
         };
 
         window.updateRecordInCloud = async function(timestampMs, updatedFields) {
             let targetDocId = null;
             let cloudIndex = cloudRecords.findIndex(r => r.timestampMs === timestampMs);
-            if (cloudIndex !== -1) {
-                targetDocId = cloudRecords[cloudIndex].docId;
-            }
+            if (cloudIndex !== -1) targetDocId = cloudRecords[cloudIndex].docId;
 
             if (db) {
                 try {
@@ -1175,44 +1369,365 @@
             window.loadActivePermits();
         };
 
-        window.getCloudRecords = function() {
-            return cloudRecords;
-        };
+        window.getCloudRecords = function() { return cloudRecords; };
     </script>
 
     <script>
+        const PERSISTENT_DB_KEY = 'system_permanent_central_users_v2';
+
         let defaultUsers = {
-            "1111": { name: "البوابة رقم 1", role: "gate" },
-            "2222": { name: "البوابة رقم 2", role: "gate" },
-            "3333": { name: "البوابة رقم 3", role: "gate" },
-            "4444": { name: "البوابة رقم 4", role: "gate" },
-            "5555": { name: "البوابة رقم 5", role: "gate" },
-            "6666": { name: "البوابة رقم 6", role: "gate" },
-            "9000": { name: "قسم العمليات", role: "operations" },
-            "8001": { name: "المسؤول الأول", role: "supervisor" },
-            "8002": { name: "المسؤول الثاني", role: "supervisor" },
-            "8003": { name: "المسؤول الثالث", role: "supervisor" },
-            "8004": { name: "المسؤول الرابع", role: "supervisor" },
-            "8005": { name: "المسؤول الخامس", role: "supervisor" },
-            "8006": { name: "المسؤول السادس", role: "supervisor" }
+            "900000": { 
+                name: "قسم العمليات المركزي", 
+                role: "operations", 
+                operationType: "permit",
+                viewMode: "global",
+                visibleGates: [],
+                allowedSections: ["civilian", "fuel", "company", "military", "bedouin", "permits", "security"] 
+            },
+            "111111": { 
+                name: "البوابة الرئيسية", 
+                role: "gate", 
+                operationType: "movement",
+                viewMode: "global",
+                visibleGates: [],
+                allowedSections: ["civilian", "fuel", "company", "military", "bedouin", "security"] 
+            },
+            "222222": { 
+                name: "جهة إصدار التصاريح الشرقية", 
+                role: "gate", 
+                operationType: "permit",
+                viewMode: "global",
+                visibleGates: [],
+                allowedSections: ["civilian", "fuel", "company", "military", "bedouin", "permits", "security"] 
+            }
         };
 
         function getUsersDB() {
-            let saved = localStorage.getItem('custom_users_db');
-            if (!saved) return defaultUsers;
-            let parsed = JSON.parse(saved);
-            if (!parsed["1111"]) {
-                parsed["1111"] = defaultUsers["1111"];
-                localStorage.setItem('custom_users_db', JSON.stringify(parsed));
+            let saved = localStorage.getItem(PERSISTENT_DB_KEY);
+            if (!saved) {
+                let oldKeys = ['custom_users_db_v7', 'system_persistent_users_db_v1', 'custom_users_db'];
+                let mergedUsers = { ...defaultUsers };
+                
+                for (let k of oldKeys) {
+                    let oldData = localStorage.getItem(k);
+                    if (oldData) {
+                        try {
+                            let parsedOld = JSON.parse(oldData);
+                            mergedUsers = { ...mergedUsers, ...parsedOld };
+                        } catch(e) {}
+                    }
+                }
+                
+                localStorage.setItem(PERSISTENT_DB_KEY, JSON.stringify(mergedUsers));
+                return mergedUsers;
             }
-            return parsed;
+            try {
+                let parsed = JSON.parse(saved);
+                if (!parsed["900000"]) {
+                    parsed["900000"] = defaultUsers["900000"];
+                    localStorage.setItem(PERSISTENT_DB_KEY, JSON.stringify(parsed));
+                }
+                return parsed;
+            } catch(e) {
+                return defaultUsers;
+            }
         }
 
         let currentUser = null;
         let currentPin = null;
         let tempMatchedRecord = null;
-        let originalMatchedExpiry = {};
-        let originalMatchedIssuer = {};
+        let activeEnlargedImageSrc = "";
+
+        function isPermitOnlyIssuerRecord(recordObj) {
+            if (!recordObj) return false;
+            if (recordObj.isPermitOrder === true) return true;
+            if (recordObj.recordedByOperationType === 'permit') return true;
+            let usersDb = getUsersDB();
+            let matchedUser = Object.values(usersDb).find(u => u && u.name === recordObj.recordedBy);
+            return Boolean(matchedUser && matchedUser.operationType === 'permit');
+        }
+
+        function getMovementFacilitatorGates(sectionKey) {
+            let usersDb = getUsersDB();
+            let setNames = new Set();
+            Object.values(usersDb).forEach(u => {
+                if (!u || !u.name || u.operationType === 'permit') return;
+                let hasMovementPerm = (u.operationType === 'movement' || u.operationType === 'both');
+                let hasSectionPerm = !sectionKey || u.role === 'operations' || (Array.isArray(u.allowedSections) && u.allowedSections.includes(sectionKey));
+                if (hasMovementPerm && hasSectionPerm) {
+                    setNames.add(u.name.trim());
+                }
+            });
+            return Array.from(setNames);
+        }
+
+        function parseJsonListField(elementId) {
+            let el = document.getElementById(elementId);
+            if (!el || !el.value) return [];
+            try {
+                let parsed = JSON.parse(el.value);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function updateGateSelectionSummary(prefix, entryGates, exitGates) {
+            let summaryEl = document.getElementById(`${prefix}_gate_summary`);
+            let gateHiddenEl = document.getElementById(`${prefix}_permit_gate`);
+            let entryHiddenEl = document.getElementById(`${prefix}_allowed_entry_gates`);
+            let exitHiddenEl = document.getElementById(`${prefix}_allowed_exit_gates`);
+
+            let safeEntry = Array.isArray(entryGates) ? entryGates : [];
+            let safeExit = Array.isArray(exitGates) ? exitGates : [];
+
+            if (entryHiddenEl) entryHiddenEl.value = JSON.stringify(safeEntry);
+            if (exitHiddenEl) exitHiddenEl.value = JSON.stringify(safeExit);
+
+            let combinedParts = [];
+            if (safeEntry.length > 0) combinedParts.push(`دخول: ${safeEntry.join('، ')}`);
+            if (safeExit.length > 0) combinedParts.push(`خروج: ${safeExit.join('، ')}`);
+
+            if (gateHiddenEl) gateHiddenEl.value = combinedParts.join(' | ');
+
+            if (summaryEl) {
+                if (safeEntry.length === 0 && safeExit.length === 0) {
+                    summaryEl.innerText = 'لم يتم تحديد بوابات محددة بعد';
+                } else {
+                    summaryEl.innerHTML = `
+                        <div>📥 <b>بوابات الدخول:</b> ${safeEntry.length > 0 ? safeEntry.join('، ') : 'غير محدد'}</div>
+                        <div>📤 <b>بوابات الخروج:</b> ${safeExit.length > 0 ? safeExit.join('، ') : 'غير محدد'}</div>
+                    `;
+                }
+            }
+        }
+
+        function openGateAccessPickerModal(prefix, sectionKey) {
+            let targetPrefixInp = document.getElementById('picker_target_prefix');
+            let targetSectionInp = document.getElementById('picker_target_section');
+            let listContainer = document.getElementById('gatePickerListContainer');
+            let modal = document.getElementById('gateAccessPickerModal');
+            if (!targetPrefixInp || !targetSectionInp || !listContainer || !modal) return;
+
+            targetPrefixInp.value = prefix;
+            targetSectionInp.value = sectionKey;
+
+            let selectedEntry = parseJsonListField(`${prefix}_allowed_entry_gates`);
+            let selectedExit = parseJsonListField(`${prefix}_allowed_exit_gates`);
+
+            let candidateGates = getMovementFacilitatorGates(sectionKey);
+            let extraGates = [...selectedEntry, ...selectedExit].filter(g => !candidateGates.includes(g));
+            let allGates = [...candidateGates, ...extraGates];
+
+            if (allGates.length === 0) {
+                listContainer.innerHTML = '<div style="padding:12px; text-align:center; color:#777; font-size:0.82rem;">لا توجد بوابات ممنوحة صلاحية تسهيل العبور لهذا القسم.</div>';
+            } else {
+                listContainer.innerHTML = allGates.map((gateName, idx) => {
+                    let isEntryChecked = selectedEntry.includes(gateName) ? 'checked' : '';
+                    let isExitChecked = selectedExit.includes(gateName) ? 'checked' : '';
+                    let safeVal = gateName.replace(/"/g, '&quot;');
+                    return `
+                        <div class="gate-picker-row">
+                            <span style="font-weight:bold; color:#0b2545;">🚪 ${gateName}</span>
+                            <div class="gate-picker-checks">
+                                <label style="color:#16a085;"><input type="checkbox" id="pick_entry_${idx}" data-gate="${safeVal}" ${isEntryChecked}> دخول</label>
+                                <label style="color:#d35400;"><input type="checkbox" id="pick_exit_${idx}" data-gate="${safeVal}" ${isExitChecked}> خروج</label>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeGateAccessPickerModal() {
+            let modal = document.getElementById('gateAccessPickerModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function confirmGateAccessSelection() {
+            let prefix = document.getElementById('picker_target_prefix').value;
+            let entryGates = [];
+            let exitGates = [];
+
+            document.querySelectorAll('#gatePickerListContainer input[type="checkbox"]').forEach(cb => {
+                if (!cb.checked) return;
+                let gateName = cb.getAttribute('data-gate');
+                if (!gateName) return;
+                if (cb.id.startsWith('pick_entry_') && !entryGates.includes(gateName)) {
+                    entryGates.push(gateName);
+                } else if (cb.id.startsWith('pick_exit_') && !exitGates.includes(gateName)) {
+                    exitGates.push(gateName);
+                }
+            });
+
+            updateGateSelectionSummary(prefix, entryGates, exitGates);
+            closeGateAccessPickerModal();
+            checkIdentityAndMatch(document.getElementById('picker_target_section').value);
+        }
+
+        function getSameDayMovementsForEntity(recordObj, allRecords) {
+            let refMs = recordObj.timestampMs || Date.now();
+            let refDayStr = new Date(refMs).toDateString();
+            let idVal = (recordObj.idnum || '').trim().toLowerCase();
+            let plateVal = (recordObj.plate && recordObj.plate !== 'بدون سيارة') ? recordObj.plate.trim().toLowerCase() : '';
+            let originGate = (recordObj.originatingGate || recordObj.permitIssuer || recordObj.recordedBy || '').trim().toLowerCase();
+
+            return allRecords.filter(r => {
+                if (!r || r.catKey === 'security' || r.catKey === 'permits') return false;
+                if (isPermitOnlyIssuerRecord(r)) return false;
+                if (new Date(r.timestampMs || 0).toDateString() !== refDayStr) return false;
+                let rId = (r.idnum || '').trim().toLowerCase();
+                let rPlate = (r.plate && r.plate !== 'بدون سيارة') ? r.plate.trim().toLowerCase() : '';
+                let sameEntity = (idVal && rId && idVal === rId) || (plateVal && rPlate && plateVal === rPlate);
+                if (!sameEntity) return false;
+                let rOrigin = (r.originatingGate || r.permitIssuer || r.recordedBy || '').trim().toLowerCase();
+                return !originGate || !rOrigin || originGate === rOrigin;
+            });
+        }
+
+        function computePermitLifecycleStatus(recordObj, allRecords) {
+            let validityType = recordObj.permitValidity || recordObj.permitPermission || 'دخول وخروج';
+            let isPermitOrder = isPermitOnlyIssuerRecord(recordObj);
+            let movementLogged = isPermitOrder
+                ? `أمر تصريح مرور (${validityType}) - بانتظار البوابة`
+                : (recordObj.movementStatus || 'دخول');
+            let todayStr = new Date().toDateString();
+            let recDateStr = new Date(recordObj.timestampMs || Date.now()).toDateString();
+            let isSameDay = (todayStr === recDateStr);
+
+            let sameDayMoves = getSameDayMovementsForEntity(recordObj, allRecords);
+            let entryCount = sameDayMoves.filter(m => (m.movementStatus || 'دخول') === 'دخول').length;
+            let exitCount = sameDayMoves.filter(m => m.movementStatus === 'خروج').length;
+
+            let allowedEntry = Array.isArray(recordObj.allowedEntryGates) ? recordObj.allowedEntryGates : [];
+            let allowedExit = Array.isArray(recordObj.allowedExitGates) ? recordObj.allowedExitGates : [];
+            let requiredEntries = allowedEntry.length > 1 ? allowedEntry.length : 1;
+            let requiredExits = allowedExit.length > 1 ? allowedExit.length : 1;
+
+            let isExhausted = false;
+            let statusText = 'ساري ونشط';
+            let statusColor = '#27ae60';
+
+            if (!isSameDay && (validityType === 'دخول وخروج' || validityType === 'خروج ودخول')) {
+                isExhausted = true;
+                statusText = '❌ منتهي (انتهت صلاحية نفس اليوم)';
+                statusColor = '#ff0000';
+            } else if (isPermitOrder && entryCount === 0 && exitCount === 0) {
+                statusText = `📋 أمر تصريح ساري للبوابات (${validityType}) - لم تُنفذ حركة بعد`;
+                statusColor = '#2980b9';
+            } else if (validityType === 'دخول فقط') {
+                if (entryCount >= requiredEntries) {
+                    isExhausted = true;
+                    statusText = `✅ تم إتمام الدخول (${entryCount}/${requiredEntries}) واستنفاد التصريح`;
+                    statusColor = '#ff0000';
+                } else {
+                    statusText = `📥 ساري للدخول (${entryCount}/${requiredEntries} بوابات دخول منفذة)`;
+                    statusColor = '#e67e22';
+                }
+            } else if (validityType === 'خروج فقط') {
+                if (exitCount >= requiredExits) {
+                    isExhausted = true;
+                    statusText = `✅ تم إتمام الخروج (${exitCount}/${requiredExits}) واستنفاد التصريح`;
+                    statusColor = '#ff0000';
+                } else {
+                    statusText = `📤 ساري للخروج (${exitCount}/${requiredExits} بوابات خروج منفذة)`;
+                    statusColor = '#e67e22';
+                }
+            } else if (validityType === 'دخول وخروج') {
+                if (entryCount >= requiredEntries && exitCount >= requiredExits) {
+                    isExhausted = true;
+                    statusText = `❌ منتهي / تم استنفاد العبور (دخول ${entryCount}/${requiredEntries} - خروج ${exitCount}/${requiredExits})`;
+                    statusColor = '#ff0000';
+                } else {
+                    statusText = `🔄 ساري في نفس اليوم (دخول: ${entryCount}/${requiredEntries} | خروج: ${exitCount}/${requiredExits})`;
+                    statusColor = '#e67e22';
+                }
+            } else if (validityType === 'خروج ودخول') {
+                if (exitCount >= requiredExits && entryCount >= requiredEntries) {
+                    isExhausted = true;
+                    statusText = `❌ منتهي / تم استنفاد العبور (خروج ${exitCount}/${requiredExits} - دخول ${entryCount}/${requiredEntries})`;
+                    statusColor = '#ff0000';
+                } else {
+                    statusText = `🔄 ساري في نفس اليوم (خروج: ${exitCount}/${requiredExits} | دخول: ${entryCount}/${requiredEntries})`;
+                    statusColor = '#e67e22';
+                }
+            } else if (recordObj.permitEndDate) {
+                statusText = recordObj.permitEndDate.replace('T', ' ');
+            }
+
+            if (recordObj.isExhausted === true && (entryCount >= requiredEntries || exitCount >= requiredExits)) {
+                isExhausted = true;
+                statusText = '❌ منتهي / تم استنفاد العبور';
+                statusColor = '#ff0000';
+            }
+
+            return { isExhausted, isPermitOrder, statusText, statusColor, entryCount, exitCount, requiredEntries, requiredExits, validityType, movementLogged };
+        }
+
+        function getAllKnownGatesAndEntities() {
+            let usersDb = getUsersDB();
+            let setNames = new Set();
+            Object.values(usersDb).forEach(u => {
+                if (u && u.name) setNames.add(u.name.trim());
+            });
+            let records = window.getCloudRecords ? window.getCloudRecords() : [];
+            records.forEach(r => {
+                if (r.recordedBy) setNames.add(r.recordedBy.trim());
+                if (r.originatingGate) setNames.add(r.originatingGate.trim());
+            });
+            return Array.from(setNames).filter(Boolean);
+        }
+
+        function populateAccountGatesCheckboxes(preselectedGates = []) {
+            let container = document.getElementById('acc_gates_checkbox_list');
+            if (!container) return;
+
+            let knownGates = getAllKnownGatesAndEntities();
+            let extraGates = preselectedGates.filter(g => !knownGates.includes(g));
+            let allOptions = [...knownGates, ...extraGates];
+
+            if (allOptions.length === 0) {
+                container.innerHTML = '<span style="color:#777; font-size:0.8rem;">لا توجد بوابات مسجلة بعد، يمكنك إضافتها بالأسفل.</span>';
+                return;
+            }
+
+            container.innerHTML = allOptions.map(gateName => {
+                let checkedAttr = preselectedGates.includes(gateName) ? 'checked' : '';
+                return `<label><input type="checkbox" name="acc_visible_gates_cb" value="${gateName.replace(/"/g, '&quot;')}" ${checkedAttr}> ${gateName}</label>`;
+            }).join('');
+        }
+
+        function toggleSelectedGatesBox() {
+            let modeSelect = document.getElementById('acc_view_mode');
+            let box = document.getElementById('acc_selected_gates_box');
+            if (!modeSelect || !box) return;
+            if (modeSelect.value === 'selected_gates') {
+                box.style.display = 'block';
+                populateAccountGatesCheckboxes();
+            } else {
+                box.style.display = 'none';
+            }
+        }
+
+        function filterRecordsByUserVisibility(records) {
+            if (!currentUser || currentUser.role === 'operations' || currentUser.name === 'قسم العمليات المركزي') {
+                return records;
+            }
+            if (currentUser.viewMode === 'isolated') {
+                return records.filter(r => r.recordedBy === currentUser.name);
+            }
+            if (currentUser.viewMode === 'selected_gates') {
+                let allowedGates = Array.isArray(currentUser.visibleGates) ? currentUser.visibleGates : [];
+                let allowedSet = new Set([...allowedGates, currentUser.name]);
+                return records.filter(r =>
+                    allowedSet.has(r.recordedBy) ||
+                    (r.originatingGate && allowedSet.has(r.originatingGate))
+                );
+            }
+            return records;
+        }
 
         function toggleDropdownMenu() {
             let menu = document.getElementById('optionsDropdown');
@@ -1241,17 +1756,191 @@
             renderManageUsersList();
         }
 
+        function openAdminAccountsManager() {
+            let menu = document.getElementById('optionsDropdown');
+            if(menu) menu.style.display = 'none';
+            showSection('adminAccountsSection');
+            resetAccountFormToCreate();
+            renderAdminAccountsList();
+        }
+
+        function renderAdminAccountsList() {
+            let usersDb = getUsersDB();
+            let container = document.getElementById('adminAccountsListContainer');
+            if(!container) return;
+
+            container.innerHTML = Object.keys(usersDb).map(pin => {
+                let u = usersDb[pin];
+                let opTypeLabel = u.operationType === 'permit' ? 'إصدار أمر تصريح مرور فقط (توجيه للبوابات)' : u.operationType === 'movement' ? 'تسهيل حركة عبور فقط' : 'كليهما (حركة وتصاريح)';
+                let viewLabel = 'رؤية عامة';
+                if (u.viewMode === 'isolated') {
+                    viewLabel = 'عزل الرؤية (سجلاته فقط)';
+                } else if (u.viewMode === 'selected_gates') {
+                    let gatesTxt = (u.visibleGates && u.visibleGates.length > 0) ? u.visibleGates.join('، ') : 'بواباته فقط';
+                    viewLabel = `بوابات محددة (${gatesTxt})`;
+                }
+                let sectionsList = u.allowedSections ? u.allowedSections.join(', ') : 'الكل';
+
+                return `
+                    <div style="background:#fdfefe; border:1px solid #ccc; padding:10px; border-radius:6px; margin-bottom:8px; font-size:0.85rem;">
+                        <div><b>👤 اسم الحساب:</b> ${u.name} | <b>🔑 الرمز (6 أرقام):</b> ${pin}</div>
+                        <div><b>⚙️ نظام العمل:</b> <span style="color:#d35400; font-weight:bold;">${opTypeLabel}</span> | <b>👁️ الرؤية:</b> <span style="color:#134074; font-weight:bold;">${viewLabel}</span></div>
+                        <div><b>📂 الأقسام المصرح بها:</b> ${sectionsList}</div>
+                        <div style="margin-top:8px; display:flex; gap:6px;">
+                            <button type="button" class="btn-card-edit" onclick="editUserAccount('${pin}')">✏️ تعديل الصلاحيات</button>
+                            ${pin !== '900000' ? `<button type="button" class="btn-card-delete" onclick="deleteUserAccount('${pin}')">🗑️ حذف الحساب</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function editUserAccount(pin) {
+            let usersDb = getUsersDB();
+            let u = usersDb[pin];
+            if(!u) return;
+
+            document.getElementById('acc_pin').value = pin;
+            document.getElementById('acc_pin').readOnly = true; 
+            document.getElementById('acc_name').value = u.name;
+            document.getElementById('acc_operation_type').value = u.operationType || 'movement';
+            document.getElementById('acc_view_mode').value = u.viewMode || 'global';
+
+            let visibleGates = Array.isArray(u.visibleGates) ? u.visibleGates : [];
+            if (u.viewMode === 'selected_gates') {
+                document.getElementById('acc_selected_gates_box').style.display = 'block';
+                populateAccountGatesCheckboxes(visibleGates);
+                let knownGates = getAllKnownGatesAndEntities();
+                let customOnly = visibleGates.filter(g => !knownGates.includes(g));
+                document.getElementById('acc_custom_gates').value = customOnly.join('، ');
+            } else {
+                document.getElementById('acc_selected_gates_box').style.display = 'none';
+                document.getElementById('acc_custom_gates').value = '';
+            }
+
+            let checkboxes = document.querySelectorAll('input[name="acc_allowed_sections"]');
+            checkboxes.forEach(cb => {
+                cb.checked = u.allowedSections && u.allowedSections.includes(cb.value);
+            });
+
+            document.getElementById('formAccountTitle').innerText = `✏️ تعديل صلاحيات الحساب (${u.name} - ${pin}):`;
+            document.getElementById('btnSaveAccount').innerText = `💾 تحديث بيانات الحساب والصلاحيات`;
+            document.getElementById('btnCancelEditAccount').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetAccountFormToCreate() {
+            let form = document.getElementById('createAccountForm');
+            if (form) form.reset();
+            let pinInput = document.getElementById('acc_pin');
+            if (pinInput) pinInput.readOnly = false;
+            
+            let gatesBox = document.getElementById('acc_selected_gates_box');
+            if (gatesBox) gatesBox.style.display = 'none';
+            let customGatesInp = document.getElementById('acc_custom_gates');
+            if (customGatesInp) customGatesInp.value = '';
+            
+            let titleElem = document.getElementById('formAccountTitle');
+            if (titleElem) titleElem.innerText = '➕ إنشاء حساب جديد أو تعديل صلاحياته:';
+            
+            let saveBtn = document.getElementById('btnSaveAccount');
+            if (saveBtn) saveBtn.innerText = '💾 حفظ وحفظ الحساب بالسحابة/النظام';
+            
+            let cancelBtn = document.getElementById('btnCancelEditAccount');
+            if (cancelBtn) cancelBtn.style.display = 'none';
+        }
+
+        function handleCreateOrUpdateAccount(e) {
+            e.preventDefault();
+            if(!currentUser || currentUser.role !== 'operations') {
+                alert('❌ هذه الصلاحية مخصصة لمركز العمليات فقط!');
+                return;
+            }
+
+            let pinInput = document.getElementById('acc_pin');
+            let nameInput = document.getElementById('acc_name');
+            let opTypeInput = document.getElementById('acc_operation_type');
+            let viewModeInput = document.getElementById('acc_view_mode');
+
+            if(!pinInput || !nameInput || !opTypeInput || !viewModeInput) {
+                alert('❌ خطأ: بعض حقول النموذج غير موجودة!');
+                return;
+            }
+
+            let pin = pinInput.value.trim();
+            let name = nameInput.value.trim();
+            let operationType = opTypeInput.value;
+            let viewMode = viewModeInput.value;
+
+            if (pin.length !== 6 || isNaN(pin)) {
+                alert('❌ الرمز السري يجب أن يكون مكوناً من 6 أرقام تماماً!');
+                return;
+            }
+
+            let visibleGates = [];
+            if (viewMode === 'selected_gates') {
+                document.querySelectorAll('input[name="acc_visible_gates_cb"]:checked').forEach(cb => {
+                    if (cb.value.trim()) visibleGates.push(cb.value.trim());
+                });
+                let customGatesStr = document.getElementById('acc_custom_gates') ? document.getElementById('acc_custom_gates').value : '';
+                if (customGatesStr.trim()) {
+                    customGatesStr.split(/[,،\n]+/).forEach(g => {
+                        let cleanG = g.trim();
+                        if (cleanG && !visibleGates.includes(cleanG)) visibleGates.push(cleanG);
+                    });
+                }
+            }
+
+            let allowedSections = [];
+            document.querySelectorAll('input[name="acc_allowed_sections"]:checked').forEach(cb => {
+                allowedSections.push(cb.value);
+            });
+
+            let usersDb = getUsersDB();
+            let existingRole = usersDb[pin] ? usersDb[pin].role : 'gate';
+
+            usersDb[pin] = {
+                name: name,
+                role: existingRole,
+                operationType: operationType,
+                viewMode: viewMode,
+                visibleGates: visibleGates,
+                allowedSections: allowedSections
+            };
+
+            localStorage.setItem(PERSISTENT_DB_KEY, JSON.stringify(usersDb));
+
+            if (currentPin === pin) {
+                currentUser = usersDb[pin];
+                sessionStorage.setItem('loggedUser', JSON.stringify(currentUser));
+            }
+
+            alert(`✅ تم حفظ وتحديث الحساب (${name} - ${pin}) بنجاح!`);
+            resetAccountFormToCreate();
+            renderAdminAccountsList();
+        }
+
+        function deleteUserAccount(pin) {
+            if(confirm(`هل أنت متأكد من حذف الحساب برمز (${pin})؟`)) {
+                let usersDb = getUsersDB();
+                delete usersDb[pin];
+                localStorage.setItem(PERSISTENT_DB_KEY, JSON.stringify(usersDb));
+                renderAdminAccountsList();
+            }
+        }
+
         function renderManageUsersList() {
             let usersDb = getUsersDB();
             let container = document.getElementById('usersListContainer');
             if (!container || !currentUser || !currentPin) return;
 
             let user = usersDb[currentPin] || currentUser;
+            let opTypeName = user.operationType === 'permit' ? 'إصدار أمر تصريح مرور فقط (توجيه للبوابات)' : user.operationType === 'movement' ? 'تسهيل حركة عبور فقط' : 'كليهما (حركة وتصاريح)';
             container.innerHTML = `
                 <div style="background:#f8f9fa; border:1px solid #ccc; padding:12px; border-radius:6px; margin-bottom:8px;">
-                    <label style="color:#0b2545; margin-top:0;">تصنيف حسابك الحالي: <b>(${user.role === 'gate' ? 'بوابة' : user.role === 'operations' ? 'قسم العمليات' : 'مشرف متابعة'})</b></label>
+                    <label style="color:#0b2545; margin-top:0;">نوع الصلاحية الحالي: <b>(${opTypeName})</b></label>
                     <label style="margin-top:8px;">اسم الحساب:</label>
-                    <input type="text" id="edit_my_name" value="${user.name}" placeholder="أدخل الاسم الجديد لحسابك...">
+                    <input type="text" id="edit_my_name" value="${user.name}" placeholder="أدخل الاسم الجديد...">
                     <button type="button" class="btn-submit" style="padding:8px 12px; font-size:0.85rem; margin-top:6px; width:100%;" onclick="saveMyUserName()">💾 حفظ اسم الحساب</button>
                 </div>
             `;
@@ -1266,17 +1955,25 @@
             let usersDb = getUsersDB();
             if (usersDb[currentPin]) {
                 usersDb[currentPin].name = newName;
-                localStorage.setItem('custom_users_db', JSON.stringify(usersDb));
+                localStorage.setItem(PERSISTENT_DB_KEY, JSON.stringify(usersDb));
                 currentUser.name = newName;
                 sessionStorage.setItem('loggedUser', JSON.stringify(currentUser));
-                document.getElementById('currentUserBadge').innerText = `👤 ${currentUser.name}`;
+                document.getElementById('currentUserBadge').innerText = currentUser.name;
                 alert('✅ تم تحديث اسم حسابك بنجاح!');
                 showHome();
             }
         }
 
-        function handleLogin() {
-            const pin = document.getElementById('pinInput').value.trim();
+        window.handleLogin = function() {
+            const pinInputElem = document.getElementById('pinInput');
+            if (!pinInputElem) return;
+            const pin = pinInputElem.value.trim();
+            
+            if (pin.length !== 6 || isNaN(pin)) {
+                document.getElementById('loginError').style.display = 'block';
+                return;
+            }
+
             let usersDb = getUsersDB();
             const user = usersDb[pin];
             if (user) {
@@ -1288,7 +1985,7 @@
             } else {
                 document.getElementById('loginError').style.display = 'block';
             }
-        }
+        };
 
         function handleLogout() {
             sessionStorage.removeItem('loggedUser');
@@ -1308,18 +2005,20 @@
             let confirmPinInput = document.getElementById('confirm_new_pin').value.trim();
 
             if (oldPinInput !== currentPin) return alert('❌ الرمز السري الحالي غير صحيح!');
-            if (newPinInput.length < 4) return alert('❌ الرمز السري الجديد يجب ألا يقل عن 4 أرقام!');
+            if (newPinInput.length !== 6 || isNaN(newPinInput)) {
+                return alert('❌ الرمز السري الجديد يجب أن يكون مكوناً من 6 أرقام تماماً!');
+            }
             if (newPinInput !== confirmPinInput) return alert('❌ الرمز السري الجديد وتأكيده غير متطابقين!');
 
             let usersDb = getUsersDB();
             delete usersDb[currentPin];
             usersDb[newPinInput] = currentUser;
 
-            localStorage.setItem('custom_users_db', JSON.stringify(usersDb));
+            localStorage.setItem(PERSISTENT_DB_KEY, JSON.stringify(usersDb));
             currentPin = newPinInput;
             sessionStorage.setItem('currentPin', newPinInput);
 
-            alert('✅ تم تغيير الرمز السري بنجاح!');
+            alert('✅ تم تغيير الرمز السري إلى 6 أرقام بنجاح!');
             document.getElementById('changePasswordForm').reset();
             showHome();
         }
@@ -1327,53 +2026,65 @@
         function applyRolePermissions() {
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('appContainer').style.display = 'block';
-            document.getElementById('currentUserBadge').innerText = `👤 ${currentUser.name}`;
-
-            const gateButtons = ['btn_civilian', 'btn_fuel', 'btn_company', 'btn_military', 'btn_bedouin'];
             
-            if (currentUser.role === 'gate') {
-                document.getElementById('btn_security').style.display = 'block';
-                document.getElementById('btn_permits').style.display = 'block';
-                document.getElementById('securityFormWrapper').style.display = 'none';
-                document.getElementById('permitFormWrapper').style.display = 'none';
-                gateButtons.forEach(id => document.getElementById(id).style.display = 'block');
-            } 
-            else if (currentUser.role === 'operations') {
-                document.getElementById('btn_security').style.display = 'block';
-                document.getElementById('btn_permits').style.display = 'block';
-                document.getElementById('securityFormWrapper').style.display = 'block';
-                document.getElementById('permitFormWrapper').style.display = 'block';
-                gateButtons.forEach(id => document.getElementById(id).style.display = 'none');
-            } 
-            else if (currentUser.role === 'supervisor') {
-                // المشرفون متابعة فقط بدون صلاحية إنشاء بلاغات أو أوامر عمليات أو تسجيل حركة
-                document.getElementById('btn_security').style.display = 'block';
-                document.getElementById('btn_permits').style.display = 'block';
-                document.getElementById('securityFormWrapper').style.display = 'none';
-                document.getElementById('permitFormWrapper').style.display = 'none';
-                gateButtons.forEach(id => document.getElementById(id).style.display = 'none');
+            document.getElementById('currentUserBadge').innerText = currentUser.name;
+
+            let adminControlBtn = document.getElementById('menuAdminControl');
+            if (adminControlBtn) {
+                adminControlBtn.style.display = (currentUser.role === 'operations') ? 'block' : 'none';
             }
 
+            let allowed = currentUser.allowedSections || [];
+            let isOpsOrFull = (currentUser.role === 'operations');
+            let isMovementOnly = (currentUser.operationType === 'movement');
+
+            document.getElementById('btn_security').style.display = (isOpsOrFull || allowed.includes('security')) ? 'block' : 'none';
+            document.getElementById('btn_permits').style.display = (!isMovementOnly && (isOpsOrFull || allowed.includes('permits'))) ? 'block' : 'none';
+            
+            document.getElementById('btn_civilian').style.display = (isOpsOrFull || allowed.includes('civilian')) ? 'block' : 'none';
+            document.getElementById('btn_fuel').style.display = (isOpsOrFull || allowed.includes('fuel')) ? 'block' : 'none';
+            document.getElementById('btn_company').style.display = (isOpsOrFull || allowed.includes('company')) ? 'block' : 'none';
+            document.getElementById('btn_military').style.display = (isOpsOrFull || allowed.includes('military')) ? 'block' : 'none';
+            document.getElementById('btn_bedouin').style.display = (isOpsOrFull || allowed.includes('bedouin')) ? 'block' : 'none';
+
+            let canPublish = (currentUser.role !== 'observer');
+            document.getElementById('securityFormWrapper').style.display = (canPublish && (isOpsOrFull || allowed.includes('security'))) ? 'block' : 'none';
+            document.getElementById('permitFormWrapper').style.display = (canPublish && !isMovementOnly && (isOpsOrFull || allowed.includes('permits'))) ? 'block' : 'none';
+
+            adjustFormsByOperationType();
             resetAllFormsCompletely();
             showHome();
             checkBackupAlertTime();
         }
 
-        function onExpiryDateChanged(p) {
-            let endDateInput = document.getElementById(`${p}_permit_end_date`);
-            let issuerInput = document.getElementById(`${p}_permit_issuer`);
-            if (!endDateInput || !issuerInput || !currentUser) return;
+        function adjustFormsByOperationType() {
+            let isMovementOnly = (currentUser && currentUser.operationType === 'movement');
+            let isPermitOnly = (currentUser && currentUser.operationType === 'permit');
+            
+            let prefixes = ['v', 'f', 'c', 'm', 'b'];
+            prefixes.forEach(p => {
+                let movementBox = document.getElementById(`${p}_movement_box`);
+                let permitBox = document.getElementById(`${p}_permit_box`);
+                let bannerLabel = document.getElementById(`${p === 'v' ? 'civilian' : p === 'f' ? 'fuel' : p === 'c' ? 'company' : p === 'm' ? 'military' : 'bedouin'}BannerLabel`);
+                let submitBtn = document.getElementById(`${p}_submit_btn`);
 
-            let newDateVal = endDateInput.value;
-            if (originalMatchedExpiry[p] !== null) {
-                if (newDateVal !== originalMatchedExpiry[p]) {
-                    issuerInput.value = currentUser.name;
+                if (isMovementOnly) {
+                    if(movementBox) movementBox.style.display = 'block';
+                    if(permitBox) permitBox.style.display = 'block'; 
+                    if(bannerLabel) bannerLabel.innerText = '🛡️ القائم بتسهيل الحركة:';
+                    if(submitBtn) submitBtn.innerText = '💾 تسجيل وتسهيل الحركة بالسحابة';
+                } else if (isPermitOnly) {
+                    if(movementBox) movementBox.style.display = 'none';
+                    if(permitBox) permitBox.style.display = 'block';
+                    if(bannerLabel) bannerLabel.innerText = '🛡️ جهة إصدار أمر التصريح للبوابات:';
+                    if(submitBtn) submitBtn.innerText = '📋 إصدار أمر تصريح مرور للبوابات';
                 } else {
-                    issuerInput.value = originalMatchedIssuer[p] || currentUser.name;
+                    if(movementBox) movementBox.style.display = 'block';
+                    if(permitBox) permitBox.style.display = 'block';
+                    if(bannerLabel) bannerLabel.innerText = '🛡️ القائم بالعملية:';
+                    if(submitBtn) submitBtn.innerText = '💾 حفظ وتسجيل بالسحابة';
                 }
-            } else {
-                issuerInput.value = currentUser.name;
-            }
+            });
         }
 
         function checkBackupAlertTime() {
@@ -1410,9 +2121,50 @@
             
             resetAllFormsCompletely();
 
-            if(sectionId === 'searchSection') runSearch();
+            if(sectionId === 'searchSection') {
+                populateSearchGateFilter();
+                runSearch();
+            }
             if(sectionId === 'securityAlertsSection') loadSecurityAlerts();
             if(sectionId === 'permitsSection') loadActivePermits();
+            if(sectionId === 'adminAccountsSection') renderAdminAccountsList();
+        }
+
+        function populateSearchGateFilter() {
+            let gateFilterSelect = document.getElementById('searchGateFilter');
+            if(!gateFilterSelect) return;
+            
+            let currentSelected = gateFilterSelect.value;
+            let usersDb = getUsersDB();
+            
+            let optionsHtml = '<option value="all">🏢 جميع الجهات والحسابات (كل النظام)</option>';
+            
+            let uniqueNames = new Set();
+            Object.values(usersDb).forEach(u => {
+                if(u.name) uniqueNames.add(u.name);
+            });
+
+            let allRecords = window.getCloudRecords ? window.getCloudRecords() : [];
+            allRecords.forEach(r => {
+                if(r.recordedBy) uniqueNames.add(r.recordedBy);
+            });
+
+            let allowedNamesArray = Array.from(uniqueNames);
+            if (currentUser && currentUser.role !== 'operations' && currentUser.name !== 'قسم العمليات المركزي') {
+                if (currentUser.viewMode === 'isolated') {
+                    allowedNamesArray = [currentUser.name];
+                } else if (currentUser.viewMode === 'selected_gates') {
+                    let vis = Array.isArray(currentUser.visibleGates) ? currentUser.visibleGates : [];
+                    allowedNamesArray = Array.from(new Set([...vis, currentUser.name]));
+                }
+            }
+
+            allowedNamesArray.forEach(name => {
+                optionsHtml += `<option value="${name}">${name}</option>`;
+            });
+
+            gateFilterSelect.innerHTML = optionsHtml;
+            gateFilterSelect.value = allowedNamesArray.includes(currentSelected) ? currentSelected : 'all';
         }
 
         function showHome() {
@@ -1437,7 +2189,7 @@
                 let img = new Image();
                 img.onload = function() {
                     let canvas = document.createElement('canvas');
-                    let maxWidth = 700;
+                    let maxWidth = 800;
                     let width = img.width;
                     let height = img.height;
                     if (width > maxWidth) {
@@ -1447,7 +2199,7 @@
                     canvas.width = width;
                     canvas.height = height;
                     canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-                    let compressedDataUrl = canvas.toDataURL('image/jpeg', 0.65);
+                    let compressedDataUrl = canvas.toDataURL('image/jpeg', 0.75);
                     document.getElementById(`${prefix}_final_image_data`).value = compressedDataUrl;
                     document.getElementById(`${prefix}_img_thumbnail`).src = compressedDataUrl;
                     document.getElementById(`${prefix}_preview_container`).style.display = 'block';
@@ -1470,15 +2222,50 @@
 
         function viewEnlargedImage(src) {
             if(!src) return;
+            activeEnlargedImageSrc = src;
             let viewerModal = document.getElementById('imageViewerModal');
             let imgElem = document.getElementById('enlargedImg');
             if(imgElem) imgElem.src = src;
             if(viewerModal) viewerModal.style.display = 'flex';
         }
 
+        function downloadCurrentEnlargedImage() {
+            if (!activeEnlargedImageSrc) return;
+            try {
+                let a = document.createElement('a');
+                a.href = activeEnlargedImageSrc;
+                a.download = `system_doc_${Date.now()}.jpg`;
+                a.setAttribute('target', '_blank');
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } catch (err) {
+                openImageInNewTab();
+            }
+        }
+
+        function openImageInNewTab() {
+            if (!activeEnlargedImageSrc) return;
+            let win = window.open();
+            if (win) {
+                win.document.write(`
+                    <html dir="rtl">
+                    <head><title>عرض وتنزيل المستند</title></head>
+                    <body style="background:#111; color:#fff; text-align:center; padding:15px; font-family:sans-serif;">
+                        <h3 style="color:#f1c40f;">📌 اضغط مطولاً على الصورة ثم اختر حفظ الصورة</h3>
+                        <img src="${activeEnlargedImageSrc}" style="max-width:100%; height:auto; border-radius:8px; border:2px solid #fff; margin-top:10px;"/>
+                    </body>
+                    </html>
+                `);
+            } else {
+                alert('❌ يرجى السماح للمتصفح بفتح النوافذ المنبثقة.');
+            }
+        }
+
         function closeImageViewer() {
             let viewerModal = document.getElementById('imageViewerModal');
             if(viewerModal) viewerModal.style.display = 'none';
+            activeEnlargedImageSrc = "";
         }
 
         function openPartialEditModal(timestampMs, catKey, currentCargo, currentCompanions) {
@@ -1489,7 +2276,7 @@
             let companionsLabel = document.getElementById('lbl_partial_companions');
 
             if (catKey === 'fuel') {
-                cargoLabel.innerText = '📦 نوع الحمولة:';
+                cargoLabel.innerText = '📦 نوع الحمولة (ديزل / مازوت):';
                 companionsLabel.innerText = '🛢️ كمية الوقود (باللتر):';
             } else {
                 cargoLabel.innerText = '📦 نوع الحمولة:';
@@ -1514,6 +2301,7 @@
             let updatedFields = {};
             if (catKey === 'fuel') {
                 updatedFields.materialType = newCargo;
+                updatedFields.cargo = newCargo;
                 updatedFields.qty = newVal;
             } else {
                 updatedFields.cargo = newCargo;
@@ -1522,7 +2310,7 @@
 
             await window.updateRecordInCloud(timestampMs, updatedFields);
             closePartialEditModal();
-            alert('✅ تم حفظ التعديل الجزئي (الحمولة/المرافقين) بنجاح!');
+            alert('✅ تم حفظ التعديل بنجاح!');
         }
 
         function runSearch() {
@@ -1533,8 +2321,9 @@
             if(!resultsDiv) return;
 
             let all = window.getCloudRecords ? window.getCloudRecords() : [];
+            let visibleAll = filterRecordsByUserVisibility(all);
 
-            let filtered = all.filter(r => {
+            let filtered = visibleAll.filter(r => {
                 let matchGate = (gateFilter === 'all' || r.recordedBy === gateFilter);
                 let matchCat = (catFilter === 'all' || r.catKey === catFilter);
                 let matchText = true;
@@ -1546,12 +2335,17 @@
                         (r.car && r.car.toLowerCase().includes(queryText)) ||
                         (r.notes && r.notes.toLowerCase().includes(queryText)) ||
                         (r.recordedBy && r.recordedBy.toLowerCase().includes(queryText)) ||
+                        (r.dutyOfficerName && r.dutyOfficerName.toLowerCase().includes(queryText)) ||
                         (r.permitInfo && r.permitInfo.toLowerCase().includes(queryText)) ||
+                        (r.approvalNum && r.approvalNum.toLowerCase().includes(queryText)) ||
                         (r.companyName && r.companyName.toLowerCase().includes(queryText)) ||
                         (r.cargo && r.cargo.toLowerCase().includes(queryText)) ||
+                        (r.materialType && r.materialType.toLowerCase().includes(queryText)) ||
                         (r.stationName && r.stationName.toLowerCase().includes(queryText)) ||
                         (r.vehicleOwner && r.vehicleOwner.toLowerCase().includes(queryText)) ||
-                        (r.beneficiary && r.beneficiary.toLowerCase().includes(queryText))
+                        (r.beneficiary && r.beneficiary.toLowerCase().includes(queryText)) ||
+                        (r.province && r.province.toLowerCase().includes(queryText)) ||
+                        (r.phone && r.phone.toLowerCase().includes(queryText))
                     );
                 }
                 return matchGate && matchCat && matchText;
@@ -1563,45 +2357,49 @@
             }
 
             resultsDiv.innerHTML = filtered.map((r) => {
-                let imgHtml = r.imageData ? `<div style="margin-top:6px;"><img src="${r.imageData}" class="captured-preview" onclick="viewEnlargedImage('${r.imageData}')"></div>` : '';
+                let imgHtml = r.imageData ? `<div style="margin-top:6px;"><img src="${r.imageData}" class="captured-preview" onclick="viewEnlargedImage(this.src)" title="اضغط لتكبير الصورة"></div>` : '';
                 let catNames = {
                     security: '🚨 بلاغ أمني',
-                    permits: '📋 أمر عمليات',
-                    civilian: '🚗 السيارات المدنية',
-                    fuel: '🛢️ قواطر الديزل والمازوت',
-                    company: '🏢 سيارات الشركات / الأفراد',
-                    military: '🎖️ السيارات الخاصة والعسكر',
-                    bedouin: '⛺ حلول البدو'
+                    permits: '📋 أمر عمليات / تصريح',
+                    civilian: '🚗 سيارات مدنية',
+                    fuel: '🛢️ قواطر ديزل ومازوت',
+                    company: '🏢 سيارات شركات',
+                    military: '🎖️ سيارات عسكرية',
+                    bedouin: '⛺ حلول بدو'
                 };
                 let catLabel = catNames[r.catKey] || r.catKey;
                 
-                // 🛑 قاعدة الصلاحيات الحصرية الصارمة جداً:
-                // المشرفون (role === 'supervisor') متابعة فقط بدون أي صلاحية حذف أو تعديل.
-                // الصلاحية مقتصرة فقط على (قسم العمليات) أو (البوابة صاحبة السجل الأصلي recordedBy).
-                let isSupervisor = (currentUser && currentUser.role === 'supervisor');
-                let isRecordOwner = (currentUser && !isSupervisor && (currentUser.name === r.recordedBy || currentUser.role === 'operations'));
+                let isOperationsRole = (currentUser && (currentUser.role === 'operations' || currentUser.name === 'قسم العمليات المركزي'));
                 
-                let deleteBtn = isRecordOwner ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
-                let partialEditBtn = isRecordOwner ? `<button type="button" class="btn-card-edit" style="background-color: #27ae60;" onclick="openPartialEditModal(${r.timestampMs || 0}, '${r.catKey}', '${r.cargo || r.materialType || 'غير مسجل'}', '${r.catKey === 'fuel' ? (r.qty || '0') : (r.companions || '0')}')">✏️ تعديل جزئي (الحمولة/المرافقين)</button>` : '';
+                let deleteBtn = isOperationsRole ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
+                let partialEditBtn = isOperationsRole ? `<button type="button" class="btn-card-edit" style="background-color: #27ae60;" onclick="openPartialEditModal(${r.timestampMs || 0}, '${r.catKey}', '${r.cargo || r.materialType || 'غير مسجل'}', '${r.catKey === 'fuel' ? (r.qty || '0') : (r.companions || '0')}')">✏️ تعديل (${r.catKey === 'fuel' ? 'الحمولة/الكمية' : 'الحمولة/المرافقين'})</button>` : '';
 
                 let actionButtonsRow = (deleteBtn || partialEditBtn) ? `<div style="padding: 8px; display: flex; gap: 4px; justify-content: flex-start; flex-wrap: wrap; background:#f4f6f7; border-top:1px solid #ddd;">${partialEditBtn}${deleteBtn}</div>` : '';
 
-                let displayedValidity = r.permitValidity || r.permitPermission || 'دخول وخروج';
-                let displayedEndDate = r.permitEndDate || r.endDate || '';
-                let displayedCompany = r.companyName || 'لا يوجد';
-                let displayedCargo = r.cargo || r.materialType || 'لا يوجد';
-                let displayedCompanions = (r.companions !== undefined && r.companions !== '') ? r.companions : '0';
-                let entryGatesStr = (r.allowedEntryGates && r.allowedEntryGates.length > 0) ? r.allowedEntryGates.join('، ') : 'جميع البوابات';
+                let lifecycle = computePermitLifecycleStatus(r, all);
+                let isPermitOrder = lifecycle.isPermitOrder;
+                let isPermanentPermitRecord = (isPermitOrder || r.permitEndDate || r.endDate || r.permitIssuer);
+                let cardMainHeader = isPermitOrder
+                    ? 'أمر تصريح مرور رسمي للبوابات'
+                    : (isPermanentPermitRecord ? 'تصريح مرور رسمي معتمد' : 'تسهيل حركة عبور (لمرة واحدة)');
+                let displayedValidity = lifecycle.validityType;
+                let movementLogged = lifecycle.movementLogged;
+                let formattedExpiryDate = lifecycle.statusText;
+                let statusBadgeColor = lifecycle.statusColor;
+                
+                let entryGatesStr = (r.allowedEntryGates && r.allowedEntryGates.length > 0) ? r.allowedEntryGates.join('، ') : 'جميع البوابات والنقاط';
                 
                 let rawTimestamp = r.timestamp ? r.timestamp.trim() : '';
-                let formattedDateTime = rawTimestamp || '2026/11/16 1:55 مساءً';
+                let formattedDateTime = rawTimestamp || '2026/11/19 7:58 صباحاً';
 
-                let currentRecordingGate = r.recordedBy || 'البوابة';
-                let renewerGate = r.permitIssuer || r.recordedBy || 'البوابة';
+                let recorderName = r.recordedBy || 'الجهة';
+                let dutyOfficer = r.dutyOfficerName || r.recordedBy || 'غير مسجل';
+                let stampIssuerName = r.originatingGate || r.permitIssuer || r.recordedBy || 'جهة الاعتماد';
+                let movementLabelTitle = isPermitOrder ? 'نوع الأمر الصادر للبوابات:' : 'حركة المرور المسجلة:';
+                let timeLabelTitle = isPermitOrder ? 'وقت إصدار التصريح:' : 'وقت العملية:';
 
                 if (r.catKey === 'security') {
-                    let canDeleteSec = (currentUser && currentUser.role === 'operations');
-                    let deleteBtnSec = canDeleteSec ? `<div style="padding:8px;"><button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ إلغاء التعميم الأمني</button></div>` : '';
+                    let deleteBtnSec = isOperationsRole ? `<div style="padding:8px;"><button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ إلغاء التعميم الأمني</button></div>` : '';
 
                     return `
                         <div class="formal-permit-card" style="border-color: #ff0000;">
@@ -1610,7 +2408,8 @@
                             <table class="permit-table">
                                 <tr><td>نوع البلاغ:</td><td style="color:#ff0000; font-weight:bold;">${getSafeValue(r.approvalNum)}</td></tr>
                                 <tr><td>وقت التعميم:</td><td>${getSafeValue(r.timestamp)}</td></tr>
-                                <tr><td>بلاغ صادر من /</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(r.recordedBy)}</td></tr>
+                                <tr><td>المسؤول المناوب:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(r.dutyOfficerName)}</td></tr>
+                                <tr><td>صدر بواسطة:</td><td>${getSafeValue(r.recordedBy)}</td></tr>
                                 <tr><td>اسم المطلوب:</td><td>${getSafeValue(r.driver)}</td></tr>
                                 <tr><td>رقم الهوية:</td><td>${getSafeValue(r.idnum)}</td></tr>
                                 <tr><td>رقم اللوحة:</td><td>${getSafeValue(r.plate)}</td></tr>
@@ -1619,7 +2418,6 @@
                             <div class="permit-footer-grid">
                                 <div class="permit-notes-box" style="padding:6px; font-size:0.75rem;">
                                     <div style="margin-bottom:4px;"><strong>ملاحظات:</strong> ${getSafeValue(r.notes)}</div>
-                                    <div style="color: #c0392b; font-weight: bold;"><strong>بلاغ صادر من /:</strong> ${getSafeValue(currentRecordingGate)}</div>
                                     ${imgHtml}
                                 </div>
                                 <div class="permit-stamp-box">
@@ -1635,49 +2433,59 @@
                 }
 
                 if (r.catKey === 'fuel') {
+                    let fuelCargoType = getSafeValue(r.materialType || r.cargo);
+                    let fuelQtyLiter = (r.qty !== undefined && r.qty !== '') ? `${r.qty} لتر` : '0 لتر';
+                    let approvalRef = getSafeValue(r.approvalNum || r.permitInfo);
+
                     return `
                         <div class="formal-permit-card">
-                            <div class="permit-main-header">🛢️ تصريح مرور قاطرة ديزل / مازوت</div>
+                            <div class="permit-main-header">${cardMainHeader}</div>
                             <div class="permit-sub-header">${catLabel}</div>
 
-                            <div class="permit-section-title">أولاً: بيانات المرور والمحطة</div>
+                            <div class="permit-section-title">أولاً: بيانات السجل والموافقة</div>
                             <table class="permit-table">
-                                <tr><td>وقت التسجيل / المرور:</td><td>${formattedDateTime}</td></tr>
-                                <tr><td>اسم المحطة:</td><td style="color:#2980b9; font-weight:bold;">${getSafeValue(r.stationName)}</td></tr>
-                                <tr><td>حركة المرور:</td><td>${getSafeValue(r.movementStatus || 'دخول')}</td></tr>
-                                <tr><td>سُمح له بالعبور بواسطة:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(currentRecordingGate)}</td></tr>
+                                <tr><td>${timeLabelTitle}</td><td>${formattedDateTime}</td></tr>
+                                <tr><td>${movementLabelTitle}</td><td style="color:${isPermitOrder ? '#134074' : '#d35400'}; font-weight:bold;">${movementLogged}</td></tr>
+                                <tr><td>جهة الحساب / البوابة:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(recorderName)}</td></tr>
+                                <tr><td>المناوب / المسؤول:</td><td style="color:#c0392b; font-weight:bold;">${getSafeValue(dutyOfficer)}</td></tr>
+                                <tr><td>رقم الموافقة أو التصريح:</td><td style="color:#134074; font-weight:bold;">${approvalRef}</td></tr>
                             </table>
 
-                            <div class="permit-section-title">ثانياً: بيانات السائق والمركبة والمالك</div>
+                            <div class="permit-section-title">ثانياً: بيانات السائق والجهات المعنية</div>
                             <table class="permit-table">
                                 <tr><td>اسم السائق:</td><td>${getSafeValue(r.driver)}</td></tr>
                                 <tr><td>رقم الهوية:</td><td>${getSafeValue(r.idnum)}</td></tr>
                                 <tr><td>رقم الهاتف:</td><td>${getSafeValue(r.phone)}</td></tr>
-                                <tr><td>اسم مالك المركبة:</td><td style="color:#2980b9; font-weight:bold;">${getSafeValue(r.vehicleOwner)}</td></tr>
-                                <tr><td>الجهة المستفيدة:</td><td style="color:#2980b9; font-weight:bold;">${getSafeValue(r.beneficiary)}</td></tr>
-                                <tr><td>رقم اللوحة الناقلة:</td><td>${getSafeValue(r.plate)}</td></tr>
-                                <tr><td>نوع الناقلة:</td><td>${getSafeValue(r.car)}</td></tr>
+                                <tr><td>مالك المركبة:</td><td>${getSafeValue(r.vehicleOwner)}</td></tr>
+                                <tr><td>الجهة المستفيدة:</td><td>${getSafeValue(r.beneficiary)}</td></tr>
                             </table>
 
-                            <div class="permit-section-title">ثالثاً: الحمولة والصلاحية</div>
+                            <div class="permit-section-title">ثالثاً: بيانات الناقلة وحمولة الوقود والمحطة</div>
                             <table class="permit-table">
-                                <tr><td>نوع الحمولة:</td><td>${getSafeValue(r.materialType)}</td></tr>
-                                <tr><td>كمية الوقود:</td><td style="color:#d35400; font-weight:bold;">${getSafeValue(r.qty)} لتر</td></tr>
+                                <tr><td>رقم اللوحة الناقلة:</td><td>${getSafeValue(r.plate)}</td></tr>
+                                <tr><td>نوع الناقلة:</td><td>${getSafeValue(r.car)}</td></tr>
+                                <tr><td>اسم المحطة:</td><td>${getSafeValue(r.stationName)}</td></tr>
+                                <tr><td>نوع الحمولة:</td><td style="color:#0b2545; font-weight:bold;">${fuelCargoType}</td></tr>
+                                <tr><td>كمية الوقود (باللتر):</td><td style="color:#d35400; font-weight:bold;">${fuelQtyLiter}</td></tr>
                                 <tr><td>المحافظة:</td><td>${getSafeValue(r.province)}</td></tr>
-                                <tr><td>نوع الصلاحية:</td><td>${displayedValidity}</td></tr>
-                                <tr><td>تاريخ انتهاء الصلاحية:</td><td style="color: #ff0000;">${displayedEndDate ? displayedEndDate.replace('T', ' ') : 'مفتوح'}</td></tr>
+                            </table>
+
+                            <div class="permit-section-title">رابعاً: بيانات الصلاحية والعبور</div>
+                            <table class="permit-table">
+                                <tr><td>طريقة الصلاحية:</td><td>${displayedValidity}</td></tr>
+                                <tr><td>النقاط المشمولة:</td><td>${r.permitGate || entryGatesStr}</td></tr>
+                                <tr><td>حالة التصريح:</td><td style="color: ${statusBadgeColor}; font-weight: bold;">${formattedExpiryDate}</td></tr>
                             </table>
 
                             <div class="permit-footer-grid">
                                 <div class="permit-notes-box" style="padding:6px; font-size:0.75rem;">
                                     <div style="margin-bottom:4px;"><strong>ملاحظات:</strong> ${getSafeValue(r.notes)}</div>
-                                    <div style="color: #0b2545; font-weight: bold;"><strong>سُمح له بالعبور بواسطة:</strong> ${getSafeValue(currentRecordingGate)}</div>
                                     ${imgHtml}
                                 </div>
                                 <div class="permit-stamp-box">
                                     <div class="permit-stamp-text">
-                                        ختم التجديد<br>
-                                        <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${renewerGate}</span>
+                                        ختم الاعتماد<br>
+                                        <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${stampIssuerName}</span>
                                     </div>
                                 </div>
                             </div>
@@ -1686,53 +2494,54 @@
                     `;
                 }
 
-                let isIndividual = (r.entryType === 'فرد' || (r.plate && r.plate.includes('بدون')));
-                let cardMainTitle = isIndividual ? 'تصريح مرور فرد' : 'تصريح مرور مركبة';
+                let displayedCompany = r.companyName || 'لا يوجد';
+                let displayedCargo = r.cargo || r.materialType || 'لا يوجد';
+                let displayedCompanions = (r.companions !== undefined && r.companions !== '') ? r.companions : '0';
 
                 return `
                     <div class="formal-permit-card">
-                        <div class="permit-main-header">${cardMainTitle}</div>
+                        <div class="permit-main-header">${cardMainHeader}</div>
                         <div class="permit-sub-header">${catLabel}</div>
 
-                        <div class="permit-section-title">أولاً: بيانات المرور</div>
+                        <div class="permit-section-title">أولاً: بيانات السجل وأمر التصريح</div>
                         <table class="permit-table">
-                            <tr><td>وقت التسجيل / المرور:</td><td>${formattedDateTime}</td></tr>
-                            <tr><td>حركة المرور الأخيرة:</td><td>${getSafeValue(r.movementStatus || 'دخول')}</td></tr>
-                            <tr><td>سُمح له بالعبور بواسطة:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(currentRecordingGate)}</td></tr>
+                            <tr><td>${timeLabelTitle}</td><td>${formattedDateTime}</td></tr>
+                            <tr><td>${movementLabelTitle}</td><td style="color:${isPermitOrder ? '#134074' : '#d35400'}; font-weight:bold;">${movementLogged}</td></tr>
+                            <tr><td>جهة الحساب / البوابة:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(recorderName)}</td></tr>
+                            <tr><td>المناوب / المسؤول:</td><td style="color:#c0392b; font-weight:bold;">${getSafeValue(dutyOfficer)}</td></tr>
                         </table>
 
-                        <div class="permit-section-title">ثانياً: بيانات الشخص / السائق</div>
+                        <div class="permit-section-title">ثانياً: بيانات الشخص والمستفيد</div>
                         <table class="permit-table">
-                            <tr><td>اسم الشخص / السائق:</td><td>${getSafeValue(r.driver)}</td></tr>
+                            <tr><td>الاسم:</td><td>${getSafeValue(r.driver)}</td></tr>
                             <tr><td>رقم الهوية:</td><td>${getSafeValue(r.idnum)}</td></tr>
                         </table>
 
-                        <div class="permit-section-title">ثالثاً: بيانات المركبة</div>
+                        <div class="permit-section-title">ثالثاً: بيانات المركبة والحمولة</div>
                         <table class="permit-table">
-                            <tr><td>رقم المركبة:</td><td>${getSafeValue(r.plate)}</td></tr>
+                            <tr><td>رقم اللوحة:</td><td>${getSafeValue(r.plate)}</td></tr>
                             <tr><td>نوع المركبة:</td><td>${getSafeValue(r.car)}</td></tr>
-                            <tr><td>اسم الشركة:</td><td>${displayedCompany}</td></tr>
-                            <tr><td>نوع الحمولة:</td><td>${displayedCargo}</td></tr>
-                            <tr><td>عدد المرافقين:</td><td>${displayedCompanions}</td></tr>
+                            <tr><td>الشركة / الجهة:</td><td>${displayedCompany}</td></tr>
+                            <tr><td>الحمولة:</td><td>${displayedCargo}</td></tr>
+                            <tr><td>المرافقين:</td><td>${displayedCompanions}</td></tr>
                         </table>
 
-                        <div class="permit-section-title">رابعاً: صلاحية التصريح</div>
+                        <div class="permit-section-title">رابعاً: بيانات الصلاحية والعبور</div>
                         <table class="permit-table">
-                            <tr><td>نوع الصلاحية:</td><td>${displayedValidity}</td></tr>
-                            <tr><td>البوابات المصرح بها:</td><td>${r.permitGate || entryGatesStr}</td></tr>
-                            <tr><td>تاريخ انتهاء الصلاحية:</td><td style="color: #ff0000;">${displayedEndDate ? displayedEndDate.replace('T', ' ') : 'مفتوح'}</td></tr>
+                            <tr><td>طريقة الصلاحية:</td><td>${displayedValidity}</td></tr>
+                            <tr><td>النقاط المشمولة:</td><td>${r.permitGate || entryGatesStr}</td></tr>
+                            <tr><td>حالة التصريح:</td><td style="color: ${statusBadgeColor}; font-weight: bold;">${formattedExpiryDate}</td></tr>
                         </table>
 
                         <div class="permit-footer-grid">
                             <div class="permit-notes-box" style="padding:6px; font-size:0.75rem;">
                                 <div style="margin-bottom:4px;"><strong>ملاحظات:</strong> ${getSafeValue(r.notes)}</div>
-                                <div style="color: #0b2545; font-weight: bold;"><strong>سُمح له بالعبور بواسطة:</strong> ${getSafeValue(currentRecordingGate)}</div>
                                 ${imgHtml}
                             </div>
                             <div class="permit-stamp-box">
                                 <div class="permit-stamp-text">
-                                    ختم التجديد<br>
-                                    <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${renewerGate}</span>
+                                    ختم الاعتماد<br>
+                                    <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${stampIssuerName}</span>
                                 </div>
                             </div>
                         </div>
@@ -1776,11 +2585,11 @@
                 if(alertBox) alertBox.style.display = 'none';
                 if(dangerAlertBox) {
                     dangerAlertBox.innerHTML = `
-                        🚨 <b>تنبيه أمني خطير ومحظور! مطلوب بموجب تعميم المناوب (${getSafeValue(securityMatch.recordedBy)})!</b><br>
+                        🚨 <b>تنبيه أمني خطير ومحظور! مطلوب بموجب تعميم (${getSafeValue(securityMatch.recordedBy)})!</b><br>
                         👤 <b>الاسم:</b> ${getSafeValue(securityMatch.driver)} | 🆔 <b>الهوية:</b> ${getSafeValue(securityMatch.idnum)}<br>
-                        🚗 <b>اللوحة:</b> ${getSafeValue(securityMatch.plate)} | ⚠️ <b>نوع البلاغ:</b> ${getSafeValue(securityMatch.approvalNum)}<br>
+                        🚗 <b>اللوحة:</b> ${getSafeValue(securityMatch.plate)} | ⚠️ <b>البلاغ:</b> ${getSafeValue(securityMatch.approvalNum)}<br>
                         <hr style="border:0; border-top:1px dashed #c0392b; margin:6px 0;">
-                        🛑 <b>ممنوع المرور نهائياً!</b> يجب التحفظ والاتصال بقسم العمليات فوراً.<br>
+                        🛑 <b>ممنوع المرور والإصدار نهائياً!</b><br>
                     `;
                     dangerAlertBox.style.display = 'block';
                 }
@@ -1790,7 +2599,7 @@
             }
 
             let relevantRecords = allRecords.filter(r => {
-                let isRelevantType = (r.catKey === 'permits' || r.catKey === sectionPrefix || r.permitEndDate || r.endDate || r.plate || r.driver || r.idnum);
+                let isRelevantType = (r.catKey === 'permits' || r.catKey === sectionPrefix || r.plate || r.driver || r.idnum);
                 let matchesQuery = (
                     (idVal && r.idnum && r.idnum.toLowerCase().includes(idVal)) ||
                     (plateVal && r.plate && r.plate.toLowerCase().includes(plateVal)) ||
@@ -1799,51 +2608,79 @@
                 return isRelevantType && matchesQuery;
             });
 
-            relevantRecords.sort((a, b) => {
-                let timeA = new Date(a.permitEndDate || a.endDate || a.timestampMs || 0).getTime();
-                let timeB = new Date(b.permitEndDate || b.endDate || b.timestampMs || 0).getTime();
-                return timeB - timeA;
-            });
+            relevantRecords.sort((a, b) => (b.timestampMs || 0) - (a.timestampMs || 0));
 
             let matched = relevantRecords.length > 0 ? relevantRecords[0] : null;
 
             if (matched) {
-                let now = new Date();
-                let expiryDate = (matched.permitEndDate && matched.permitEndDate !== '') ? new Date(matched.permitEndDate) : (matched.endDate ? new Date(matched.endDate) : null);
-                let isExpired = expiryDate && (now.getTime() > expiryDate.getTime());
-                let renewerGate = getSafeValue(matched.permitIssuer || matched.recordedBy);
+                let currentMovementSelect = document.getElementById(`${p}_movement_status`);
+                let currentMovementVal = currentMovementSelect ? currentMovementSelect.value : 'دخول';
+                let allowedGatesForCurrentMove = currentMovementVal === 'خروج'
+                    ? (Array.isArray(matched.allowedExitGates) ? matched.allowedExitGates : [])
+                    : (Array.isArray(matched.allowedEntryGates) ? matched.allowedEntryGates : []);
 
-                tempMatchedRecord = matched;
-
-                if (isExpired) {
-                    if(dangerAlertBox) {
+                let currentGateName = currentUser ? currentUser.name : '';
+                if (
+                    allowedGatesForCurrentMove.length > 0 &&
+                    currentGateName &&
+                    currentUser.operationType !== 'permit' &&
+                    !allowedGatesForCurrentMove.includes(currentGateName)
+                ) {
+                    tempMatchedRecord = matched;
+                    if (alertBox) alertBox.style.display = 'none';
+                    if (dangerAlertBox) {
                         dangerAlertBox.innerHTML = `
-                            ⚠️ <b>التصريح منتهي الصلاحية!</b> (انتهى في: ${expiryDate ? expiryDate.toLocaleString('ar-EG') : 'غير محدد'})<br>
-                            💡 <b>إجراء التجديد:</b> قم بتحديث تاريخ الصلاحية أدناه، ليتم تسجيل بوابتك (${currentUser.name}) كجهة لختم التجديد حصرياً.
+                            🚧 <b>إنذار توجيه البوابة! هذا السجل غير مسموح بعبوره (${currentMovementVal}) من (${currentGateName}).</b><br>
+                            👤 <b>الاسم:</b> ${getSafeValue(matched.driver)} | 🆔 <b>الهوية:</b> ${getSafeValue(matched.idnum)} | 🚗 <b>اللوحة:</b> ${getSafeValue(matched.plate)}<br>
+                            🚪 <b>البوابات المسموحة لـ (${currentMovementVal}):</b> <span style="color:#0b2545;">${allowedGatesForCurrentMove.join('، ')}</span><br>
+                            ⚠️ <b>يرجى توجيهه إلى البوابة المسموحة له!</b>
                         `;
                         dangerAlertBox.style.display = 'block';
                     }
-                } else {
-                    if(dangerAlertBox) dangerAlertBox.style.display = 'none';
+                    return;
                 }
 
-                if(alertBox) {
-                    let validityText = matched.permitValidity || matched.permitPermission || 'ساري ونشط';
-                    let expiryText = expiryDate ? expiryDate.toLocaleString('ar-EG') : 'مفتوح';
-                    
-                    let vehicleDetailsHtml = `🚗 <b>رقم اللوحة:</b> <span style="color:#0b2545; font-weight:bold;">${getSafeValue(matched.plate)}</span> | 🚙 <b>نوع السيارة:</b> <span style="color:#0b2545; font-weight:bold;">${getSafeValue(matched.car)}</span><br>`;
-                    let driverDetailsHtml = `👤 <b>اسم السائق:</b> <span style="color:#27ae60; font-weight:bold;">${getSafeValue(matched.driver)}</span> | 🆔 <b>رقم الهوية:</b> <span style="color:#27ae60; font-weight:bold;">${getSafeValue(matched.idnum)}</span><br>`;
+                let lifecycle = computePermitLifecycleStatus(matched, allRecords);
+                let validityType = lifecycle.validityType;
+                let isExhausted = lifecycle.isExhausted;
 
+                tempMatchedRecord = matched;
+                let lastMovement = lifecycle.isPermitOrder
+                    ? `أمر تصريح مرور صادر من (${getSafeValue(matched.recordedBy)}) - لم تُسجل حركة عبور بعد`
+                    : (matched.movementStatus || 'دخول');
+                let originGate = matched.originatingGate || matched.permitIssuer || matched.recordedBy || 'البوابة المعتمدة';
+
+                if (isExhausted) {
+                    if(dangerAlertBox) {
+                        dangerAlertBox.innerHTML = `
+                            ⚠️ <b>التصريح منتهي تماماً (${lifecycle.statusText})!</b><br>
+                            👤 <b>الاسم:</b> ${getSafeValue(matched.driver)} | 🆔 <b>الهوية:</b> ${getSafeValue(matched.idnum)}<br>
+                            💡 <b>استئناف التجديد:</b> إذا أحضر السائق وثيقة جديدة أو تصريحاً محدثاً، اضغط أدناه لترحيل البيانات واستئناف وتجديد التصريح:
+                            <button type="button" class="btn-confirm-transfer" style="background-color: #2980b9; margin-top:8px;" onclick="transferDataToForm('${p}', true)">🔄 ترحيل البيانات واستئناف / تجديد التصريح</button>
+                        `;
+                        dangerAlertBox.style.display = 'block';
+                    }
+                    if(alertBox) alertBox.style.display = 'none';
+                    return;
+                }
+
+                let alertMessageHtml = `
+                    <strong>✅ تم العثور على أمر تصريح / سجل ساري (${lifecycle.statusText}):</strong><br>
+                    👤 <b>الاسم:</b> ${getSafeValue(matched.driver)} | 🆔 <b>الهوية:</b> ${getSafeValue(matched.idnum)}<br>
+                    🚗 <b>اللوحة:</b> ${getSafeValue(matched.plate)}<br>
+                    🔒 <b>نوع صلاحية الوثيقة:</b> <span style="color:#2980b9; font-weight:bold;">${validityType}</span><br>
+                    📌 <b>آخر حالة مسجلة:</b> ${lastMovement}<br>
+                    🏛️ <b>جهة إصدار التصريح (صاحبة الختم):</b> <span style="color:#c0392b; font-weight:bold;">${getSafeValue(originGate)}</span><br>
+                    <span style="color:#27ae60; font-weight:bold;">💡 اضغط أدناه لترحيل البيانات وتسهيل المرور وفق أمر التصريح:</span>
+                `;
+
+                if(dangerAlertBox) dangerAlertBox.style.display = 'none';
+                if(alertBox) {
                     alertBox.innerHTML = `
                         <div style="font-size:0.85rem; line-height: 1.5;">
-                            <strong>✅ تم العثور على تصريح مسجل سابقاً:</strong><br>
-                            ${driverDetailsHtml}
-                            ${vehicleDetailsHtml}
-                            🔒 <b>الصلاحية:</b> <span style="color:#27ae60; font-weight:bold;">${validityText}</span><br>
-                            📅 <b>انتهاء الصلاحية:</b> <span style="color:#ff0000; font-weight:bold;">${expiryText}</span><br>
-                            🏢 <b>جهة ختم التجديد السابقة:</b> <span style="color:#2980b9; font-weight:bold;">${renewerGate}</span><br>
+                            ${alertMessageHtml}
                         </div>
-                        <button type="button" class="btn-confirm-transfer" onclick="transferDataToForm('${p}')">📋 ترحيل بيانات التصريح للمرور (والحفاظ على ختم التجديد الأصلي ما لم يتم تغيير التاريخ)</button>
+                        <button type="button" class="btn-confirm-transfer" onclick="transferDataToForm('${p}', false)">📋 ترحيل بيانات أمر التصريح</button>
                     `;
                     alertBox.style.display = 'block';
                 }
@@ -1854,9 +2691,11 @@
             }
         }
 
-        function transferDataToForm(p) {
+        function transferDataToForm(p, isRenewal = false) {
             if (!tempMatchedRecord) return;
-            
+            let allRecords = window.getCloudRecords ? window.getCloudRecords() : [];
+            let lifecycle = computePermitLifecycleStatus(tempMatchedRecord, allRecords);
+
             if (document.getElementById(`${p}_driver`)) document.getElementById(`${p}_driver`).value = tempMatchedRecord.driver || '';
             if (document.getElementById(`${p}_idnum`)) document.getElementById(`${p}_idnum`).value = tempMatchedRecord.idnum || '';
             if (document.getElementById(`${p}_plate`)) document.getElementById(`${p}_plate`).value = tempMatchedRecord.plate || '';
@@ -1881,33 +2720,39 @@
             if (document.getElementById('f_qty') && tempMatchedRecord.qty) document.getElementById('f_qty').value = tempMatchedRecord.qty;
             if (document.getElementById('f_province') && tempMatchedRecord.province) document.getElementById('f_province').value = tempMatchedRecord.province;
 
-            let originalIssuer = tempMatchedRecord.permitIssuer || tempMatchedRecord.recordedBy || (currentUser ? currentUser.name : '');
-            originalMatchedIssuer[p] = originalIssuer;
+            let currentGate = currentUser ? currentUser.name : 'جهة الاعتماد';
+            let issuerForForm = isRenewal ? currentGate : (tempMatchedRecord.originatingGate || tempMatchedRecord.permitIssuer || tempMatchedRecord.recordedBy || currentGate);
 
-            if (document.getElementById(`${p}_permit_issuer`)) {
-                document.getElementById(`${p}_permit_issuer`).value = originalIssuer;
-            }
+            if (document.getElementById(`${p}_permit_issuer`)) document.getElementById(`${p}_permit_issuer`).value = issuerForForm;
             
-            let matchedExpiryVal = tempMatchedRecord.permitEndDate || tempMatchedRecord.endDate || '';
-            originalMatchedExpiry[p] = matchedExpiryVal; 
-            
-            if (document.getElementById(`${p}_permit_end_date`)) {
-                document.getElementById(`${p}_permit_end_date`).value = matchedExpiryVal;
-            }
-
-            if (document.getElementById(`${p}_permit_gate`)) document.getElementById(`${p}_permit_gate`).value = tempMatchedRecord.permitGate || '';
+            let validitySelect = document.getElementById(`${p}_permit_validity`);
+            let validityType = tempMatchedRecord.permitValidity || tempMatchedRecord.permitPermission || 'دخول وخروج';
+            if (validitySelect) validitySelect.value = validityType;
 
             let movementSelect = document.getElementById(`${p}_movement_status`);
-            let validitySelect = document.getElementById(`${p}_permit_validity`);
-
-            if (movementSelect && tempMatchedRecord.permitPermission) {
-                if (tempMatchedRecord.permitPermission === 'دخول فقط') movementSelect.value = 'دخول';
-                else if (tempMatchedRecord.permitPermission === 'خروج فقط') movementSelect.value = 'خروج';
-                else if (tempMatchedRecord.permitPermission === 'دخول وخروج') movementSelect.value = 'دخول وخروج';
+            if (movementSelect) {
+                if (isRenewal) {
+                    movementSelect.value = (validityType === 'خروج ودخول' || validityType === 'خروج فقط') ? 'خروج' : 'دخول';
+                } else if (validityType === 'دخول فقط') {
+                    movementSelect.value = 'دخول';
+                } else if (validityType === 'خروج فقط') {
+                    movementSelect.value = 'خروج';
+                } else if (validityType === 'دخول وخروج') {
+                    movementSelect.value = (lifecycle.entryCount < lifecycle.requiredEntries) ? 'دخول' : 'خروج';
+                } else if (validityType === 'خروج ودخول') {
+                    movementSelect.value = (lifecycle.exitCount < lifecycle.requiredExits) ? 'خروج' : 'دخول';
+                } else {
+                    movementSelect.value = 'دخول';
+                }
             }
 
-            if (validitySelect && tempMatchedRecord.permitValidity) {
-                validitySelect.value = tempMatchedRecord.permitValidity;
+            let entryGates = Array.isArray(tempMatchedRecord.allowedEntryGates) ? tempMatchedRecord.allowedEntryGates : [];
+            let exitGates = Array.isArray(tempMatchedRecord.allowedExitGates) ? tempMatchedRecord.allowedExitGates : [];
+            updateGateSelectionSummary(p, entryGates, exitGates);
+            if (tempMatchedRecord.permitGate && entryGates.length === 0 && exitGates.length === 0 && document.getElementById(`${p}_permit_gate`)) {
+                document.getElementById(`${p}_permit_gate`).value = tempMatchedRecord.permitGate;
+                let sumEl = document.getElementById(`${p}_gate_summary`);
+                if (sumEl) sumEl.innerText = tempMatchedRecord.permitGate;
             }
 
             if (tempMatchedRecord.imageData && document.getElementById(`${p}_final_image_data`)) {
@@ -1919,8 +2764,12 @@
             if(document.getElementById(`${p}_alert`)) document.getElementById(`${p}_alert`).style.display = 'none';
             if(document.getElementById(`${p}_danger_alert`)) document.getElementById(`${p}_danger_alert`).style.display = 'none';
             
-            tempMatchedRecord = null;
-            alert(`⚡ تم ترحيل بيانات التصريح بنجاح!\n- "سُمح له بالعبور بواسطة" سيكون: (${currentUser.name})\n- "ختم التجديد" سيبقى كما هو (${originalIssuer}) ولن يتغير إلا إذا قمت بتعديل تاريخ الصلاحية بنفسك.`);
+            if (isRenewal) {
+                tempMatchedRecord = null;
+                alert(`🔄 تم ترحيل واستئناف بيانات التجديد بنجاح باسم بوابتك (${currentGate})!`);
+            } else {
+                alert(`📋 تم ترحيل بيانات أمر التصريح بنجاح، وسيبقى ختم الاعتماد باسم (${issuerForForm}) بينما تُسجل حركة العبور الفعلية باسم بوابتك (${currentGate}).`);
+            }
         }
 
         function clearFormAfterSave(formId, prefix) {
@@ -1943,8 +2792,7 @@
 
             if (prefix) {
                 removeCapturedImage(prefix);
-                originalMatchedExpiry[prefix] = null;
-                originalMatchedIssuer[prefix] = null;
+                updateGateSelectionSummary(prefix, [], []);
 
                 if (currentUser) {
                     let issuerInput = document.getElementById(prefix + '_permit_issuer');
@@ -1967,12 +2815,13 @@
 
         function saveSecurityAlert(e) {
             e.preventDefault();
-            if (currentUser.role !== 'operations') return alert('❌ إنشاء البلاغات مخصص لقسم العمليات فقط!');
+            if (currentUser.role === 'observer') return alert('❌ حسابك مخصص للمتابعة فقط!');
 
             const entryType = document.getElementById('s_entry_type').value;
             const newAlert = {
                 catKey: 'security',
                 recordedBy: currentUser.name,
+                recordedByOperationType: currentUser.operationType || 'both',
                 timestampMs: Date.now(),
                 timestamp: new Date().toLocaleString('ar-EG'),
                 entryType: entryType,
@@ -1983,22 +2832,26 @@
                 approvalNum: document.getElementById('s_crime_type').value,
                 notes: document.getElementById('s_notes').value,
                 imageData: document.getElementById('s_final_image_data').value,
-                permitIssuer: currentUser.name
+                permitIssuer: currentUser.name,
+                originatingGate: currentUser.name,
+                dutyOfficerName: currentUser.name
             };
 
             window.saveToCloud(newAlert);
             clearFormAfterSave('securityAlertForm', 's');
-            alert(`🚨 تم حفظ وتعميم البلاغ الأمني سحابياً بواسطة (${currentUser.name}) بنجاح!`);
+            alert(`🚨 تم تعميم البلاغ الأمني بنجاح!`);
             showHome();
         }
 
         function savePermit(e) {
             e.preventDefault();
-            if (currentUser.role !== 'operations') return alert('❌ إصدار أوامر العمليات مخصص لقسم العمليات فقط!');
+            if (currentUser.operationType === 'movement') return alert('❌ عذراً، حسابك مخصص لتسهيل الحركة اليومية فقط ولا يملك صلاحية إصدار التصاريح!');
+            if (currentUser.role === 'observer') return alert('❌ حسابك مخصص للمتابعة فقط!');
 
             const entryType = document.getElementById('p_entry_type').value;
             const perm = document.getElementById('p_permit_permission').value;
             const endDate = document.getElementById('p_end_date').value;
+            const dutyOfficerName = document.getElementById('p_duty_officer_name').value.trim();
 
             const allowedEntryGates = [];
             document.querySelectorAll('input[name="allowed_entry_gates"]:checked').forEach(cb => allowedEntryGates.push(cb.value));
@@ -2008,10 +2861,14 @@
 
             const newPermit = {
                 catKey: 'permits',
+                isPermitOrder: true,
                 recordedBy: currentUser.name,
+                recordedByOperationType: currentUser.operationType || 'permit',
+                dutyOfficerName: dutyOfficerName,
                 timestampMs: Date.now(),
                 timestamp: new Date().toLocaleString('ar-EG'),
                 permitPermission: perm,
+                permitValidity: perm,
                 endDate: endDate,
                 allowedEntryGates: allowedEntryGates,
                 allowedExitGates: allowedExitGates,
@@ -2025,62 +2882,99 @@
                 companions: document.getElementById('p_companions') ? document.getElementById('p_companions').value : '0',
                 notes: document.getElementById('p_notes').value,
                 imageData: document.getElementById('p_final_image_data').value,
-                permitIssuer: currentUser.name
+                permitIssuer: currentUser.name,
+                originatingGate: currentUser.name
             };
 
             window.saveToCloud(newPermit);
             clearFormAfterSave('permitForm', 'p');
-            alert(`✅ تم حفظ أمر العمليات وتعميمه سحابياً بواسطة (${currentUser.name}) بنجاح!`);
+            alert(`📋 تم إصدار أمر التصريح وتعميمه للبوابات بنجاح!`);
             showHome();
         }
 
         function saveData(e, type) {
             e.preventDefault();
+            if (currentUser.role === 'observer') return alert('❌ حسابك مخصص للمتابعة فقط!');
 
             const prefixes = { civilian: 'v', fuel: 'f', company: 'c', military: 'm', bedouin: 'b' };
             const formIds = { civilian: 'civilianForm', fuel: 'fuelForm', company: 'companyForm', military: 'militaryForm', bedouin: 'bedouinForm' };
             const p = prefixes[type];
-            if (!p) return alert('❌ نوع القسم غير معروف!');
+            if (!p) return;
 
+            const isPermitOnlyIssuer = (currentUser.operationType === 'permit');
             const idnum = document.getElementById(`${p}_idnum`).value;
             const plate = document.getElementById(`${p}_plate`) ? document.getElementById(`${p}_plate`).value : '';
+            const dutyOfficerName = document.getElementById(`${p}_duty_officer_name`).value.trim();
+            const permitValidity = document.getElementById(`${p}_permit_validity`) ? document.getElementById(`${p}_permit_validity`).value : 'دخول وخروج';
+            const movementStatus = isPermitOnlyIssuer
+                ? ''
+                : (document.getElementById(`${p}_movement_status`) ? document.getElementById(`${p}_movement_status`).value : 'دخول');
+            const allowedEntryGates = parseJsonListField(`${p}_allowed_entry_gates`);
+            const allowedExitGates = parseJsonListField(`${p}_allowed_exit_gates`);
+
             const allRecords = window.getCloudRecords ? window.getCloudRecords() : [];
 
             let securityCheck = allRecords.find(r => r.catKey === 'security' && (
                 (idnum && r.idnum === idnum) || (plate && r.plate === plate)
             ));
 
-            if (securityCheck) {
-                return alert('🚨 حظر أمني تام بالسحابة! هذا الشخص/المركبة مطلوب بموجب بلاغ أمني.');
+            if (securityCheck) return alert('🚨 حظر أمني تام! هذا الشخص أو المركبة مطلوب أمنياً.');
+
+            let originatingGate = currentUser.name;
+            if (!isPermitOnlyIssuer && tempMatchedRecord) {
+                originatingGate = tempMatchedRecord.originatingGate || tempMatchedRecord.permitIssuer || tempMatchedRecord.recordedBy || currentUser.name;
+            } else {
+                let permitIssuerInput = document.getElementById(`${p}_permit_issuer`);
+                if (permitIssuerInput && permitIssuerInput.value.trim()) {
+                    originatingGate = permitIssuerInput.value.trim();
+                }
             }
 
-            let permitEndDateInput = document.getElementById(`${p}_permit_end_date`);
-            let newEndDate = permitEndDateInput ? permitEndDateInput.value : '';
+            let requiredEntries = allowedEntryGates.length > 1 ? allowedEntryGates.length : 1;
+            let requiredExits = allowedExitGates.length > 1 ? allowedExitGates.length : 1;
 
-            let issuerInput = document.getElementById(`${p}_permit_issuer`);
-            let issuerValue = (issuerInput && issuerInput.value.trim() !== '') ? issuerInput.value.trim() : currentUser.name;
+            let sameDayMoves = (!isPermitOnlyIssuer && tempMatchedRecord) ? getSameDayMovementsForEntity(tempMatchedRecord, allRecords) : [];
+            let prevEntries = sameDayMoves.filter(m => (m.movementStatus || 'دخول') === 'دخول').length;
+            let prevExits = sameDayMoves.filter(m => m.movementStatus === 'خروج').length;
 
-            const entryType = document.getElementById(`${p}_entry_type`) ? document.getElementById(`${p}_entry_type`).value : 'سيارة';
-            const movementStatus = document.getElementById(`${p}_movement_status`) ? document.getElementById(`${p}_movement_status`).value : 'دخول';
-            
+            let nextEntries = prevEntries + (!isPermitOnlyIssuer && movementStatus === 'دخول' ? 1 : 0);
+            let nextExits = prevExits + (!isPermitOnlyIssuer && movementStatus === 'خروج' ? 1 : 0);
+
+            let isExhausted = false;
+            if (!isPermitOnlyIssuer) {
+                if (permitValidity === 'دخول فقط') {
+                    isExhausted = (nextEntries >= requiredEntries);
+                } else if (permitValidity === 'خروج فقط') {
+                    isExhausted = (nextExits >= requiredExits);
+                } else if (permitValidity === 'دخول وخروج' || permitValidity === 'خروج ودخول') {
+                    isExhausted = (nextEntries >= requiredEntries && nextExits >= requiredExits);
+                }
+            }
+
             const data = {
                 catKey: type,
+                isPermitOrder: isPermitOnlyIssuer,
                 recordedBy: currentUser.name,
+                recordedByOperationType: currentUser.operationType || 'both',
+                originatingGate: originatingGate,
+                permitIssuer: originatingGate,
+                dutyOfficerName: dutyOfficerName,
                 timestampMs: Date.now(),
                 timestamp: new Date().toLocaleString('ar-EG'),
                 movementStatus: movementStatus,
-                entryType: entryType,
+                entryType: document.getElementById(`${p}_entry_type`) ? document.getElementById(`${p}_entry_type`).value : 'سيارة',
                 driver: document.getElementById(`${p}_driver`).value,
                 idnum: idnum,
-                plate: entryType === 'فرد' ? 'بدون سيارة' : plate,
+                plate: document.getElementById(`${p}_entry_type`) && document.getElementById(`${p}_entry_type`).value === 'فرد' ? 'بدون سيارة' : plate,
                 car: document.getElementById(`${p}_car`) ? document.getElementById(`${p}_car`).value : '',
                 notes: document.getElementById(`${p}_notes`).value,
                 imageData: document.getElementById(`${p}_final_image_data`).value,
-                permitIssuer: issuerValue,
-                permitValidity: document.getElementById(`${p}_permit_validity`) ? document.getElementById(`${p}_permit_validity`).value : '',
-                permitEndDate: newEndDate,
+                permitValidity: permitValidity,
                 permitGate: document.getElementById(`${p}_permit_gate`) ? document.getElementById(`${p}_permit_gate`).value : '',
-                companions: document.getElementById(`${p}_companions`) ? document.getElementById(`${p}_companions`).value : '0'
+                allowedEntryGates: allowedEntryGates,
+                allowedExitGates: allowedExitGates,
+                companions: document.getElementById(`${p}_companions`) ? document.getElementById(`${p}_companions`).value : '0',
+                isExhausted: isExhausted
             };
 
             if (['civilian', 'military', 'bedouin'].includes(type)) {
@@ -2105,98 +2999,78 @@
                 data.approvalNum = document.getElementById('f_approval_num').value;
                 data.permitInfo = document.getElementById('f_approval_num').value;
                 data.materialType = document.getElementById('f_material_type').value;
+                data.cargo = document.getElementById('f_material_type').value;
                 data.stationName = document.getElementById('f_station_name').value;
                 data.qty = document.getElementById('f_qty').value;
                 data.province = document.getElementById('f_province').value;
             }
 
             window.saveToCloud(data);
+
+            if (isExhausted && tempMatchedRecord && tempMatchedRecord.docId) {
+                window.updateRecordInCloud(tempMatchedRecord.timestampMs, { isExhausted: true });
+            }
+
             clearFormAfterSave(formIds[type], p);
 
-            alert(`✅ تم تسجيل المرور سحابياً بنجاح!\n- سُمح له بالعبور بواسطة: (${currentUser.name})\n- ختم التجديد: (${issuerValue})`);
+            let statusMsg;
+            if (isPermitOnlyIssuer) {
+                statusMsg = `📋 تم إصدار أمر تصريح المرور بنجاح من (${currentUser.name}) لتوجيه البوابات بتسهيل المرور وفق الصلاحية المحددة (ولم تُسجل حركة عبور مسبقة).`;
+            } else {
+                statusMsg = isExhausted
+                    ? '✅ تم تسجيل الحركة بنجاح، وتم **استنفاد وإنهاء التصريح** بعد إتمام الحركات المحددة.'
+                    : `✅ تم تسجيل الحركة بنجاح، والتصريح **ساري وفعال في نفس اليوم** (دخول: ${nextEntries}/${requiredEntries} | خروج: ${nextExits}/${requiredExits}).`;
+            }
+            alert(statusMsg);
             showHome();
         }
 
         function loadActivePermits() {
             let all = window.getCloudRecords ? window.getCloudRecords() : [];
+            all = filterRecordsByUserVisibility(all);
             let permits = all.filter(r => r.catKey === 'permits');
             let listDiv = document.getElementById('permitsActiveList');
             if(!listDiv) return;
 
             if(permits.length === 0) {
-                listDiv.innerHTML = '<p style="color:#888; font-size:0.85rem;">لا توجد أوامر عمليات سحابية نشطة حالياً.</p>';
+                listDiv.innerHTML = '<p style="color:#888; font-size:0.85rem;">لا توجد تصاريح نشطة حالياً.</p>';
                 return;
             }
 
+            let isOperationsRole = (currentUser && (currentUser.role === 'operations' || currentUser.name === 'قسم العمليات المركزي'));
+
             listDiv.innerHTML = permits.map((r) => {
-                let imgHtml = r.imageData ? `<div style="margin-top:6px;"><img src="${r.imageData}" class="captured-preview" onclick="viewEnlargedImage('${r.imageData}')"></div>` : '';
+                let imgHtml = r.imageData ? `<div style="margin-top:6px;"><img src="${r.imageData}" class="captured-preview" onclick="viewEnlargedImage(this.src)"></div>` : '';
                 let entryGatesText = (r.allowedEntryGates && r.allowedEntryGates.length > 0) ? r.allowedEntryGates.join('، ') : 'جميع البوابات';
+                let formattedEndDate = r.endDate ? r.endDate.replace('T', ' ') : 'مفتوح';
                 
-                let isSupervisor = (currentUser && currentUser.role === 'supervisor');
-                let isRecordOwner = (currentUser && !isSupervisor && (currentUser.name === r.recordedBy || currentUser.role === 'operations'));
-                let deleteBtn = isRecordOwner ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
-
-                let rawTimestamp = r.timestamp ? r.timestamp.trim() : '';
-                let formattedDateTime = rawTimestamp || '2026/11/16 1:55 مساءً';
-
-                let displayedEndDate = r.endDate || '';
-                let displayedCompany = r.companyName || 'لا يوجد';
-                let displayedCargo = r.cargo || 'لا يوجد';
-                let displayedCompanions = (r.companions !== undefined && r.companions !== '') ? r.companions : '0';
-                let stampIssuerText = r.permitIssuer || r.recordedBy || 'العمليات';
-                let gateNameOnly = r.recordedBy || 'العمليات';
-
-                let isIndividual = (r.entryType === 'فرد' || (r.plate && r.plate.includes('بدون')));
-                let cardMainTitle = isIndividual ? 'تصريح مرور فرد' : 'تصريح مرور مركبة';
+                let deleteBtn = isOperationsRole ? `<button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ حذف</button>` : '';
 
                 return `
                     <div class="formal-permit-card">
-                        <div class="permit-main-header">${cardMainTitle}</div>
-                        <div class="permit-sub-header">قسم العمليات المركزية السحابية</div>
-
-                        <div class="permit-section-title">أولاً: بيانات المرور</div>
+                        <div class="permit-main-header">أمر تصريح مرور رسمي للبوابات</div>
+                        <div class="permit-sub-header">قسم العمليات والتصاريح</div>
                         <table class="permit-table">
-                            <tr><td>وقت الإصدار / التسجيل:</td><td>${formattedDateTime}</td></tr>
-                            <tr><td>حركة المرور المصرح بها:</td><td>${getSafeValue(r.permitPermission || 'دخول وخروج')}</td></tr>
-                            <tr><td>سُمح له بالعبور بواسطة:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(gateNameOnly)}</td></tr>
-                        </table>
-
-                        <div class="permit-section-title">ثانياً: بيانات الشخص / السائق</div>
-                        <table class="permit-table">
-                            <tr><td>اسم الشخص / السائق:</td><td>${getSafeValue(r.driver)}</td></tr>
+                            <tr><td>وقت الإصدار:</td><td>${getSafeValue(r.timestamp)}</td></tr>
+                            <tr><td>الصلاحية:</td><td>${getSafeValue(r.permitPermission)}</td></tr>
+                            <tr><td>جهة الحساب:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(r.recordedBy)}</td></tr>
+                            <tr><td>المناوب / المسؤول:</td><td style="color:#c0392b; font-weight:bold;">${getSafeValue(r.dutyOfficerName)}</td></tr>
+                            <tr><td>اسم المستفيد:</td><td>${getSafeValue(r.driver)}</td></tr>
                             <tr><td>رقم الهوية:</td><td>${getSafeValue(r.idnum)}</td></tr>
+                            <tr><td>رقم اللوحة:</td><td>${getSafeValue(r.plate)}</td></tr>
+                            <tr><td>البوابات المشمولة:</td><td>${entryGatesText}</td></tr>
+                            <tr><td>انتهاء الصلاحية:</td><td style="color:#ff0000; font-weight:bold;">${formattedEndDate}</td></tr>
                         </table>
-
-                        <div class="permit-section-title">ثالثاً: بيانات المركبة</div>
-                        <table class="permit-table">
-                            <tr><td>رقم المركبة:</td><td>${getSafeValue(r.plate)}</td></tr>
-                            <tr><td>نوع المركبة:</td><td>${getSafeValue(r.car)}</td></tr>
-                            <tr><td>اسم الشركة:</td><td>${displayedCompany}</td></tr>
-                            <tr><td>نوع الحمولة:</td><td>${displayedCargo}</td></tr>
-                            <tr><td>عدد المرافقين:</td><td>${displayedCompanions}</td></tr>
-                        </table>
-
-                        <div class="permit-section-title">رابعاً: صلاحية التصريح</div>
-                        <table class="permit-table">
-                            <tr><td>نوع الصلاحية:</td><td>${getSafeValue(r.permitPermission)}</td></tr>
-                            <tr><td>بوابات الدخول المصرح بها:</td><td>${entryGatesText}</td></tr>
-                            <tr><td>تاريخ انتهاء الصلاحية:</td><td style="color: #ff0000;">${displayedEndDate ? displayedEndDate.replace('T', ' ') : 'مفتوح'}</td></tr>
-                        </table>
-
                         <div class="permit-footer-grid">
-                            <div class="permit-notes-box" style="padding:6px; font-size:0.75rem;">
-                                <div style="margin-bottom:4px;"><strong>ملاحظات:</strong> ${getSafeValue(r.notes)}</div>
-                                <div style="color: #0b2545; font-weight: bold;"><strong>سُمح له بالعبور بواسطة:</strong> ${getSafeValue(gateNameOnly)}</div>
+                            <div style="padding:6px; font-size:0.75rem;">
+                                <strong>ملاحظات:</strong> ${getSafeValue(r.notes)}
                                 ${imgHtml}
                             </div>
                             <div class="permit-stamp-box">
-                                <div class="permit-stamp-text">
-                                    ختم التجديد<br>
-                                    <span style="font-size: 0.75rem; font-weight: bold; color: #d9534f;">${stampIssuerText}</span>
-                                </div>
+                                <div class="permit-stamp-text">ختم الاعتماد<br><span style="font-size:0.7rem;">${getSafeValue(r.originatingGate || r.permitIssuer || r.recordedBy)}</span></div>
                             </div>
                         </div>
-                        ${deleteBtn ? `<div style="padding:8px; background:#f4f6f7; border-top:1px solid #ddd;">${deleteBtn}</div>` : ''}
+                        ${deleteBtn ? `<div style="padding:8px; background:#f4f6f7;">${deleteBtn}</div>` : ''}
                     </div>
                 `;
             }).join('');
@@ -2204,44 +3078,39 @@
 
         function loadSecurityAlerts() {
             let all = window.getCloudRecords ? window.getCloudRecords() : [];
+            all = filterRecordsByUserVisibility(all);
             let alerts = all.filter(r => r.catKey === 'security');
             let listDiv = document.getElementById('securityAlertsList');
             if(!listDiv) return;
 
             if(alerts.length === 0) {
-                listDiv.innerHTML = '<p style="color:#888; font-size:0.85rem;">لا توجد بلاغات أمنية أو تعميمات سحابية نشطة حالياً.</p>';
+                listDiv.innerHTML = '<p style="color:#888; font-size:0.85rem;">لا توجد بلاغات أمنية نشطة.</p>';
                 return;
             }
+
+            let isOperationsRole = (currentUser && (currentUser.role === 'operations' || currentUser.name === 'قسم العمليات المركزي'));
+
             listDiv.innerHTML = alerts.map((r) => {
                 let imgHtml = r.imageData ? `<div style="margin-top:6px;"><img src="${r.imageData}" class="captured-preview" onclick="viewEnlargedImage(this.src)"></div>` : '';
-                let canDelete = (currentUser.role === 'operations');
-                let deleteBtn = canDelete ? `<div style="padding:8px;"><button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ إلغاء التعميم الأمني</button></div>` : '';
-                let gateNameOnly = r.recordedBy || 'العمليات';
+                let deleteBtn = isOperationsRole ? `<div style="padding:8px;"><button type="button" class="btn-card-delete" onclick="deleteRecord('${r.docId || ''}', ${r.timestampMs || 0})">🗑️ إلغاء التعميم</button></div>` : '';
 
                 return `
                     <div class="formal-permit-card" style="border-color: #ff0000;">
-                        <div class="permit-main-header" style="background:#ff0000;">🚨 تعميم وبلاغ أمني محظور</div>
-                        <div class="permit-sub-header" style="background:#c0392b;">خطورة قصوى - ممنوع المرور</div>
+                        <div class="permit-main-header" style="background:#ff0000;">🚨 تعميم أمني خطير</div>
                         <table class="permit-table">
                             <tr><td>نوع البلاغ:</td><td style="color:#ff0000; font-weight:bold;">${getSafeValue(r.approvalNum)}</td></tr>
-                            <tr><td>وقت التعميم:</td><td>${getSafeValue(r.timestamp)}</td></tr>
-                            <tr><td>بلاغ صادر من /</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(r.recordedBy)}</td></tr>
-                            <tr><td>اسم المطلوب:</td><td>${getSafeValue(r.driver)}</td></tr>
-                            <tr><td>رقم الهوية:</td><td>${getSafeValue(r.idnum)}</td></tr>
-                            <tr><td>رقم اللوحة:</td><td>${getSafeValue(r.plate)}</td></tr>
+                            <tr><td>المسؤول المناوب:</td><td style="color:#27ae60; font-weight:bold;">${getSafeValue(r.dutyOfficerName)}</td></tr>
+                            <tr><td>المطلوب:</td><td>${getSafeValue(r.driver)}</td></tr>
+                            <tr><td>الهوية:</td><td>${getSafeValue(r.idnum)}</td></tr>
+                            <tr><td>اللوحة:</td><td>${getSafeValue(r.plate)}</td></tr>
                         </table>
-                        
                         <div class="permit-footer-grid">
-                            <div class="permit-notes-box" style="padding:6px; font-size:0.75rem;">
-                                <div style="margin-bottom:4px;"><strong>ملاحظات:</strong> ${getSafeValue(r.notes)}</div>
-                                <div style="color: #c0392b; font-weight: bold;"><strong>بلاغ صادر من /:</strong> ${getSafeValue(gateNameOnly)}</div>
+                            <div style="padding:6px; font-size:0.75rem;">
+                                <strong>ملاحظات:</strong> ${getSafeValue(r.notes)}
                                 ${imgHtml}
                             </div>
                             <div class="permit-stamp-box">
-                                <div class="permit-stamp-text" style="border-color:#ff0000; color:#ff0000;">
-                                    تعميم عمليات<br>
-                                    <span style="font-size: 0.7rem; font-weight: bold; color: #ff0000;">${getSafeValue(r.recordedBy)}</span>
-                                </div>
+                                <div class="permit-stamp-text" style="color:#ff0000; border-color:#ff0000;">تعميم عمليات</div>
                             </div>
                         </div>
                         ${deleteBtn}
@@ -2251,7 +3120,13 @@
         }
 
         async function deleteRecord(docId, timestampMs) {
-            if(confirm('هل أنت متأكد من حذف هذا السجل نهائياً من السحابة؟')) {
+            let isOperationsRole = (currentUser && (currentUser.role === 'operations' || currentUser.name === 'قسم العمليات المركزي'));
+            if (!isOperationsRole) {
+                alert('❌ عذراً، عملية الحذف مخصصة لحساب قسم العمليات المركزي فقط!');
+                return;
+            }
+
+            if(confirm('هل أنت متأكد من الحذف النهائي؟')) {
                 await window.deleteFromCloud(docId, timestampMs);
             }
         }
@@ -2262,7 +3137,7 @@
             let url = URL.createObjectURL(blob);
             let a = document.createElement('a');
             a.href = url;
-            a.download = `central_gates_cloud_backup_${new Date().toISOString().split('T')[0]}.json`;
+            a.download = `system_backup_${new Date().toISOString().split('T')[0]}.json`;
             a.click();
         }
 
@@ -2274,22 +3149,20 @@
             reader.onload = async function(e) {
                 try {
                     let importedData = JSON.parse(e.target.result);
-                    if (!Array.isArray(importedData)) {
-                        return alert('❌ ملف النسخة الاحتياطية غير صالح!');
-                    }
+                    if (!Array.isArray(importedData)) return alert('❌ الملف غير صالح!');
 
-                    if (confirm(`هل أنت متأكد من استعادة ورفع (${importedData.length}) سجل إلى قاعدة البيانات السحابية مباشرة؟`)) {
+                    if (confirm(`استعادة (${importedData.length}) سجل؟`)) {
                         for (let item of importedData) {
                             delete item.docId;
                             await window.saveToCloud(item);
                         }
-                        alert('✅ تم رفع واستعادة كافة السجلات إلى السحابة بنجاح!');
+                        alert('✅ تم الاستعادة بنجاح!');
                         runSearch();
                         loadSecurityAlerts();
                         loadActivePermits();
                     }
                 } catch(err) {
-                    alert('❌ خطأ في قراءة ملف النسخة الاحتياطية: ' + err.message);
+                    alert('❌ خطأ في القراءة: ' + err.message);
                 }
                 event.target.value = '';
             };
@@ -2305,11 +3178,6 @@
                 applyRolePermissions();
             }
         };
-    </script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
-      }
     </script>
 </body>
 </html>
